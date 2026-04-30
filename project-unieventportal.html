@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniEventPortal | Project Details</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Ambient Grid Background -->
+    <div class="bg-ambient"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">DEV<span>.PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Home</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Projects
+            </a>
+            <h1 class="project-detail-title">UniEventPortal</h1>
+            
+            <div class="project-tech" style="justify-content: center; margin-bottom: 2rem;">
+                <span>Web App</span>
+                <span>Event Management</span>
+            </div>
+            
+            <div class="project-detail-image">
+                <img src="assets/images/project_unieventportal.png" alt="UniEventPortal Application" onerror="this.src='https://placehold.co/900x500/111/fff?text=UniEventPortal'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="container project-detail-content">
+        <h2>About The Project</h2>
+        <p>A centralized event management system designed to streamline event organization across college campuses. It provides a unified platform where colleges can seamlessly manage their events, and students can discover and register for them.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Centralized Dashboard:</strong> An intuitive interface for college administrators to create, update, and manage events.</li>
+            <li><strong>Student Registration:</strong> A smooth registration process for students to participate in events.</li>
+        </ul>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="#" class="btn btn-primary" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                GitHub Repository
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2026. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>

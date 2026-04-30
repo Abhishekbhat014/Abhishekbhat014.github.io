@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Vault | Project Details</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Ambient Grid Background -->
+    <div class="bg-ambient"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">DEV<span>.PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Home</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Projects
+            </a>
+            <h1 class="project-detail-title">Private Vault</h1>
+            
+            <div class="project-tech" style="justify-content: center; margin-bottom: 2rem;">
+                <span>Flutter</span>
+                <span>Google Drive API</span>
+                <span>Hive</span>
+                <span>OAuth</span>
+            </div>
+            
+            <div class="project-detail-image">
+                <img src="assets/images/project_vault.png" alt="Private Vault Application" onerror="this.src='https://placehold.co/900x500/111/fff?text=Vault+App'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="container project-detail-content">
+        <h2>About The Project</h2>
+        <p>Private Vault is a highly secure Flutter application designed for managing and storing personal photos and videos directly on Google Drive. It focuses heavily on user privacy and data security, integrating a seamless flat design aesthetic for a superior user experience.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Google Drive Integration:</strong> Uses Google's OAuth2 API for authenticating users silently and uploading their personal media directly to their private cloud storage.</li>
+            <li><strong>Local Caching:</strong> Implements Hive/SQLite to locally cache image metadata, providing lightning-fast load times when scrolling through the gallery without re-downloading files.</li>
+            <li><strong>Encryption:</strong> Ensures that all local thumbnails and cached files are securely encrypted before being stored on the device.</li>
+            <li><strong>Mandatory App Lock:</strong> Protects the app with a secure startup password barrier before allowing entry into the vault.</li>
+        </ul>
+
+        <h2>Challenges & Solutions</h2>
+        <p>One of the major challenges was dealing with Google Sign-In silent authentication failures across app restarts. This was resolved by properly implementing the Singleton architecture for the AuthService and handling the edge cases of expired OAuth tokens.</p>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <a href="#" class="btn btn-primary" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                View on GitHub
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2026 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>

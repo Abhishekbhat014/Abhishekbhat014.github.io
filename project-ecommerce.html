@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Portal | Project Details</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Ambient Grid Background -->
+    <div class="bg-ambient"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">DEV<span>.PORTFOLIO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Home</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-detail-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Projects
+            </a>
+            <h1 class="project-detail-title">E-Commerce Portal</h1>
+            
+            <div class="project-tech" style="justify-content: center; margin-bottom: 2rem;">
+                <span>HTML5</span>
+                <span>CSS3</span>
+                <span>JavaScript</span>
+            </div>
+            
+            <div class="project-detail-image">
+                <img src="assets/images/project_ecommerce.png" alt="E-Commerce Web Portal Application" onerror="this.src='https://placehold.co/900x500/111/fff?text=E-Commerce+Portal'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="container project-detail-content">
+        <h2>About The Project</h2>
+        <p>This is a modern, fully responsive frontend portal designed for a large-scale e-commerce platform. The project emphasizes blazing-fast load times, semantic HTML structures for better SEO, and a highly interactive DOM manipulated with Vanilla JavaScript.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Dynamic Rendering:</strong> Product catalogs are rendered dynamically from a JSON mock database using JavaScript, mimicking a real REST API integration.</li>
+            <li><strong>Interactive Cart:</strong> Features a fully functional shopping cart that persists state using `localStorage`, allowing users to add, remove, and update quantities.</li>
+            <li><strong>Responsive Design:</strong> Built using modern CSS Grid and Flexbox to ensure a seamless shopping experience from wide desktop monitors down to mobile viewports.</li>
+            <li><strong>Performance First:</strong> Zero heavy JavaScript frameworks were used, leading to incredible Lighthouse scores for performance and accessibility.</li>
+        </ul>
+
+        <h2>Challenges & Solutions</h2>
+        <p>Managing the state of the shopping cart across multiple browser tabs without a centralized state manager like Redux proved tricky. I solved this by implementing a custom event listener that triggers updates across tabs using the `storage` event in JavaScript, keeping the cart synchronized everywhere seamlessly.</p>
+
+        <div style="margin-top: 3rem; text-align: center; display: flex; justify-content: center; gap: 1rem;">
+            <a href="#" class="btn btn-outline" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                View on GitHub
+            </a>
+            <a href="#" class="btn btn-primary" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Live Demo
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2026 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
