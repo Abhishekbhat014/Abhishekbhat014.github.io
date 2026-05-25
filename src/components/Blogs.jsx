@@ -20,13 +20,13 @@ export const Blogs = () => {
       <style>{`
         .blogs-section {
           position: relative;
-          background-color: #ffffff !important; /* Alternating Light Background */
-          color: #09090b !important;
+          background-color: #09090b !important; /* Alternating Dark Background */
+          color: #f9fafb !important;
           padding: 6rem 0;
           overflow: hidden;
         }
         .blogs-section .section-subtitle {
-          color: #4b5563 !important;
+          color: #a1a1aa !important;
         }
         .relative-z {
           position: relative;

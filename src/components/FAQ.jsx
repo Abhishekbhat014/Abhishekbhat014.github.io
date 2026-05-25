@@ -78,8 +78,8 @@ export const FAQ = () => {
       <style>{`
         .faq-section {
           position: relative;
-          background-color: #09090b !important;
-          color: #f9fafb !important;
+          background-color: #ffffff !important;
+          color: #09090b !important;
           padding: 8rem 0;
           overflow: hidden;
         }
@@ -98,7 +98,7 @@ export const FAQ = () => {
           font-size: 3.5rem;
           font-weight: 800;
           line-height: 1.1;
-          color: #ffffff;
+          color: #09090b !important;
           letter-spacing: -1px;
         }
         .faq-title-highlight {
@@ -110,16 +110,16 @@ export const FAQ = () => {
         .faq-accordion-side {
           display: flex;
           flex-direction: column;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
         .faq-item {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
           padding: 1.5rem 0;
           cursor: pointer;
           transition: all var(--transition-fast);
         }
         .faq-item:hover .faq-question {
-          color: #ffffff;
+          color: #000000;
         }
         .faq-item:hover .faq-plus-icon {
           color: hsl(var(--primary));
@@ -150,7 +150,7 @@ export const FAQ = () => {
           font-family: var(--font-body);
           font-size: 1.25rem;
           font-weight: 600;
-          color: #e4e4e7;
+          color: #27272a;
           line-height: 1.4;
           transition: color 0.2s ease;
         }
@@ -169,7 +169,7 @@ export const FAQ = () => {
         .faq-answer {
           font-family: var(--font-body);
           font-size: 0.95rem;
-          color: #a1a1aa;
+          color: #4b5563;
           line-height: 1.6;
         }
         .relative-z {
