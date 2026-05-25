@@ -57,6 +57,7 @@ const navItems = [
   { label: 'Education', id: 'education' },
   { label: 'Works', id: 'works' },
   { label: 'Blogs', id: 'blogs' },
+  { label: 'FAQ', id: 'faq' },
   { label: 'Get in Touch', id: 'get-in-touch' },
 ];
 

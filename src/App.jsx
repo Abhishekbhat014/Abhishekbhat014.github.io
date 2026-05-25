@@ -8,6 +8,7 @@ import { TechStack } from './components/TechStack';
 import { Education } from './components/Education';
 import { Projects } from './components/Projects';
 import { Blogs } from './components/Blogs';
+import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { TextHoverEffect } from './components/TextHoverEffect';
 import { Footer } from './components/Footer';
@@ -74,6 +75,7 @@ function App() {
         <Education />
         <Projects />
         <Blogs />
+        <FAQ />
         <Contact />
         <div style={{ backgroundColor: '#09090b', padding: '4rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
           <div className="container" style={{ maxWidth: '1200px' }}>
