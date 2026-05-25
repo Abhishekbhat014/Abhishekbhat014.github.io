@@ -41,9 +41,8 @@ export const FAQ = () => {
       <div className="container relative-z faq-grid">
         {/* Left Column: Heading */}
         <div className="faq-heading-side">
-          <h2 className="faq-title">
-            Frequently asked<br />
-            <span className="faq-title-highlight">questions</span>
+          <h2 className="faq-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial' }}>
+            <FramedText>Frequently Asked Questions</FramedText>
           </h2>
         </div>
 

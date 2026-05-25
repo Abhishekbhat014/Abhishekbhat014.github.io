@@ -215,21 +215,21 @@ export const Contact = () => {
       <style>{`
         .contact-section {
           position: relative;
-          background-color: #ffffff !important; /* Force white background */
-          color: #09090b !important;
+          background-color: #09090b !important; /* Force dark background */
+          color: #f9fafb !important;
         }
         .contact-glow {
           left: -5%;
           bottom: 10%;
-          opacity: 0.05;
+          opacity: 0.15;
         }
         .light-subtitle {
-          color: #4b5563 !important;
+          color: #a1a1aa !important;
         }
         .light-details, .light-form {
-          background: #ffffff !important;
-          border: 1px solid rgba(0, 0, 0, 0.08) !important;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+          background: rgba(255, 255, 255, 0.02) !important;
+          border: 1px solid rgba(255, 255, 255, 0.05) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
         }
         .contact-details {
           padding: 2.5rem;
@@ -241,11 +241,11 @@ export const Contact = () => {
           font-size: 1.5rem;
           font-weight: 700;
           margin-bottom: 1.25rem;
-          color: #09090b !important;
+          color: #f9fafb !important;
         }
         .contact-info-desc {
           font-size: 1rem;
-          color: #27272a !important;
+          color: #a1a1aa !important;
           margin-bottom: 2.5rem;
           line-height: 1.6;
         }
@@ -255,8 +255,8 @@ export const Contact = () => {
           gap: 1.5rem;
         }
         .light-info-card {
-          background: #f9fafb !important;
-          border: 1px solid rgba(0, 0, 0, 0.06) !important;
+          background: rgba(255, 255, 255, 0.01) !important;
+          border: 1px solid rgba(255, 255, 255, 0.04) !important;
         }
         .info-card {
           display: flex;
@@ -288,7 +288,7 @@ export const Contact = () => {
         }
         .info-val {
           font-size: 1rem;
-          color: #09090b !important;
+          color: #f9fafb !important;
           font-weight: 600;
           transition: color var(--transition-fast);
         }
@@ -322,7 +322,7 @@ export const Contact = () => {
         .input-icon {
           position: absolute;
           left: 14px;
-          color: #a1a1aa;
+          color: #71717a;
           pointer-events: none;
           transition: color var(--transition-fast);
           z-index: 2;
@@ -340,13 +340,13 @@ export const Contact = () => {
           width: 100%;
           padding: 0.8rem 1rem 0.8rem 2.75rem !important;
           border-radius: var(--border-radius-sm);
-          background: #ffffff !important;
-          border: 1px solid rgba(0, 0, 0, 0.15) !important;
-          color: #09090b !important;
+          background: rgba(255, 255, 255, 0.02) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          color: #f9fafb !important;
           transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
         .form-group input::placeholder, .form-group textarea::placeholder {
-          color: #a1a1aa !important;
+          color: #71717a !important;
         }
         .form-group input:focus, .form-group textarea:focus {
           border-color: hsl(var(--primary)) !important;
@@ -384,11 +384,11 @@ export const Contact = () => {
           font-size: 1.5rem;
           font-weight: 700;
           margin-bottom: 0.75rem;
-          color: #09090b !important;
+          color: #f9fafb !important;
         }
         .success-desc {
           font-size: 0.95rem;
-          color: #4b5563 !important;
+          color: #a1a1aa !important;
           max-width: 360px;
           margin-bottom: 2rem;
           line-height: 1.5;
