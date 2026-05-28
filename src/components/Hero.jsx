@@ -197,7 +197,6 @@ export const Hero = ({ theme }) => {
     }
     .hero-illustration {
       order: -1;                /* 👈 card ABOVE text on mobile */
-      max-height: 260px;        /* prevent card from being huge */
     }
     .hero-title {
       font-size: 2.2rem;

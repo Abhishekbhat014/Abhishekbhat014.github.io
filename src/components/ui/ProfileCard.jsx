@@ -752,7 +752,7 @@ const ProfileCardComponent = ({
           .pc-section {
             height: auto;
             max-height: 420px;
-            width: 100vw;
+            width: 100%;
             max-width: 290px;
             aspect-ratio: 0.718;
           }
