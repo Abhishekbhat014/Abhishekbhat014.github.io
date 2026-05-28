@@ -296,7 +296,9 @@ export const Projects = () => {
         .filter-tabs {
           display: flex;
           justify-content: center;
-          gap: 0.75rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          row-gap: 0.6rem;
           margin-bottom: 0.5rem;
         }
         .filter-tab {
@@ -712,6 +714,9 @@ export const Projects = () => {
           .modal-body-layout {
             grid-template-columns: 1fr;
             gap: 2rem;
+          }
+          .modal-overlay {
+            padding: 1rem;
           }
           .modal-content {
             padding: 1.75rem;

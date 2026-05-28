@@ -371,3 +371,14 @@ html.lenis, html.lenis body {
   z-index: 10 !important;
   background-clip: padding-box !important;
 }
+
+@media (max-width: 600px) {
+  .section-title {
+    font-size: 1.75rem !important;
+    margin-bottom: 0.75rem;
+  }
+  .section-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+}

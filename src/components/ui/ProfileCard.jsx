@@ -550,6 +550,9 @@ const ProfileCardComponent = ({
           transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
           transform: translateZ(0) rotateX(0deg) rotateY(${isFlipped ? '180deg' : '0deg'});
           background: rgba(0, 0, 0, 0.9);
+          height: 80svh;
+          max-height: 540px;
+          aspect-ratio: 0.718;
         }
         .pc-face {
           position: absolute;
@@ -745,6 +748,25 @@ const ProfileCardComponent = ({
           display: block;
           pointer-events: auto;
         }
+        @media (max-width: 768px) {
+          .pc-section {
+            height: auto;
+            max-height: 420px;
+            width: 100vw;
+            max-width: 290px;
+            aspect-ratio: 0.718;
+          }
+          .pc-name {
+            font-size: 1.8rem;
+          }
+          .pc-job-title {
+            font-size: 14px;
+            top: -3px;
+          }
+          .pc-ui {
+            padding: 8px 10px;
+          }
+        }
       `}</style>
       
       {behindGlowEnabled && (
@@ -761,9 +783,6 @@ const ProfileCardComponent = ({
         <section
           className="pc-section"
           style={{
-            height: '80svh',
-            maxHeight: '540px',
-            aspectRatio: '0.718',
             borderRadius: cardRadius,
             backgroundBlendMode: 'color-dodge, normal, normal, normal'
           }}

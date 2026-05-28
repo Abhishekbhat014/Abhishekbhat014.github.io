@@ -259,6 +259,11 @@ export const Journey = () => {
             right: 1rem;
             bottom: 3.5rem;
             padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            overflow-y: auto;
           }
           .slide-content-container {
             max-width: 100%;
@@ -270,8 +275,19 @@ export const Journey = () => {
             font-size: 1rem;
           }
           .journey-stats-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+          }
+          .journey-stat-card {
+            padding: 0.5rem 0.25rem;
+          }
+          .j-stat-num {
+            font-size: 1.75rem;
+          }
+          .j-stat-lbl {
+            font-size: 0.65rem;
           }
         }
       `}</style>

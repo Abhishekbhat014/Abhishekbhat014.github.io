@@ -144,6 +144,7 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="mobile-menu-btn"
             aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -313,6 +314,14 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           border-radius: var(--border-radius-sm);
           border: 1px solid hsl(var(--border));
           color: hsl(var(--text-primary));
+          background: hsl(var(--card-bg) / 0.55);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+        }
+        .mobile-menu-btn:hover {
+          border-color: hsl(var(--primary));
+          transform: scale(1.03);
         }
         .mobile-menu-drawer {
           position: fixed;
@@ -356,11 +365,49 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           color: hsl(var(--primary));
         }
         @media (max-width: 768px) {
+          .fixed-navbar {
+            left: 0;
+            transform: none;
+            height: 64px;
+            background: var(--glass-bg) !important;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-sm);
+          }
+          .fixed-navbar.menu-open {
+            height: 64px;
+          }
+          .nav-container {
+            min-height: 64px;
+            padding: 0 1rem;
+          }
+          .nav-logo {
+            font-size: 1.35rem;
+          }
           .nav-links-desktop {
             display: none;
           }
           .nav-controls-mobile {
             display: flex;
+          }
+          .mobile-menu-drawer,
+          .fixed-navbar.scrolled .mobile-menu-drawer {
+            top: 64px;
+            width: 100vw;
+          }
+          .mobile-menu-drawer.open,
+          .fixed-navbar.scrolled .mobile-menu-drawer.open {
+            height: calc(100vh - 64px);
+            height: calc(100dvh - 64px);
+          }
+          .mobile-menu-links {
+            padding: 2rem 1rem 3rem;
+            gap: 1.25rem;
+          }
+          .mobile-nav-link {
+            font-size: clamp(1.1rem, 6vw, 1.5rem);
+            line-height: 1.25;
           }
         }
       `}</style>

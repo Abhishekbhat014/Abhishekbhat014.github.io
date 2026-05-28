@@ -191,6 +191,9 @@ export const FAQ = () => {
           }
         }
         @media (max-width: 600px) {
+          .faq-title {
+            font-size: 1.75rem !important;
+          }
           .faq-question {
             font-size: 1.1rem;
           }
