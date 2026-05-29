@@ -269,19 +269,25 @@ export const portfolioConfig = {
       id: "edu-1",
       degree: "Bachelor of Science in Information Technology",
       school: "University of Mumbai",
-      period: "2023 - 2026"
+      period: "2023 - 2026",
+      description: "Focusing on software engineering, object-oriented systems, databases, and application architectures.",
+      subjects: ["Java & Python", "SQL/NoSQL", "Software Eng.", "Mobile Apps", "UI/UX Design"]
     },
     {
       id: "edu-2",
-      degree: "HSC",
+      degree: "HSC (Higher Secondary Certificate)",
       school: "Maharashtra Board",
-      period: "2021 - 2023"
+      period: "2021 - 2023",
+      description: "Completed science stream studies with core focus on Mathematics and Computer Science.",
+      subjects: ["Mathematics", "Physics", "Chemistry", "Computer Science"]
     },
     {
       id: "edu-3",
-      degree: "SSC",
+      degree: "SSC (Secondary School Certificate)",
       school: "Maharashtra Board",
-      period: "2020 - 2021"
+      period: "2020 - 2021",
+      description: "Completed secondary education with honors, establishing strong base in Science and Mathematics.",
+      subjects: ["Mathematics", "Science", "English", "Social Sciences"]
     }
   ]
 };

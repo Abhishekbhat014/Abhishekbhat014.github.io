@@ -13,8 +13,16 @@ import { Contact } from './components/Contact';
 import { TextHoverEffect } from './components/TextHoverEffect';
 import { Footer } from './components/Footer';
 import { GooeyCursor } from './components/GooeyCursor';
+import { BlogPostDetail } from './components/BlogPostDetail';
 
 function App() {
+  const [activeBlog, setActiveBlog] = useState(null);
+
+  // Scroll to top when activeBlog changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeBlog]);
+
   // Initialize theme from localStorage, default to dark
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -66,22 +74,33 @@ function App() {
   return (
     <>
       <GooeyCursor size={32} lag={0.35} />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} onNavigateHome={() => setActiveBlog(null)} />
       <main style={{ position: 'relative', zIndex: 1 }}>
-        <Hero theme={theme} />
-        <Journey />
-        <Experience />
-        <TechStack />
-        <Education />
-        <Projects />
-        <Blogs />
-        <FAQ />
-        <Contact />
-        <div style={{ backgroundColor: '#09090b', padding: '4rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-          <div className="container" style={{ maxWidth: '1200px' }}>
-            <TextHoverEffect text="ABHISHEK" />
-          </div>
-        </div>
+        {activeBlog ? (
+          <BlogPostDetail blog={activeBlog} onBack={() => setActiveBlog(null)} />
+        ) : (
+          <>
+            <Hero theme={theme} />
+            <Journey />
+            <Experience />
+            <TechStack />
+            <Education />
+            <Projects />
+            <Blogs onSelectBlog={setActiveBlog} />
+            <FAQ />
+            <Contact />
+            <div className="footer-name-section">
+              <span className="name-label">
+                My
+                <br />
+                Name
+              </span>
+              <div className="container name-hover-wrap">
+                <TextHoverEffect text="ABHISHEK" />
+              </div>
+            </div>
+          </>
+        )}
       </main>
       <Footer />
     </>

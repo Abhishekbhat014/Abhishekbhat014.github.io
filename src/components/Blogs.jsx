@@ -3,7 +3,7 @@ import { ScrollReveal } from './ui/ScrollReveal';
 import { ImageReveal } from './ui/ImageReveal';
 import { FramedText } from './ui/FramedText';
 
-export const Blogs = () => {
+export const Blogs = ({ onSelectBlog }) => {
   return (
     <section id="blogs" className="section blogs-section">
       <div className="container relative-z">
@@ -14,7 +14,7 @@ export const Blogs = () => {
           Writing about software engineering, UI designs, and system architectures.
         </ScrollReveal>
         
-        <ImageReveal />
+        <ImageReveal onSelect={onSelectBlog} />
       </div>
 
       <style>{`

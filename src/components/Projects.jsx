@@ -1,12 +1,56 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ExternalLink, X, ChevronRight, Folder, Smartphone, Globe, Monitor } from 'lucide-react';
-import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
+import { motion, useTransform, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import { portfolioConfig } from '../config/portfolioConfig';
 import { GithubIcon } from './SocialIcons';
 import { FramedText } from './ui/FramedText';
 
+const getCategoryIcon = (category) => {
+  switch (category.toLowerCase()) {
+    case 'mobile':
+      return <Smartphone size={28} />;
+    case 'frontend':
+      return <Monitor size={28} />;
+    case 'full-stack':
+    case 'web app':
+      return <Globe size={28} />;
+    default:
+      return <Folder size={28} />;
+  }
+};
+
+const ProjectCardContent = ({ project }) => (
+  <>
+    <div className="card-top-glow"></div>
+    <div className="card-header">
+      <span className="card-badge">{project.category}</span>
+      <div className="card-icon-box">
+        {getCategoryIcon(project.category)}
+      </div>
+    </div>
+    <div className="card-body">
+      <span className="card-subtitle">{project.subtitle}</span>
+      <h3 className="card-title">{project.title}</h3>
+      <p className="card-desc">{project.description}</p>
+    </div>
+    <div className="card-tech">
+      {project.tags.slice(0, 3).map((tag) => (
+        <span key={tag} className="tech-tag">{tag}</span>
+      ))}
+      {project.tags.length > 3 && (
+        <span className="tech-tag-more">+{project.tags.length - 3}</span>
+      )}
+    </div>
+    <div className="card-footer">
+      <span className="explore-btn">
+        Explore Details <ChevronRight size={14} />
+      </span>
+    </div>
+  </>
+);
+
 // Single Transformed Card inside the Circular Gallery
-const CardTransformed = ({ project, index, totalProjects, scrollYProgress, onDetailsClick }) => {
+const CardTransformed = ({ project, index, totalProjects, smoothRotation, onDetailsClick }) => {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -17,38 +61,31 @@ const CardTransformed = ({ project, index, totalProjects, scrollYProgress, onDet
 
   const spacing = 18; // Spacing in degrees between cards
   const startAngle = index * spacing;
-  const totalRotation = (totalProjects - 1) * spacing;
 
-  // The angle of this card as a function of scroll progress
-  const angle = useTransform(scrollYProgress, [0, 1], [startAngle, startAngle - totalRotation]);
+  // Base angle based on drag rotation
+  const baseAngle = useTransform(smoothRotation, (val) => startAngle - val);
+
+  // Normalize angle between -180 and 180 to calculate visual state correctly no matter how many times they spin
+  const normalizedAngle = useTransform(baseAngle, (val) => {
+    let a = val % 360;
+    if (a > 180) a -= 360;
+    if (a < -180) a += 360;
+    return a;
+  });
 
   // Transformed values based on how close the card is to the active top-center (0 degrees)
-  const scale = useTransform(angle, [-45, -20, 0, 20, 45], [0.7, 0.85, 1, 0.85, 0.7]);
-  const opacity = useTransform(angle, [-45, -20, 0, 20, 45], [0.15, 0.5, 1, 0.5, 0.15]);
-  const blur = useTransform(angle, [-45, -20, 0, 20, 45], [10, 4, 0, 4, 10]);
+  const scale = useTransform(normalizedAngle, [-45, -20, 0, 20, 45], [0.7, 0.85, 1, 0.85, 0.7]);
+  const opacity = useTransform(normalizedAngle, [-45, -20, 0, 20, 45], [0.15, 0.5, 1, 0.5, 0.15]);
+  const blur = useTransform(normalizedAngle, [-45, -20, 0, 20, 45], [10, 4, 0, 4, 10]);
 
   // Stacking order: the card closest to 0 degrees should always be on top
-  const zIndex = useTransform(angle, (val) => {
+  const zIndex = useTransform(normalizedAngle, (val) => {
     const distance = Math.abs(val);
     return Math.round((100 - distance) * 10);
   });
 
   const filter = useMotionTemplate`blur(${blur}px)`;
-  const transform = useMotionTemplate`translate(-50%, -50%) rotate(${angle}deg) scale(${scale})`;
-
-  const getCategoryIcon = (category) => {
-    switch (category.toLowerCase()) {
-      case 'mobile':
-        return <Smartphone size={28} />;
-      case 'frontend':
-        return <Monitor size={28} />;
-      case 'full-stack':
-      case 'web app':
-        return <Globe size={28} />;
-      default:
-        return <Folder size={28} />;
-    }
-  };
+  const transform = useMotionTemplate`translate(-50%, -50%) rotate(${baseAngle}deg) scale(${scale})`;
 
   const radius = isMobile ? 420 : 520;
   const cardStyle = {
@@ -72,63 +109,31 @@ const CardTransformed = ({ project, index, totalProjects, scrollYProgress, onDet
       className="circular-project-card"
       onClick={() => onDetailsClick()}
     >
-      <div className="card-top-glow"></div>
-      
-      {/* Category Badge & Icon */}
-      <div className="card-header">
-        <span className="card-badge">{project.category}</span>
-        <div className="card-icon-box">
-          {getCategoryIcon(project.category)}
-        </div>
-      </div>
-
-      {/* Card Content */}
-      <div className="card-body">
-        <span className="card-subtitle">{project.subtitle}</span>
-        <h3 className="card-title">{project.title}</h3>
-        <p className="card-desc">{project.description}</p>
-      </div>
-
-      {/* Tech tags */}
-      <div className="card-tech">
-        {project.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="tech-tag">{tag}</span>
-        ))}
-        {project.tags.length > 3 && (
-          <span className="tech-tag-more">+{project.tags.length - 3}</span>
-        )}
-      </div>
-
-      {/* Footer hover triggers */}
-      <div className="card-footer">
-        <span className="explore-btn">
-          Explore Details <ChevronRight size={14} />
-        </span>
-      </div>
+      <ProjectCardContent project={project} />
     </motion.div>
   );
 };
 
 export const Projects = () => {
   const allProjects = portfolioConfig.projects;
-  const categories = ['All', 'Frontend', 'Full-Stack', 'Mobile'];
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [filteredProjects, setFilteredProjects] = useState(allProjects);
+  const filteredProjects = allProjects;
   const [activeModalProject, setActiveModalProject] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const totalDragRef = useRef(0);
 
   const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ["start start", "end end"],
-  });
-
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    if (selectedCategory === 'All') {
-      setFilteredProjects(allProjects);
-    } else {
-      setFilteredProjects(allProjects.filter(p => p.category === selectedCategory));
-    }
-  }, [selectedCategory, allProjects]);
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const rotationOffset = useMotionValue(0);
+  const smoothRotation = useSpring(rotationOffset, { stiffness: 200, damping: 30 });
+  const discTransform = useMotionTemplate`translate(-50%, -50%) translate(0, ${isMobile ? 420 : 520}px) rotate(${-smoothRotation}deg)`;
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -141,60 +146,129 @@ export const Projects = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Handle drag to spin (by scrolling)
+  const handlePointerDown = (e) => {
+    if (isMobile) return;
+    // Only handle left click or touch
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    setIsDragging(true);
+    setStartX(e.clientX);
+    totalDragRef.current = 0;
+    document.body.style.userSelect = 'none';
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging || isMobile) return;
+    e.preventDefault(); // Prevent text selection/scrolling on touch
+    const deltaX = startX - e.clientX;
+    if (Math.abs(deltaX) > 0) {
+      totalDragRef.current += Math.abs(deltaX);
+      
+      const maxRotation = (filteredProjects.length - 1) * 18;
+      let newRotation = rotationOffset.get() + deltaX * 0.35;
+      
+      // Clamp rotation to prevent spinning past available cards
+      if (newRotation < 0) newRotation = 0;
+      if (newRotation > maxRotation) newRotation = maxRotation;
+
+      rotationOffset.set(newRotation);
+      setStartX(e.clientX);
+    }
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      document.body.style.userSelect = '';
+    }
+  };
+
   return (
     <section id="works" className="section projects-section">
-      <div ref={scrollRef} className="circular-gallery-container">
-        <div className="circular-gallery-sticky">
-          
+      {!isMobile ? (
+        <div ref={scrollRef} className="circular-gallery-container">
+          <div className="circular-gallery-sticky">
+            
+            {/* Header Area */}
+            <div className="gallery-header">
+              <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial', marginBottom: '0.5rem' }}>
+                <FramedText>My Projects</FramedText>
+              </h2>
+              <p className="gallery-section-subtitle">Click and drag horizontally to spin the wheel and explore my featured applications.</p>
+              
+
+            </div>
+
+            {/* Cards Rotation Area */}
+            <div 
+              className="gallery-wheel-area"
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUpOrLeave}
+              onPointerLeave={handlePointerUpOrLeave}
+              onPointerCancel={handlePointerUpOrLeave}
+              style={{ cursor: isDragging ? 'grabbing' : 'grab', touchAction: 'none' }}
+            >
+              {/* Dark wheel graphic representing the rotary base */}
+              <motion.div 
+                className="gallery-wheel-disc" 
+                style={{ 
+                  transform: discTransform
+                }}
+              />
+              
+              {/* Interactive Cards */}
+              {filteredProjects.map((project, idx) => (
+                <CardTransformed
+                  key={project.id}
+                  project={project}
+                  index={idx}
+                  totalProjects={filteredProjects.length}
+                  smoothRotation={smoothRotation}
+                  onDetailsClick={() => {
+                    if (totalDragRef.current < 10) {
+                      setActiveModalProject(project);
+                    }
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Mouse Drag Indicator */}
+            <div className="scroll-indicator">
+              <div className="mouse">
+                <div className="wheel"></div>
+              </div>
+              <span className="scroll-text">Drag to spin</span>
+            </div>
+
+          </div>
+        </div>
+      ) : (
+        <div className="mobile-projects-container">
           {/* Header Area */}
-          <div className="gallery-header">
+          <div className="gallery-header mobile-gallery-header">
             <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial', marginBottom: '0.5rem' }}>
               <FramedText>My Projects</FramedText>
             </h2>
-            <p className="gallery-section-subtitle">Scroll down smoothly to spin the wheel and explore my featured applications.</p>
+            <p className="gallery-section-subtitle">Swipe through my featured applications.</p>
             
-            {/* Filter Tabs */}
-            <div className="filter-tabs">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`filter-tab ${selectedCategory === cat ? 'active' : ''}`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+
           </div>
 
-          {/* Cards Rotation Area */}
-          <div className="gallery-wheel-area">
-            {/* Dark wheel graphic representing the rotary base */}
-            <div className="gallery-wheel-disc"></div>
-            
-            {/* Interactive Cards */}
-            {filteredProjects.map((project, idx) => (
-              <CardTransformed
-                key={project.id}
-                project={project}
-                index={idx}
-                totalProjects={filteredProjects.length}
-                scrollYProgress={scrollYProgress}
-                onDetailsClick={() => setActiveModalProject(project)}
-              />
+          <div className="mobile-slider-area">
+            {filteredProjects.map((project) => (
+              <div 
+                key={project.id} 
+                className="circular-project-card mobile-slide-card"
+                onClick={() => setActiveModalProject(project)}
+              >
+                <ProjectCardContent project={project} />
+              </div>
             ))}
           </div>
-
-          {/* Mouse Scroll Indicator */}
-          <div className="scroll-indicator">
-            <div className="mouse">
-              <div className="wheel"></div>
-            </div>
-            <span className="scroll-text">Scroll to spin</span>
-          </div>
-
         </div>
-      </div>
+      )}
 
       {/* Project Details Modal Popups */}
       {activeModalProject && (
@@ -259,13 +333,13 @@ export const Projects = () => {
         }
         .circular-gallery-container {
           position: relative;
-          height: 240vh; /* Height of the scroll track */
+          height: auto; 
           width: 100%;
         }
         .circular-gallery-sticky {
-          position: sticky;
-          top: 0;
+          position: relative;
           height: 100vh;
+          min-height: 800px;
           width: 100%;
           overflow: hidden;
           display: flex;
@@ -363,8 +437,8 @@ export const Projects = () => {
         .circular-project-card {
           border-radius: var(--border-radius-md);
           background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(16px) saturate(140%);
-          -webkit-backdrop-filter: blur(16px) saturate(140%);
+          backdrop-filter: blur(6px) saturate(140%);
+          -webkit-backdrop-filter: blur(6px) saturate(140%);
           border: 1.5px solid rgba(0, 0, 0, 0.08);
           overflow: hidden;
           padding: 2rem;
@@ -542,8 +616,8 @@ export const Projects = () => {
           width: 100%;
           height: 100%;
           background: rgba(0, 0, 0, 0.5);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
           z-index: 2000;
           display: flex;
           align-items: center;
@@ -557,8 +631,8 @@ export const Projects = () => {
           position: relative;
           padding: 2.5rem;
           background: rgba(255, 255, 255, 0.95) !important;
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12) !important;
           border: 1px solid rgba(0, 0, 0, 0.08) !important;
           border-radius: var(--border-radius-md);
@@ -713,16 +787,82 @@ export const Projects = () => {
           }
           .modal-body-layout {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 1.25rem;
           }
           .modal-overlay {
-            padding: 1rem;
+            padding: 1.5rem 1rem;
           }
           .modal-content {
-            padding: 1.75rem;
+            padding: 1.5rem;
+            max-height: 85vh;
+            overflow-y: auto;
+          }
+          .modal-title {
+            font-size: 1.5rem;
+          }
+          .modal-subtitle {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+          }
+          .modal-section-heading {
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+          }
+          .modal-text {
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+          }
+          .feature-bullet {
+            font-size: 0.85rem;
+          }
+          .tag-pill {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
           }
           .modal-links {
             flex-direction: column;
+            gap: 0.75rem;
+          }
+          .modal-links .btn {
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            justify-content: center;
+          }
+          /* Native Mobile Slider Additions */
+          .mobile-projects-container {
+            padding-top: 4.5rem;
+            padding-bottom: 4rem;
+            background: radial-gradient(circle at center 120%, #f4f4f5 0%, #ffffff 70%);
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            width: 100%;
+          }
+          .mobile-gallery-header {
+            margin: 0 auto 1.5rem auto;
+          }
+          .mobile-slider-area {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.25rem;
+            padding: 1rem 1.5rem 2rem 1.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+          }
+          .mobile-slider-area::-webkit-scrollbar {
+            display: none;
+          }
+          .mobile-slide-card {
+            flex: 0 0 85%;
+            max-width: 320px;
+            scroll-snap-align: center;
+            height: auto;
+            min-height: 380px;
+            position: relative;
+            transform: none !important;
+            opacity: 1 !important;
+            filter: none !important;
+            left: auto !important;
+            top: auto !important;
           }
         }
       `}</style>

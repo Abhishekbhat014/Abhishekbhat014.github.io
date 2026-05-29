@@ -31,10 +31,6 @@ export const Hero = ({ theme }) => {
 
       <div className="container hero-container grid-2">
         <div className="hero-content animate-fade-in">
-          <div className="hero-badge">
-            <span className="badge-dot"></span>
-            Available for Opportunities
-          </div>
           <h1 className="hero-title">
             Hi, I'm <span className="highlight-text">{name}</span>
           </h1>
@@ -81,7 +77,7 @@ export const Hero = ({ theme }) => {
             contactText="Contact Me"
             avatarUrl={devPhoto1}
             backAvatarUrl={devPhoto2}
-            showUserInfo={true}
+            showUserInfo={false}
             enableTilt={true}
             enableMobileTilt={false}
             onContactClick={() => handleCTA('get-in-touch')}
@@ -99,8 +95,8 @@ export const Hero = ({ theme }) => {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 120px;
-    padding-bottom: 80px;
+    padding-top: 100px; /* Increased to shift content down */
+    padding-bottom: 60px; /* Reduced to balance the downward shift */
     overflow: hidden;
   }
   .hero-glow-1 { top: 10%; left: -5%; }
@@ -210,8 +206,15 @@ export const Hero = ({ theme }) => {
       margin-bottom: 1.5rem;
     }
     .hero-actions {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       margin-bottom: 1.5rem;
+      gap: 0.75rem;
+    }
+    .hero-actions .btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
     }
     .hero-badge {
       margin-bottom: 1rem;

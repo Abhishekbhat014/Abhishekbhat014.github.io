@@ -61,7 +61,7 @@ const navItems = [
   { label: 'Get in Touch', id: 'get-in-touch' },
 ];
 
-export const Navbar = React.memo(({ theme, toggleTheme }) => {
+export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -105,14 +105,19 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
   const handleNavClick = useCallback((e, id) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 70,
-        behavior: 'smooth',
-      });
+    if (onNavigateHome) {
+      onNavigateHome();
     }
-  }, []);
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        window.scrollTo({
+          top: element.offsetTop - 70,
+          behavior: 'smooth',
+        });
+      }
+    }, 50);
+  }, [onNavigateHome]);
 
   return (
     <nav className={`fixed-navbar ${isScrolled && !mobileMenuOpen ? 'scrolled' : ''} ${mobileMenuOpen ? 'menu-open' : ''}`}>
@@ -187,22 +192,22 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           color: hsl(var(--text-primary)) !important;
           background: transparent;
         }
-        @media (min-width: 769px) {
+        @media (min-width: 969px) {
           .fixed-navbar {
-            max-width: 1024px;
+            max-width: 1150px;
           }
         }
         .fixed-navbar.scrolled {
           height: 64px;
           background: var(--glass-bg) !important;
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(8px) saturate(140%);
+          -webkit-backdrop-filter: blur(8px) saturate(140%);
           border-bottom: 1px solid var(--glass-border);
           box-shadow: var(--shadow-sm);
         }
-        @media (min-width: 769px) {
+        @media (min-width: 969px) {
           .fixed-navbar.scrolled {
-            max-width: 896px;
+            max-width: 1080px;
             top: 16px;
             border: 1px solid var(--glass-border);
             border-radius: var(--border-radius-md);
@@ -215,8 +220,8 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           max-width: 100%;
           border-radius: 0;
           background: var(--glass-bg) !important;
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(8px) saturate(140%);
+          -webkit-backdrop-filter: blur(8px) saturate(140%);
           border-bottom: 1px solid var(--glass-border);
           box-shadow: none;
         }
@@ -249,7 +254,7 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
         .nav-links-desktop {
           display: flex;
           align-items: center;
-          gap: 2rem;
+          gap: 1.25rem;
         }
         .nav-link {
           font-family: var(--font-mono);
@@ -330,8 +335,8 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           width: 100%;
           height: 0;
           background: var(--glass-bg);
-          backdrop-filter: blur(20px) saturate(180%);
-          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(8px) saturate(140%);
+          -webkit-backdrop-filter: blur(8px) saturate(140%);
           overflow: hidden;
           transition: all 0.3s ease;
           border-bottom: 0px solid var(--glass-border);
@@ -364,15 +369,15 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
         .mobile-nav-link.active {
           color: hsl(var(--primary));
         }
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
           .fixed-navbar {
             left: 0;
             transform: none;
             height: 64px;
-            background: var(--glass-bg) !important;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--glass-border);
+            background: hsl(var(--bg-color)) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-bottom: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
           }
           .fixed-navbar.menu-open {
@@ -394,20 +399,33 @@ export const Navbar = React.memo(({ theme, toggleTheme }) => {
           .mobile-menu-drawer,
           .fixed-navbar.scrolled .mobile-menu-drawer {
             top: 64px;
-            width: 100vw;
+            right: 0;
+            left: auto;
+            width: 280px;
+            max-width: 80vw;
+            height: calc(100vh - 64px);
+            height: calc(100dvh - 64px);
+            transform: translateX(100%);
+            background: hsl(var(--bg-color)) !important;
+            border-left: 1px solid var(--border);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
           }
           .mobile-menu-drawer.open,
           .fixed-navbar.scrolled .mobile-menu-drawer.open {
-            height: calc(100vh - 64px);
-            height: calc(100dvh - 64px);
+            transform: translateX(0);
           }
           .mobile-menu-links {
-            padding: 2rem 1rem 3rem;
-            gap: 1.25rem;
+            padding: 2.5rem 1.5rem;
+            gap: 1.5rem;
+            align-items: flex-start;
           }
           .mobile-nav-link {
-            font-size: clamp(1.1rem, 6vw, 1.5rem);
-            line-height: 1.25;
+            font-size: clamp(0.95rem, 5vw, 1.25rem);
+            line-height: 1.2;
           }
         }
       `}</style>

@@ -149,6 +149,8 @@ export const Journey = () => {
           opacity: 0.25; /* Increased opacity so it blooms through the glass blur */
           pointer-events: none;
           z-index: 0;
+          will-change: transform;
+          transform: translate3d(0, 0, 0);
         }
         .glow-orange {
           background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
@@ -170,8 +172,8 @@ export const Journey = () => {
           border: 1px solid rgba(0, 0, 0, 0.05);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
           background: rgba(255, 255, 255, 0.75); /* Glassmorphic background */
-          backdrop-filter: blur(20px) saturate(140%);
-          -webkit-backdrop-filter: blur(20px) saturate(140%);
+          backdrop-filter: blur(8px) saturate(120%);
+          -webkit-backdrop-filter: blur(8px) saturate(120%);
           border-radius: var(--border-radius-md);
           margin: 0;
           display: flex;
@@ -253,17 +255,26 @@ export const Journey = () => {
           font-weight: 600;
         }
         @media (max-width: 768px) {
+          .journey-slide, [data-flow-section], .flow-art-container {
+            height: 75vh !important;
+            min-height: 75vh !important;
+          }
           .slide-card {
-            top: 1rem;
-            left: 1rem;
-            right: 1rem;
-            bottom: 3.5rem;
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            width: calc(100% - 2rem);
+            height: auto;
+            max-height: 85vh;
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
             overflow-y: auto;
+            margin: 0 auto;
           }
           .slide-content-container {
             max-width: 100%;

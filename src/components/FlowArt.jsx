@@ -59,6 +59,7 @@ const FlowArt = ({
       if (sections.length === 0) return;
 
       const triggers = [];
+      const isMobile = window.innerWidth <= 768;
 
       sections.forEach((section, i) => {
         gsap.set(section, { zIndex: i + 1 });
@@ -73,8 +74,8 @@ const FlowArt = ({
             ease: 'none',
             scrollTrigger: {
               trigger: section,
-              start: 'top bottom',
-              end: 'top 25%',
+              start: isMobile ? 'top 65%' : 'top bottom',
+              end: isMobile ? 'top 35%' : 'top 25%',
               scrub: true,
             },
           });
@@ -102,8 +103,8 @@ const FlowArt = ({
               ease: 'none',
               scrollTrigger: {
                 trigger: nextSection,
-                start: 'top bottom',
-                end: 'top top',
+                start: isMobile ? 'top 65%' : 'top bottom',
+                end: isMobile ? 'top 35%' : 'top top',
                 scrub: true,
               },
             });
@@ -277,6 +278,11 @@ const FlowArt = ({
         .journey-indicator-dot.active::after {
           color: #09090b;
           border-color: hsl(var(--primary-glow));
+        }
+        @media (max-width: 768px) {
+          .journey-scroll-indicator {
+            display: none !important;
+          }
         }
       `}</style>
     </main>

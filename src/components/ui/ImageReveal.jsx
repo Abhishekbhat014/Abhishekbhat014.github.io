@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { MoveUpRight as ArrowIcon } from "lucide-react";
+import reactBlogFeature from "../../assets/react_blog_feature.png";
 
 const visualData = [
   {
     key: 1,
-    url: "https://images.pexels.com/photos/9002742/pexels-photo-9002742.jpeg",
-    label: "Designing Pinky Island: Creative SVG Layouts",
-  },
-  {
-    key: 2,
-    url: "https://images.pexels.com/photos/31622979/pexels-photo-31622979.jpeg",
-    label: "The primarylw Model: Advanced CSS Layouts",
-  },
-  {
-    key: 3,
-    url: "https://images.pexels.com/photos/12187128/pexels-photo-12187128.jpeg",
-    label: "Inside Sigma Connect: Re-engineering WebSockets",
-  },
-  {
-    key: 4,
-    url: "https://images.pexels.com/photos/28168248/pexels-photo-28168248.jpeg",
-    label: "Exploring Futuristic Gamma: Next-Gen WebGL Graphics",
+    url: reactBlogFeature,
+    label: "My Journey into React: From Imperative DOM to Component-Driven Engineering",
   },
 ];
 
-export const ImageReveal = () => {
+export const ImageReveal = ({ onSelect }) => {
   const [focusedItem, setFocusedItem] = useState(null);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
@@ -67,6 +53,7 @@ export const ImageReveal = () => {
           key={item.key}
           className="reveal-row"
           onMouseEnter={() => onHoverActivate(item)}
+          onClick={() => onSelect && onSelect(item)}
         >
           {!isLargeScreen && (
             <img

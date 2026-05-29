@@ -534,6 +534,8 @@ const ProfileCardComponent = ({
           pointer-events: none;
           transition: opacity 0.2s ease-out;
           filter: blur(50px) saturate(1.1);
+          will-change: transform;
+          transform: translate3d(0, 0, 0);
         }
         .pc-shell {
           position: relative;
@@ -618,8 +620,8 @@ const ProfileCardComponent = ({
           display: flex;
           align-items: center;
           justify-content: space-between;
-          backdrop-filter: blur(30px);
-          -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           pointer-events: none; /* Block pointer click events when hidden */
           background: rgba(255, 255, 255, 0.1);
@@ -686,8 +688,8 @@ const ProfileCardComponent = ({
           font-weight: 600;
           color: rgba(255, 255, 255, 0.9);
           cursor: pointer;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
           transition: all 0.2s ease-out;
           background: transparent;
         }
@@ -750,11 +752,10 @@ const ProfileCardComponent = ({
         }
         @media (max-width: 768px) {
           .pc-section {
-            height: auto;
-            max-height: 420px;
-            width: 100%;
-            max-width: 290px;
-            aspect-ratio: 0.718;
+            height: 380px;
+            width: 275px;
+            max-height: none;
+            max-width: none;
           }
           .pc-name {
             font-size: 1.8rem;

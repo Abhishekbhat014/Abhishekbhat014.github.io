@@ -345,6 +345,9 @@ export const Contact = () => {
           color: #f9fafb !important;
           transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
+        .form-group textarea {
+          resize: none;
+        }
         .form-group input::placeholder, .form-group textarea::placeholder {
           color: #71717a !important;
         }
