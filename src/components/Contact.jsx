@@ -86,8 +86,8 @@ export const Contact = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Honeypot check
-    if (e.target.botcheck && e.target.botcheck.value) {
+    // Honeypot check (only trigger if checkbox is actually checked)
+    if (e.target.botcheck && e.target.botcheck.checked) {
       setIsSubmitted(true);
       return;
     }
@@ -96,30 +96,27 @@ export const Contact = () => {
     setSubmitError(null);
     
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', '909f59db-3bcc-40ca-a2e1-c7286aebf080');
+      formDataToSend.append('subject', `New Project Inquiry — ${formData.project_type}`);
+      formDataToSend.append('from_name', formData.name);
+      formDataToSend.append('replyto', formData.email);
+      formDataToSend.append('Name', formData.name);
+      formDataToSend.append('Email', formData.email);
+      formDataToSend.append('Project / Idea Name', formData.project_name || 'Not provided');
+      formDataToSend.append('Project Type', formData.project_type);
+      formDataToSend.append('Budget', formData.budget || 'Not specified');
+      formDataToSend.append('Timeline', formData.timeline || 'Not specified');
+      formDataToSend.append('Project Description', formData.message);
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: '909f59db-3bcc-40ca-a2e1-c7286aebf080',
-          subject: `New Project Inquiry — ${formData.project_type}`,
-          from_name: formData.name,
-          replyto: formData.email,
-          Name: formData.name,
-          Email: formData.email,
-          'Project / Idea Name': formData.project_name || 'Not provided',
-          'Project Type': formData.project_type,
-          Budget: formData.budget || 'Not specified',
-          Timeline: formData.timeline || 'Not specified',
-          'Project Description': formData.message
-        })
+        body: formDataToSend
       });
 
       const result = await response.json();
       
-      if (response.status === 200) {
+      if (result.success || response.status === 200) {
         setIsSubmitted(true);
         // Clear form on success
         setFormData({ 
