@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { ExternalLink, X, ChevronRight, Folder, Smartphone, Globe, Monitor } from 'lucide-react';
+import { ExternalLink, X, ChevronRight, Folder, Smartphone, Globe, Monitor, ArrowRight } from 'lucide-react';
 import { motion, useTransform, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import { portfolioConfig } from '../config/portfolioConfig';
 import { GithubIcon } from './SocialIcons';
@@ -87,13 +87,13 @@ const CardTransformed = ({ project, index, totalProjects, smoothRotation, onDeta
   const filter = useMotionTemplate`blur(${blur}px)`;
   const transform = useMotionTemplate`translate(-50%, -50%) rotate(${baseAngle}deg) scale(${scale})`;
 
-  const radius = isMobile ? 420 : 520;
+  const radius = isMobile ? 420 : 560;
   const cardStyle = {
     position: "absolute",
     left: "50%",
     top: "50%",
-    width: isMobile ? "230px" : "280px",
-    height: isMobile ? "330px" : "385px",
+    width: isMobile ? "260px" : "340px",
+    height: isMobile ? "360px" : "420px",
     transformOrigin: `center ${radius}px`, // Rotation radius
     transform,
     opacity,
@@ -192,7 +192,7 @@ export const Projects = () => {
             {/* Header Area */}
             <div className="gallery-header">
               <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial', marginBottom: '0.5rem' }}>
-                <FramedText>My Projects</FramedText>
+                <FramedText>Featured Work</FramedText>
               </h2>
               <p className="gallery-section-subtitle">Click and drag horizontally to spin the wheel and explore my featured applications.</p>
               
@@ -249,7 +249,7 @@ export const Projects = () => {
           {/* Header Area */}
           <div className="gallery-header mobile-gallery-header">
             <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial', marginBottom: '0.5rem' }}>
-              <FramedText>My Projects</FramedText>
+              <FramedText>Featured Work</FramedText>
             </h2>
             <p className="gallery-section-subtitle">Swipe through my featured applications.</p>
             
@@ -324,6 +324,18 @@ export const Projects = () => {
           </div>
         </div>
       )}
+
+      {/* Project CTA */}
+      <div className="project-cta-section container" style={{ textAlign: 'center', padding: '6rem 1rem', borderTop: '1px solid rgba(0,0,0,0.05)', marginTop: '2rem' }}>
+        <h3 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', color: '#09090b' }}>Have a project in mind?</h3>
+        <p style={{ fontSize: '1.1rem', color: '#4b5563', marginBottom: '2rem' }}>Let's turn your idea into something real.</p>
+        <button onClick={() => {
+          const el = document.getElementById('get-in-touch');
+          if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+        }} className="btn btn-primary" style={{ margin: '0 auto' }}>
+          Tell Me About Your Idea <ArrowRight size={18} />
+        </button>
+      </div>
 
       <style>{`
         .projects-section {
@@ -401,23 +413,23 @@ export const Projects = () => {
         .gallery-wheel-area {
           position: relative;
           width: 100%;
-          height: 480px;
-          margin-top: -30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          height: 560px;
+          margin: 0 auto;
+          overflow: hidden;
+          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
         }
         .gallery-wheel-disc {
           position: absolute;
-          width: 1040px;
-          height: 1040px;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, -50%) translate(0, 560px);
+          width: 1120px;
+          height: 1120px;
           border-radius: 50%;
           /* Rotational circle graphic */
           background: radial-gradient(circle, rgba(0,0,0,0) 65%, rgba(0, 0, 0, 0.01) 100%);
           border: 1.5px dashed rgba(0, 0, 0, 0.06);
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) translate(0, 520px);
           pointer-events: none;
           z-index: 1;
         }
@@ -436,9 +448,7 @@ export const Projects = () => {
         /* Circular Cards Styles */
         .circular-project-card {
           border-radius: var(--border-radius-md);
-          background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(6px) saturate(140%);
-          -webkit-backdrop-filter: blur(6px) saturate(140%);
+          background: rgba(255, 255, 255, 0.95);
           border: 1.5px solid rgba(0, 0, 0, 0.08);
           overflow: hidden;
           padding: 2rem;
@@ -630,9 +640,7 @@ export const Projects = () => {
           max-width: 800px;
           position: relative;
           padding: 2.5rem;
-          background: rgba(255, 255, 255, 0.95) !important;
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          background: rgba(255, 255, 255, 1) !important;
           box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12) !important;
           border: 1px solid rgba(0, 0, 0, 0.08) !important;
           border-radius: var(--border-radius-md);

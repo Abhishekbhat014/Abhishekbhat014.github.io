@@ -12,8 +12,11 @@ import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { TextHoverEffect } from './components/TextHoverEffect';
 import { Footer } from './components/Footer';
-import { GooeyCursor } from './components/GooeyCursor';
 import { BlogPostDetail } from './components/BlogPostDetail';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const [activeBlog, setActiveBlog] = useState(null);
@@ -38,15 +41,18 @@ function App() {
       wheelMultiplier: 1,
     });
 
+    lenis.on('scroll', ScrollTrigger.update);
+
     const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      lenis.raf(time * 1000);
     };
 
-    requestAnimationFrame(raf);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
+      gsap.ticker.remove(raf);
     };
   }, []);
 
@@ -73,7 +79,6 @@ function App() {
 
   return (
     <>
-      <GooeyCursor size={32} lag={0.35} />
       <Navbar theme={theme} toggleTheme={toggleTheme} onNavigateHome={() => setActiveBlog(null)} />
       <main style={{ position: 'relative', zIndex: 1 }}>
         {activeBlog ? (

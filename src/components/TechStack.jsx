@@ -23,7 +23,7 @@ export const TechStack = () => {
       
       <div className="container relative-z">
         <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial' }}>
-          <FramedText>Tech Stack</FramedText>
+          <FramedText>Skills</FramedText>
         </h2>
         <p className="section-subtitle light-subtitle">Technologies and tools I build with.</p>
         
@@ -40,16 +40,7 @@ export const TechStack = () => {
               <div className="skills-list">
                 {category.skills.map((skill, sIdx) => (
                   <div key={sIdx} className="skill-item">
-                    <div className="skill-info">
-                      <span className="skill-name">{skill.name}</span>
-                      <span className="skill-percentage">{skill.level}%</span>
-                    </div>
-                    <div className="skill-progress-bg">
-                      <div 
-                        className="skill-progress-bar" 
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
+                    <span className="skill-name">{skill.name}</span>
                   </div>
                 ))}
               </div>
@@ -140,42 +131,25 @@ export const TechStack = () => {
         }
         .skills-list {
           display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
+          flex-wrap: wrap;
+          gap: 0.75rem;
         }
         .skill-item {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
+          background: rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          padding: 0.4rem 0.9rem;
+          border-radius: var(--border-radius-full);
+          transition: all var(--transition-fast);
         }
-        .skill-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+        .skill-item:hover {
+          background: rgba(249, 115, 22, 0.08);
+          border-color: rgba(249, 115, 22, 0.2);
+          transform: translateY(-2px);
         }
         .skill-name {
-          font-size: 0.9rem;
-          font-weight: 700;
+          font-size: 0.85rem;
+          font-weight: 600;
           color: #27272a;
-        }
-        .skill-percentage {
-          font-family: var(--font-mono);
-          font-size: 0.8rem;
-          font-weight: 700;
-          color: hsl(var(--primary));
-        }
-        .skill-progress-bg {
-          width: 100%;
-          height: 6px;
-          background: rgba(0, 0, 0, 0.04);
-          border-radius: var(--border-radius-full);
-          overflow: hidden;
-        }
-        .skill-progress-bar {
-          height: 100%;
-          background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
-          border-radius: var(--border-radius-full);
-          transition: width 1.5s cubic-bezier(0.1, 0.8, 0.25, 1);
         }
 
         @media (max-width: 992px) {

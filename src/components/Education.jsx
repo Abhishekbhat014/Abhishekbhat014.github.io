@@ -306,17 +306,17 @@ export const Education = () => {
         .edu-card-period {
           display: inline-flex;
           align-items: center;
-          font-size: 0.75rem;
+          font-size: 0.85rem;
           font-weight: 700;
           color: hsl(var(--primary));
           background: rgba(249, 115, 22, 0.08);
-          padding: 0.15rem 0.5rem;
+          padding: 0.2rem 0.6rem;
           border-radius: var(--border-radius-full);
           width: fit-content;
           border: 1px solid rgba(249, 115, 22, 0.12);
         }
         .edu-card-school {
-          font-size: 0.85rem;
+          font-size: 1.05rem;
           font-weight: 600;
           color: #a1a1aa;
           margin: 0;
@@ -327,7 +327,7 @@ export const Education = () => {
           gap: 0.85rem;
         }
         .edu-card-degree {
-          font-size: 1.15rem;
+          font-size: 1.35rem;
           font-weight: 800;
           color: #ffffff;
           letter-spacing: -0.4px;

@@ -135,8 +135,8 @@ export const Experience = () => {
           display: inline-flex;
           align-items: center;
           gap: 0.35rem;
-          font-size: 0.85rem;
-          font-weight: 500;
+          font-size: 0.9rem;
+          font-weight: 600;
           color: hsl(var(--primary));
         }
         .current-tag {
@@ -149,14 +149,15 @@ export const Experience = () => {
           border: 1px solid rgba(139, 92, 246, 0.2);
         }
         .role-title {
-          font-size: 1.2rem;
-          font-weight: 700;
+          font-size: 1.4rem;
+          font-weight: 800;
           color: #f9fafb !important;
+          margin-bottom: 0.25rem;
         }
         .company-name {
-          font-size: 1rem;
-          font-weight: 500;
-          color: #a1a1aa !important;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #d4d4d8 !important;
           margin-bottom: 0.5rem;
         }
         .location-info {

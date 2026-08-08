@@ -1,28 +1,65 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, AlertCircle, Mail, MapPin, Loader2, User, Tag, MessageSquare } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Mail, MapPin, Loader2, User, Tag, MessageSquare, Briefcase, IndianRupee, Clock, XCircle } from 'lucide-react';
 import { portfolioConfig } from '../config/portfolioConfig';
 import { ScrollReveal } from './ui/ScrollReveal';
 import { FramedText } from './ui/FramedText';
+import { BasicDropdown } from './ui/BasicDropdown';
+
+const projectTypeItems = [
+  { id: 'mobile', label: 'Mobile App', value: 'Mobile App' },
+  { id: 'web', label: 'Website / Web Application', value: 'Website / Web Application' },
+  { id: 'improvement', label: 'Existing Project Improvement', value: 'Existing Project Improvement' },
+  { id: 'backend', label: 'Backend / API', value: 'Backend / API' },
+  { id: 'other', label: 'Other', value: 'Other' },
+];
+
+const budgetItems = [
+  { id: 'not_sure', label: 'Not sure yet', value: 'Not sure yet' },
+  { id: 'under_25k', label: 'Under ₹25,000', value: 'Under ₹25,000' },
+  { id: '25k_50k', label: '₹25,000 – ₹50,000', value: '₹25,000 – ₹50,000' },
+  { id: '50k_100k', label: '₹50,000 – ₹1,00,000', value: '₹50,000 – ₹1,00,000' },
+  { id: '100k_plus', label: '₹1,00,000+', value: '₹1,00,000+' },
+  { id: 'discuss', label: 'Prefer to discuss', value: 'Prefer to discuss' },
+];
+
+const timelineItems = [
+  { id: 'no_deadline', label: 'No specific deadline', value: 'No specific deadline' },
+  { id: '1_month', label: 'Within 1 month', value: 'Within 1 month' },
+  { id: '1_3_months', label: '1–3 months', value: '1–3 months' },
+  { id: '3_6_months', label: '3–6 months', value: '3–6 months' },
+  { id: 'not_sure_timeline', label: 'Not sure yet', value: 'Not sure yet' },
+];
 
 export const Contact = () => {
   const { email } = portfolioConfig.personalInfo;
   
   // Form State
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    project_name: '', 
+    project_type: '', 
+    budget: '', 
+    timeline: '', 
+    message: '' 
+  });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const validate = () => {
     const tempErrors = {};
     if (!formData.name.trim()) tempErrors.name = 'Name is required';
     if (!formData.email.trim()) {
       tempErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = 'Email is invalid';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      tempErrors.email = 'Valid email is required';
     }
-    if (!formData.subject.trim()) tempErrors.subject = 'Subject is required';
-    if (!formData.message.trim()) tempErrors.message = 'Message is required';
+    if (!formData.project_type) tempErrors.project_type = 'Project type is required';
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      tempErrors.message = 'Please provide a brief description (min 10 characters)';
+    }
     
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -31,24 +68,72 @@ export const Contact = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear errors when typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+    if (submitError) setSubmitError(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleDropdownChange = (name, value) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+    if (submitError) setSubmitError(null);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    setIsSubmitting(true);
-    
-    // Simulate API request timeout
-    setTimeout(() => {
-      setIsSubmitting(false);
+    // Honeypot check
+    if (e.target.botcheck && e.target.botcheck.value) {
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '909f59db-3bcc-40ca-a2e1-c7286aebf080',
+          subject: `New Project Inquiry — ${formData.project_type}`,
+          from_name: formData.name,
+          replyto: formData.email,
+          Name: formData.name,
+          Email: formData.email,
+          'Project / Idea Name': formData.project_name || 'Not provided',
+          'Project Type': formData.project_type,
+          Budget: formData.budget || 'Not specified',
+          Timeline: formData.timeline || 'Not specified',
+          'Project Description': formData.message
+        })
+      });
+
+      const result = await response.json();
+      
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        // Clear form on success
+        setFormData({ 
+          name: '', email: '', project_name: '', project_type: '', 
+          budget: '', timeline: '', message: '' 
+        });
+      } else {
+        setSubmitError(result.message || 'Something went wrong. Your message couldn\'t be sent.');
+      }
+    } catch (error) {
+      setSubmitError('Failed to send request. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -56,11 +141,12 @@ export const Contact = () => {
       <div className="glowing-bg contact-glow"></div>
       
       <div className="container relative-z">
-        <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial' }}>
-          <FramedText>Get In Touch</FramedText>
+        <h2 className="section-title" style={{ background: 'none', WebkitBackgroundClip: 'initial', WebkitTextFillColor: 'initial', marginBottom: '0.5rem' }}>
+          <FramedText>Have an idea? Let's build it.</FramedText>
         </h2>
+        
         <ScrollReveal size="md" variant="muted" containerClassName="section-subtitle light-subtitle" align="center">
-          Let's collaborate! Drop me a message, and I'll get back to you as soon as possible.
+          Tell me a little about what you're trying to build. You don't need to have everything figured out — just describe the idea and I'll get back to you.
         </ScrollReveal>
 
         <div className="contact-grid grid-2">
@@ -68,7 +154,11 @@ export const Contact = () => {
           <div className="contact-details glass-panel light-details">
             <h3 className="contact-info-title">Let's Connect</h3>
             <ScrollReveal size="sm" variant="muted" containerClassName="contact-info-desc">
-              Whether you have an upcoming project, a job opportunity, or just want to chat about development systems - feel free to reach out.
+              Have an idea but don't know where to start? Tell me what you're thinking about. 
+              <br/><br/>
+              <span style={{ color: 'hsl(var(--primary))', fontWeight: 600 }}>Apps · Websites · Software Products</span>
+              <br/><br/>
+              For general inquiries, feel free to reach out directly:
             </ScrollReveal>
 
             <div className="info-cards-list">
@@ -99,18 +189,30 @@ export const Contact = () => {
             {isSubmitted ? (
               <div className="success-banner">
                 <CheckCircle size={48} className="success-icon animate-bounce" />
-                <h3 className="success-title">Message Sent!</h3>
+                <h3 className="success-title">Thanks for reaching out!</h3>
                 <p className="success-desc">
-                  Thank you for reaching out. I've received your submission and will get in touch with you shortly.
+                  Your idea has been sent successfully. I'll get back to you as soon as I can.
                 </p>
                 <button onClick={() => setIsSubmitted(false)} className="btn btn-primary">
-                  Send Another Message
+                  Send Another Inquiry
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
+                
+                {submitError && (
+                  <div className="error-banner">
+                    <XCircle size={20} />
+                    <span>{submitError}</span>
+                  </div>
+                )}
+                
+                {/* Honeypot Field */}
+                <input type="checkbox" name="botcheck" style={{ display: 'none' }} />
+
                 <div className="form-group-row">
                   <div className="form-group">
+                    <label htmlFor="name" className="visually-hidden">Name</label>
                     <div className="input-with-icon">
                       <User size={18} className="input-icon" />
                       <input
@@ -119,8 +221,8 @@ export const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="Your Name"
-                        aria-label="Your Name"
+                        placeholder="Full Name"
+                        aria-required="true"
                         className={errors.name ? 'error-input' : ''}
                       />
                     </div>
@@ -132,6 +234,7 @@ export const Contact = () => {
                   </div>
 
                   <div className="form-group">
+                    <label htmlFor="email" className="visually-hidden">Email</label>
                     <div className="input-with-icon">
                       <Mail size={18} className="input-icon" />
                       <input
@@ -140,8 +243,8 @@ export const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="Your Email"
-                        aria-label="Your Email"
+                        placeholder="Email Address"
+                        aria-required="true"
                         className={errors.email ? 'error-input' : ''}
                       />
                     </div>
@@ -153,28 +256,66 @@ export const Contact = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <div className="input-with-icon">
-                    <Tag size={18} className="input-icon" />
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="Subject"
-                      aria-label="Subject"
-                      className={errors.subject ? 'error-input' : ''}
+                <div className="form-group-row">
+                  <div className="form-group">
+                    <label htmlFor="project_name" className="visually-hidden">Project / Idea Name</label>
+                    <div className="input-with-icon">
+                      <Tag size={18} className="input-icon" />
+                      <input
+                        type="text"
+                        id="project_name"
+                        name="project_name"
+                        value={formData.project_name}
+                        onChange={handleInputChange}
+                        placeholder="Project Name (Optional)"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="project_type" className="visually-hidden">What would you like to build?</label>
+                    <BasicDropdown
+                      label="Project Type"
+                      items={projectTypeItems}
+                      value={formData.project_type}
+                      onChange={(item) => handleDropdownChange('project_type', item.value)}
+                      icon={Briefcase}
+                      error={Boolean(errors.project_type)}
+                    />
+                    {errors.project_type && (
+                      <span className="error-msg">
+                        <AlertCircle size={12} /> {errors.project_type}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="form-group-row">
+                  <div className="form-group">
+                    <label htmlFor="budget" className="visually-hidden">Estimated Budget</label>
+                    <BasicDropdown
+                      label="Estimated Budget"
+                      items={budgetItems}
+                      value={formData.budget}
+                      onChange={(item) => handleDropdownChange('budget', item.value)}
+                      icon={IndianRupee}
                     />
                   </div>
-                  {errors.subject && (
-                    <span className="error-msg">
-                      <AlertCircle size={12} /> {errors.subject}
-                    </span>
-                  )}
+
+                  <div className="form-group">
+                    <label htmlFor="timeline" className="visually-hidden">Expected Timeline</label>
+                    <BasicDropdown
+                      label="Expected Timeline"
+                      items={timelineItems}
+                      value={formData.timeline}
+                      onChange={(item) => handleDropdownChange('timeline', item.value)}
+                      icon={Clock}
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
+                  <label htmlFor="message" className="visually-hidden">Tell me about your idea</label>
                   <div className="input-with-icon textarea-icon-wrapper">
                     <MessageSquare size={18} className="input-icon textarea-icon" />
                     <textarea
@@ -183,8 +324,8 @@ export const Contact = () => {
                       rows={5}
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Your Message"
-                      aria-label="Your Message"
+                      placeholder="Describe your idea, the problem you're trying to solve, or what you'd like to build..."
+                      aria-required="true"
                       className={errors.message ? 'error-input' : ''}
                     ></textarea>
                   </div>
@@ -202,7 +343,7 @@ export const Contact = () => {
                     </>
                   ) : (
                     <>
-                      Send Message <Send size={16} />
+                      Send Inquiry <Send size={16} />
                     </>
                   )}
                 </button>
@@ -213,9 +354,20 @@ export const Contact = () => {
       </div>
 
       <style>{`
+        .visually-hidden {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
         .contact-section {
           position: relative;
-          background-color: #09090b !important; /* Force dark background */
+          background-color: #09090b !important;
           color: #f9fafb !important;
         }
         .contact-glow {
@@ -225,6 +377,8 @@ export const Contact = () => {
         }
         .light-subtitle {
           color: #a1a1aa !important;
+          max-width: 650px;
+          margin: 0 auto 3.5rem auto;
         }
         .light-details, .light-form {
           background: rgba(255, 255, 255, 0.02) !important;
@@ -343,17 +497,22 @@ export const Contact = () => {
           background: rgba(255, 255, 255, 0.02) !important;
           border: 1px solid rgba(255, 255, 255, 0.1) !important;
           color: #f9fafb !important;
-          transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+          font-family: inherit;
+          font-size: 0.95rem;
+          transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
         }
         .form-group textarea {
-          resize: none;
+          resize: vertical;
+          min-height: 120px;
         }
         .form-group input::placeholder, .form-group textarea::placeholder {
           color: #71717a !important;
         }
         .form-group input:focus, .form-group textarea:focus {
           border-color: hsl(var(--primary)) !important;
-          box-shadow: 0 0 0 2px var(--primary-glow) !important;
+          background: rgba(255, 255, 255, 0.04) !important;
+          box-shadow: 0 0 0 3px hsla(24, 95%, 53%, 0.15) !important;
+          outline: none;
         }
         .form-group input.error-input, .form-group textarea.error-input {
           border-color: hsl(var(--error)) !important;
@@ -365,6 +524,18 @@ export const Contact = () => {
           font-size: 0.75rem;
           color: hsl(var(--error));
           font-weight: 500;
+        }
+        .error-banner {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: var(--border-radius-sm);
+          color: #fca5a5;
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
         }
         .submit-btn {
           align-self: flex-start;

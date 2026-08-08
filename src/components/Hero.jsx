@@ -31,11 +31,15 @@ export const Hero = ({ theme }) => {
 
       <div className="container hero-container grid-2">
         <div className="hero-content animate-fade-in">
+          <div className="hero-badge">
+            <div className="badge-dot"></div>
+            Software Developer
+          </div>
+          <h2 className="hero-name">Abhishek Bhat</h2>
           <h1 className="hero-title">
-            Hi, I'm <span className="highlight-text">{name}</span>
+            Building software that <br/><span className="highlight-text">solves real-world problems.</span>
           </h1>
-          <h2 className="hero-subtitle">{tagline}</h2>
-          <ScrollReveal size="md" variant="muted" containerClassName="hero-description" align="left">
+          <ScrollReveal size="lg" variant="muted" containerClassName="hero-description" align="left">
             {shortBio}
           </ScrollReveal>
 
@@ -44,9 +48,9 @@ export const Hero = ({ theme }) => {
               View My Work
               <ArrowRight size={18} />
             </button>
-            <button onClick={() => handleCTA('get-in-touch')} className="btn btn-secondary">
-              Contact Me
-            </button>
+            <a href={portfolioConfig.personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              Download Resume
+            </a>
           </div>
 
           <div className="hero-socials">
@@ -65,6 +69,7 @@ export const Hero = ({ theme }) => {
               <Mail size={20} />
             </a>
           </div>
+
         </div>
 
         {/* Hero Interactive Illustration: ProfileCard */}
@@ -95,8 +100,8 @@ export const Hero = ({ theme }) => {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: 100px; /* Increased to shift content down */
-    padding-bottom: 60px; /* Reduced to balance the downward shift */
+    padding-top: 100px;
+    padding-bottom: 120px; /* Clear separation from next section */
     overflow: hidden;
   }
   .hero-glow-1 { top: 10%; left: -5%; }
@@ -118,6 +123,13 @@ export const Hero = ({ theme }) => {
     color: hsl(var(--primary));
     margin-bottom: 1.5rem;
   }
+  .hero-name {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #f9fafb;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
   .badge-dot {
     width: 8px;
     height: 8px;
@@ -131,11 +143,11 @@ export const Hero = ({ theme }) => {
     100% { transform: scale(0.9); opacity: 1; }
   }
   .hero-title {
-    font-size: 3.5rem;
+    font-size: 3.25rem;
     font-weight: 800;
     letter-spacing: -1px;
     line-height: 1.1;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   .highlight-text {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
@@ -182,17 +194,20 @@ export const Hero = ({ theme }) => {
   /* ── MOBILE FIXES ── */
   @media (max-width: 768px) {
     .hero-section {
-      padding-top: 80px;        /* was 120px — reclaim vertical space */
-      padding-bottom: 60px;
-      min-height: auto;         /* don't force full-screen on mobile */
+      padding-top: 80px;
+      padding-bottom: 90px;
+      min-height: auto;
     }
     .hero-container {
       display: flex !important; /* override grid-2 */
       flex-direction: column;
-      gap: 2rem;
+      gap: 3rem;
     }
     .hero-illustration {
-      order: -1;                /* 👈 card ABOVE text on mobile */
+      order: 10;                /* card BELOW text on mobile */
+    }
+    .hero-name {
+      font-size: 1.75rem;
     }
     .hero-title {
       font-size: 2.2rem;

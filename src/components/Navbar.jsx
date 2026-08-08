@@ -50,15 +50,12 @@ const TextRoll = ({ children, center = false }) => (
 );
 
 const navItems = [
-  { label: 'Hero', id: 'hero' },
-  { label: 'Journey', id: 'journey' },
+  { label: 'Home', id: 'hero' },
+  { label: 'About', id: 'journey' },
   { label: 'Experience', id: 'experience' },
-  { label: 'Tech Stack', id: 'tech-stack' },
-  { label: 'Education', id: 'education' },
-  { label: 'Works', id: 'works' },
-  { label: 'Blogs', id: 'blogs' },
-  { label: 'FAQ', id: 'faq' },
-  { label: 'Get in Touch', id: 'get-in-touch' },
+  { label: 'Skills', id: 'tech-stack' },
+  { label: 'Work', id: 'works' },
+  { label: 'Have an Idea?', id: 'get-in-touch' },
 ];
 
 export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
@@ -141,6 +138,16 @@ export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
               <TextRoll center={true}>{item.label}</TextRoll>
             </motion.a>
           ))}
+          <motion.a
+            href={portfolioConfig.personalInfo.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            initial="initial"
+            whileHover="hovered"
+          >
+            <TextRoll center={true}>Resume</TextRoll>
+          </motion.a>
         </div>
 
         {/* Mobile Navigation controls */}
@@ -171,6 +178,16 @@ export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
               <TextRoll center={true}>{item.label}</TextRoll>
             </motion.a>
           ))}
+          <motion.a
+            href={portfolioConfig.personalInfo.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-nav-link"
+            initial="initial"
+            whileHover="hovered"
+          >
+            <TextRoll center={true}>Resume</TextRoll>
+          </motion.a>
         </div>
       </div>
 
@@ -182,43 +199,33 @@ export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
           left: 50%;
           transform: translateX(-50%);
           width: 100%;
-          height: 80px;
+          max-width: 1200px;
           z-index: 1000;
-          display: flex;
-          align-items: center;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          border: 1px solid transparent;
-          border-bottom: 1px solid transparent;
-          color: hsl(var(--text-primary)) !important;
-          background: transparent;
+          padding: 1.5rem 2rem;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @media (min-width: 969px) {
-          .fixed-navbar {
-            max-width: 1150px;
-          }
-        }
+        
         .fixed-navbar.scrolled {
-          height: 64px;
-          background: var(--glass-bg) !important;
-          backdrop-filter: blur(8px) saturate(140%);
-          -webkit-backdrop-filter: blur(8px) saturate(140%);
-          border-bottom: 1px solid var(--glass-border);
+          padding: 1rem 1.5rem;
+        }
+
+        .nav-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          background: var(--glass-bg);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border: 1px solid var(--glass-border);
+          border-radius: var(--border-radius-lg);
+          padding: 0.75rem 1.5rem;
           box-shadow: var(--shadow-sm);
         }
-        @media (min-width: 969px) {
-          .fixed-navbar.scrolled {
-            max-width: 1080px;
-            top: 16px;
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-md);
-          }
-        }
-        .fixed-navbar.menu-open {
+
+        .fixed-navbar.menu-open .nav-container {
           height: 80px;
-          top: 0;
-          max-width: 100%;
-          border-radius: 0;
+          border-radius: var(--border-radius-lg);
           background: var(--glass-bg) !important;
           backdrop-filter: blur(8px) saturate(140%);
           -webkit-backdrop-filter: blur(8px) saturate(140%);
@@ -235,12 +242,6 @@ export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
         .fixed-navbar.scrolled .nav-logo {
           color: hsl(var(--text-primary)) !important;
         }
-        .nav-container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-        }
         .nav-logo {
           font-family: var(--font-heading);
           font-size: 1.5rem;
@@ -253,19 +254,16 @@ export const Navbar = React.memo(({ theme, toggleTheme, onNavigateHome }) => {
         }
         .nav-links-desktop {
           display: flex;
+          gap: 1.5rem;
           align-items: center;
-          gap: 1.25rem;
         }
         .nav-link {
-          font-family: var(--font-mono);
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           font-weight: 500;
           color: hsl(var(--text-secondary));
-          position: relative;
-          padding: 0.5rem 0;
           transition: color var(--transition-fast);
-          white-space: nowrap;
-          flex-shrink: 0;
+          position: relative;
+          padding: 0.5rem 0.25rem;
         }
         .nav-link:hover {
           color: hsl(var(--text-primary));

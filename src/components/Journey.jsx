@@ -21,13 +21,13 @@ export const Journey = () => {
               </div>
               <div className="slide-body">
                 <h2 className="slide-title">
-                  <FramedText>Who I Am</FramedText>
+                  <FramedText>Software Developer</FramedText>
                 </h2>
                 <p className="slide-text">
-                  I am a passionate software engineer with 3+ years of experience designing and implementing scalable web applications. I love building solutions that make a tangible difference in people's lives.
+                  I am a software developer who builds practical, real-world applications. I enjoy understanding requirements and turning them into working software that solves actual problems.
                 </p>
                 <p className="slide-text">
-                  I thrive in collaborative environments, solving complex technical challenges, and writing clean, maintainable, and well-tested code.
+                  Through independent projects and professional internship experience, I have developed the ability to take an application from concept to a shipped, working product.
                 </p>
               </div>
             </div>
@@ -45,37 +45,37 @@ export const Journey = () => {
               </div>
               <div className="slide-body">
                 <h2 className="slide-title">
-                  <FramedText>Architectural Focus</FramedText>
+                  <FramedText>Mobile & Web</FramedText>
                 </h2>
                 <p className="slide-text">
-                  My expertise spans across frontend engineering (React, Next.js, responsive layout architectures) and backend systems (Node.js, Express, PostgreSQL, REST/GraphQL APIs).
+                  My strongest areas are mobile development with Flutter and web development with React. I build responsive, clean user interfaces backed by robust business logic.
                 </p>
                 <p className="slide-text">
-                  In my coding process, I prioritize clean semantics, performance optimization, and scalable styling patterns to craft delightful and accessible user interfaces.
+                  I also have strong experience with backend and data integration using Supabase, PostgreSQL, and REST APIs, allowing me to build end-to-end solutions.
                 </p>
               </div>
             </div>
           </div>
         </FlowSection>
 
-        {/* Slide 3: Philosophy */}
+        {/* Slide 3: Professional Experience */}
         <FlowSection className="journey-slide slide-3">
           <div className="slide-glow glow-orange"></div>
           <div className="slide-card light-panel">
             <div className="slide-content-container">
               <div className="slide-header">
-                <span className="slide-index">03 / PHILOSOPHY</span>
+                <span className="slide-index">03 / PROFESSIONAL EXPERIENCE</span>
                 <Compass size={28} className="slide-icon" />
               </div>
               <div className="slide-body">
                 <h2 className="slide-title">
-                  <FramedText>My Philosophy</FramedText>
+                  <FramedText>Real-world Impact</FramedText>
                 </h2>
                 <p className="slide-text">
-                  I believe in writing software that is not only functional, but clean, elegant, and maintainable. I focus on optimizing performance at every level, ensuring quick page loads and smooth user experiences.
+                  During my recent Software Development Internship, I engineered a production-ready mobile application for Regenboog India Foundation to streamline their student sponsorship workflows.
                 </p>
                 <p className="slide-text">
-                  Outside of core engineering, I love exploring open-source projects, writing tech articles, and contributing back to developer communities.
+                  This involved collaborating with international stakeholders, translating complex requirements into UI, and integrating secure backend data systems.
                 </p>
               </div>
             </div>
@@ -88,29 +88,25 @@ export const Journey = () => {
           <div className="slide-card light-panel">
             <div className="slide-content-container">
               <div className="slide-header">
-                <span className="slide-index">04 / IMPACT METRICS</span>
+                <span className="slide-index">04 / ACHIEVEMENTS</span>
                 <Award size={28} className="slide-icon" />
               </div>
               <div className="slide-body">
                 <h2 className="slide-title">
-                  <FramedText>Metrics & Commits</FramedText>
+                  <FramedText>Proof of Work</FramedText>
                 </h2>
                 <p className="slide-text">
-                  Over the course of my career, I've designed and delivered robust applications that combine visual excellence with solid backend performance.
+                  I have built multiple complete applications and continuously refine my software engineering skills through competitive challenges and real-world implementation.
                 </p>
                 
-                <div className="journey-stats-grid">
+                <div className="journey-stats-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
                   <div className="journey-stat-card">
-                    <span className="j-stat-num">3+</span>
-                    <span className="j-stat-lbl">Years Experience</span>
+                    <span className="j-stat-num" style={{ fontSize: '1.5rem' }}>1st Runner-Up</span>
+                    <span className="j-stat-lbl">Code Master National Level (300+ participants)</span>
                   </div>
                   <div className="journey-stat-card">
-                    <span className="j-stat-num">15+</span>
-                    <span className="j-stat-lbl">Projects Completed</span>
-                  </div>
-                  <div className="journey-stat-card">
-                    <span className="j-stat-num">500+</span>
-                    <span className="j-stat-lbl">GitHub Commits</span>
+                    <span className="j-stat-num" style={{ fontSize: '1.5rem' }}>4+</span>
+                    <span className="j-stat-lbl">Major Projects & Internship App</span>
                   </div>
                 </div>
               </div>
@@ -171,19 +167,17 @@ export const Journey = () => {
           z-index: 1;
           border: 1px solid rgba(0, 0, 0, 0.05);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-          background: rgba(255, 255, 255, 0.75); /* Glassmorphic background */
-          backdrop-filter: blur(8px) saturate(120%);
-          -webkit-backdrop-filter: blur(8px) saturate(120%);
+          background: rgba(255, 255, 255, 0.95);
           border-radius: var(--border-radius-md);
           margin: 0;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
+          padding: 2.5rem;
         }
         .slide-content-container {
           width: 100%;
-          max-width: 800px;
+          max-width: 900px;
           display: flex;
           flex-direction: column;
           position: relative;

@@ -5,10 +5,10 @@ export const ScrollReveal = ({
   children,
   containerClassName = "",
   textClassName = "",
-  enableBlur = true,
-  baseOpacity = 0.15,
-  baseRotation = 2,
-  blurStrength = 4,
+  enableBlur = false,
+  baseOpacity = 0,
+  baseRotation = 0,
+  blurStrength = 0,
   staggerDelay = 0.03,
   threshold = 0.3,
   duration = 0.6,
@@ -68,12 +68,10 @@ export const ScrollReveal = ({
   const wordVariants = {
     hidden: {
       opacity: baseOpacity,
-      filter: enableBlur ? `blur(${blurStrength}px)` : "blur(0px)",
-      y: 12,
+      y: 20,
     },
     visible: {
       opacity: 1,
-      filter: "blur(0px)",
       y: 0,
       transition: {
         ...springConfig,
