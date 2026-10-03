@@ -5,6 +5,7 @@ import { motion, useTransform, useMotionTemplate, useMotionValue, useSpring } fr
 import { portfolioConfig } from '../config/portfolioConfig';
 import { GithubIcon } from './SocialIcons';
 import { FramedText } from './ui/FramedText';
+import ButtonWithIconDemo from './ui/button-witn-icon';
 
 const getCategoryIcon = (category) => {
   switch (category.toLowerCase()) {
@@ -403,13 +404,16 @@ export const Projects = () => {
       {/* Project CTA */}
       <div className="project-cta-section container" style={{ textAlign: 'center', padding: '6rem 1rem', borderTop: 'none', marginTop: '2rem' }}>
         <h3 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', color: '#09090b' }}>Have a project in mind?</h3>
-        <p style={{ fontSize: '1.1rem', color: '#4b5563', marginBottom: '2rem' }}>Let's turn your idea into something real.</p>
-        <button onClick={() => {
-          const el = document.getElementById('get-in-touch');
-          if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
-        }} className="btn btn-primary" style={{ margin: '0 auto' }}>
-          Tell Me About Your Idea <ArrowRight size={18} />
-        </button>
+        <p style={{ fontSize: '1.1rem', color: '#4b5563', marginBottom: '2.5rem' }}>Let's turn your idea into something real.</p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ButtonWithIconDemo 
+            text="Tell Me About Your Idea"
+            onClick={() => {
+              const el = document.getElementById('get-in-touch');
+              if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+            }}
+          />
+        </div>
       </div>
 
       <style>{`
