@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { ExternalLink, X, ChevronRight, Folder, Smartphone, Globe, Monitor, ArrowRight } from 'lucide-react';
 import { motion, useTransform, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import { portfolioConfig } from '../config/portfolioConfig';
@@ -19,7 +20,7 @@ const getCategoryIcon = (category) => {
   }
 };
 
-const ProjectCardContent = ({ project }) => (
+const ProjectCardContent = ({ project, onExploreClick }) => (
   <>
     <div className="card-top-glow"></div>
     <div className="card-header">
@@ -42,15 +43,25 @@ const ProjectCardContent = ({ project }) => (
       )}
     </div>
     <div className="card-footer">
-      <span className="explore-btn">
+      <button 
+        type="button" 
+        className="explore-btn"
+        onClick={(e) => {
+          if (onExploreClick) {
+            e.stopPropagation();
+            onExploreClick();
+          }
+        }}
+        aria-label={`Explore details for ${project.title}`}
+      >
         Explore Details <ChevronRight size={14} />
-      </span>
+      </button>
     </div>
   </>
 );
 
 // Single Transformed Card inside the Circular Gallery
-const CardTransformed = ({ project, index, totalProjects, smoothRotation, onDetailsClick }) => {
+const CardTransformed = ({ project, index, totalProjects, smoothRotation, onDetailsClick, onExploreClick }) => {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -107,9 +118,9 @@ const CardTransformed = ({ project, index, totalProjects, smoothRotation, onDeta
       layout="position"
       style={cardStyle}
       className="circular-project-card"
-      onClick={() => onDetailsClick()}
+      onClick={onDetailsClick}
     >
-      <ProjectCardContent project={project} />
+      <ProjectCardContent project={project} onExploreClick={onExploreClick} />
     </motion.div>
   );
 };
@@ -119,7 +130,8 @@ export const Projects = () => {
   const filteredProjects = allProjects;
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
+  const startXRef = useRef(0);
+  const dragStartPosRef = useRef({ x: 0, y: 0 });
   const totalDragRef = useRef(0);
 
   const scrollRef = useRef(null);
@@ -134,6 +146,17 @@ export const Projects = () => {
   const rotationOffset = useMotionValue(0);
   const smoothRotation = useSpring(rotationOffset, { stiffness: 200, damping: 30 });
   const discTransform = useMotionTemplate`translate(-50%, -50%) translate(0, ${isMobile ? 420 : 520}px) rotate(${-smoothRotation}deg)`;
+
+  // Lock body scroll when modal is active to prevent page scrolling behind it
+  useEffect(() => {
+    if (activeModalProject) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [activeModalProject]);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -152,7 +175,8 @@ export const Projects = () => {
     // Only handle left click or touch
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     setIsDragging(true);
-    setStartX(e.clientX);
+    startXRef.current = e.clientX;
+    dragStartPosRef.current = { x: e.clientX, y: e.clientY };
     totalDragRef.current = 0;
     document.body.style.userSelect = 'none';
   };
@@ -160,7 +184,7 @@ export const Projects = () => {
   const handlePointerMove = (e) => {
     if (!isDragging || isMobile) return;
     e.preventDefault(); // Prevent text selection/scrolling on touch
-    const deltaX = startX - e.clientX;
+    const deltaX = startXRef.current - e.clientX;
     if (Math.abs(deltaX) > 0) {
       totalDragRef.current += Math.abs(deltaX);
       
@@ -172,7 +196,7 @@ export const Projects = () => {
       if (newRotation > maxRotation) newRotation = maxRotation;
 
       rotationOffset.set(newRotation);
-      setStartX(e.clientX);
+      startXRef.current = e.clientX;
     }
   };
 
@@ -225,10 +249,17 @@ export const Projects = () => {
                   index={idx}
                   totalProjects={filteredProjects.length}
                   smoothRotation={smoothRotation}
-                  onDetailsClick={() => {
-                    if (totalDragRef.current < 10) {
+                  onDetailsClick={(e) => {
+                    // Check if pointer dragged or clicked cleanly
+                    const moveDist = e?.clientX && dragStartPosRef.current 
+                      ? Math.hypot(e.clientX - dragStartPosRef.current.x, e.clientY - dragStartPosRef.current.y)
+                      : totalDragRef.current;
+                    if (moveDist < 15 || totalDragRef.current < 15) {
                       setActiveModalProject(project);
                     }
+                  }}
+                  onExploreClick={() => {
+                    setActiveModalProject(project);
                   }}
                 />
               ))}
@@ -252,8 +283,6 @@ export const Projects = () => {
               <FramedText>Featured Work</FramedText>
             </h2>
             <p className="gallery-section-subtitle">Swipe through my featured applications.</p>
-            
-
           </div>
 
           <div className="mobile-slider-area">
@@ -263,57 +292,102 @@ export const Projects = () => {
                 className="circular-project-card mobile-slide-card"
                 onClick={() => setActiveModalProject(project)}
               >
-                <ProjectCardContent project={project} />
+                <ProjectCardContent 
+                  project={project} 
+                  onExploreClick={() => setActiveModalProject(project)}
+                />
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Project Details Modal Popups */}
-      {activeModalProject && (
-        <div className="modal-overlay" onClick={() => setActiveModalProject(null)}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={() => setActiveModalProject(null)} aria-label="Close modal">
-              <X size={20} />
-            </button>
+      {/* Project Details Modal Popup via React Portal (Guarantees top stacking context) */}
+      {activeModalProject && typeof document !== 'undefined' && createPortal(
+        <div 
+          className="project-modal-overlay" 
+          onClick={() => setActiveModalProject(null)}
+          data-lenis-prevent
+        >
+          <div 
+            className="project-modal-dialog" 
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-project-title"
+            data-lenis-prevent
+          >
+            {/* Modal Header: Sticky at top so Title and Close button are NEVER obscured */}
+            <div className="project-modal-header">
+              <div className="project-modal-header-info">
+                <span className="project-modal-badge">{activeModalProject.category}</span>
+                <h3 id="modal-project-title" className="project-modal-title">{activeModalProject.title}</h3>
+                <p className="project-modal-subtitle">{activeModalProject.subtitle}</p>
+              </div>
+              <button 
+                type="button" 
+                className="project-modal-close" 
+                onClick={() => setActiveModalProject(null)} 
+                aria-label="Close project details"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
-            <div className="modal-inner">
-              <span className="modal-category">{activeModalProject.category}</span>
-              <h3 className="modal-title">{activeModalProject.title}</h3>
-              <h4 className="modal-subtitle">{activeModalProject.subtitle}</h4>
-              
-              <div className="modal-body-layout">
-                <div className="modal-description-section">
-                  <h5 className="modal-section-heading">Overview</h5>
-                  <p className="modal-text">{activeModalProject.longDescription}</p>
-                  
-                  <div className="modal-tags">
-                    {activeModalProject.tags.map((tag) => (
-                      <span key={tag} className="tag-pill">{tag}</span>
-                    ))}
+            {/* Modal Body with internal smooth scrolling */}
+            <div className="project-modal-body" data-lenis-prevent>
+              <div className="project-modal-grid">
+                {/* Left Column: Overview, Tags, Links */}
+                <div className="project-modal-main">
+                  <div className="project-modal-section">
+                    <h4 className="project-modal-heading">Overview</h4>
+                    <p className="project-modal-desc">{activeModalProject.longDescription}</p>
                   </div>
 
-                  <div className="modal-links">
+                  <div className="project-modal-section">
+                    <h4 className="project-modal-heading">Technologies</h4>
+                    <div className="project-modal-tags">
+                      {activeModalProject.tags.map((tag) => (
+                        <span key={tag} className="project-tag-pill">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="project-modal-actions">
                     {activeModalProject.githubUrl && (
-                      <a href={activeModalProject.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                        <GithubIcon size={18} /> View Source Code
+                      <a 
+                        href={activeModalProject.githubUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-action-btn project-btn-secondary"
+                      >
+                        <GithubIcon size={18} />
+                        <span>View Source Code</span>
                       </a>
                     )}
                     {activeModalProject.liveUrl && (
-                      <a href={activeModalProject.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                        <ExternalLink size={18} /> Visit Live Project
+                      <a 
+                        href={activeModalProject.liveUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-action-btn project-btn-primary"
+                      >
+                        <ExternalLink size={18} />
+                        <span>Visit Live Project</span>
                       </a>
                     )}
                   </div>
                 </div>
 
-                <div className="modal-features-section">
-                  <h5 className="modal-section-heading">Key Features</h5>
-                  <ul className="modal-features-list">
+                {/* Right Column: Key Features */}
+                <div className="project-modal-sidebar">
+                  <h4 className="project-modal-heading">Key Features</h4>
+                  <ul className="project-features-list">
                     {activeModalProject.features.map((feature, idx) => (
-                      <li key={idx} className="feature-bullet">
-                        <ChevronRight size={14} className="bullet-icon" />
+                      <li key={idx} className="project-feature-item">
+                        <div className="feature-icon-wrapper">
+                          <ChevronRight size={14} className="feature-chevron" />
+                        </div>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -322,7 +396,8 @@ export const Projects = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Project CTA */}
@@ -566,13 +641,19 @@ export const Projects = () => {
           font-size: 0.85rem;
           font-weight: 700;
           color: hsl(var(--primary));
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 0.2rem;
-          transition: color 0.2s;
+          gap: 0.25rem;
+          background: none;
+          border: none;
+          padding: 0.2rem 0.5rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border-radius: var(--border-radius-sm);
         }
-        .circular-project-card:hover .explore-btn {
+        .explore-btn:hover {
           color: hsl(var(--primary-hover));
+          background: rgba(249, 115, 22, 0.08);
         }
 
         /* Mouse Scroll Indicator */
@@ -618,145 +699,315 @@ export const Projects = () => {
           text-transform: uppercase;
         }
 
-        /* Modal Styles */
-        .modal-overlay {
+        /* Project Modal System (Responsive on Windows, Mac & Mobile) */
+        .project-modal-overlay {
           position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          z-index: 2000;
+          inset: 0;
+          width: 100vw;
+          height: 100vh;
+          height: 100dvh;
+          background: rgba(9, 9, 11, 0.75);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          z-index: 999999;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
+          padding: 1.5rem 1rem;
           overflow-y: auto;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .modal-content {
+
+        @keyframes modalFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .project-modal-dialog {
           width: 100%;
-          max-width: 800px;
+          max-width: 840px;
+          max-height: calc(100dvh - 3rem);
+          background: #ffffff;
+          border-radius: 20px;
+          box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+          display: flex;
+          flex-direction: column;
           position: relative;
-          padding: 2.5rem;
-          background: rgba(255, 255, 255, 1) !important;
-          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12) !important;
-          border: 1px solid rgba(0, 0, 0, 0.08) !important;
-          border-radius: var(--border-radius-md);
-          animation: modalGrow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          overflow: hidden;
+          margin: auto;
+          animation: modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        @keyframes modalGrow {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
+
+        @keyframes modalScaleUp {
+          from {
+            opacity: 0;
+            transform: scale(0.96) translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
         }
-        .modal-close-btn {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          color: #71717a !important;
-          transition: color var(--transition-fast);
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
+
+        /* Modal Header: Sticky at top so Title and Close button are NEVER obscured */
+        .project-modal-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 1.5rem;
+          padding: 2rem 2.25rem 1.25rem 2.25rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+          background: #ffffff;
+          flex-shrink: 0;
         }
-        .modal-close-btn:hover {
-          color: #09090b !important;
+
+        .project-modal-header-info {
+          flex: 1;
+          min-width: 0;
         }
-        .modal-category {
-          font-size: 0.8rem;
+
+        .project-modal-badge {
+          display: inline-block;
+          font-size: 0.75rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 0.75px;
           color: hsl(var(--primary));
-          margin-bottom: 0.25rem;
-          display: block;
+          margin-bottom: 0.35rem;
         }
-        .modal-title {
-          font-size: 2rem;
+
+        .project-modal-title {
+          font-size: 1.85rem;
           font-weight: 800;
           color: #09090b !important;
+          letter-spacing: -0.5px;
+          line-height: 1.2;
+          margin-bottom: 0.35rem;
         }
-        .modal-subtitle {
-          font-size: 1.1rem;
-          color: #4b5563 !important;
+
+        .project-modal-subtitle {
+          font-size: 1.05rem;
           font-weight: 500;
-          margin-bottom: 2rem;
+          color: #4b5563 !important;
+          line-height: 1.4;
+          margin: 0;
         }
-        .modal-body-layout {
+
+        .project-modal-close {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 42px;
+          height: 42px;
+          min-width: 42px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.04);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          color: #52525b;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          flex-shrink: 0;
+          margin-top: -0.25rem;
+          margin-right: -0.25rem;
+        }
+
+        .project-modal-close:hover {
+          background: rgba(0, 0, 0, 0.08);
+          color: #09090b;
+          transform: scale(1.06);
+        }
+
+        .project-modal-close:active {
+          transform: scale(0.94);
+        }
+
+        /* Modal Body: Smooth internal scrolling */
+        .project-modal-body {
+          padding: 1.75rem 2.25rem 2.25rem 2.25rem;
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          flex: 1;
+        }
+
+        .project-modal-body::-webkit-scrollbar {
+          width: 6px;
+        }
+        .project-modal-body::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .project-modal-body::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.12);
+          border-radius: 9999px;
+        }
+        .project-modal-body::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.22);
+        }
+
+        .project-modal-grid {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
+          grid-template-columns: 1.25fr 1fr;
           gap: 2.5rem;
+          align-items: start;
         }
-        .modal-section-heading {
-          font-size: 1rem;
+
+        .project-modal-main {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .project-modal-section {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .project-modal-heading {
+          font-size: 0.9rem;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin-bottom: 1rem;
           color: #09090b !important;
+          margin-bottom: 0.75rem;
         }
-        .modal-text {
+
+        .project-modal-desc {
           font-size: 0.975rem;
+          line-height: 1.65;
           color: #27272a !important;
-          line-height: 1.6;
-          margin-bottom: 1.5rem;
+          margin: 0;
         }
-        .modal-tags {
+
+        .project-modal-tags {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
-          margin-bottom: 2rem;
         }
-        .tag-pill {
+
+        .project-tag-pill {
           font-size: 0.75rem;
           font-weight: 600;
           background: rgba(0, 0, 0, 0.04);
           border: 1px solid rgba(0, 0, 0, 0.08);
           color: #4b5563;
-          padding: 0.25rem 0.75rem;
-          border-radius: var(--border-radius-full);
+          padding: 0.3rem 0.8rem;
+          border-radius: 9999px;
           transition: all var(--transition-fast);
         }
-        .tag-pill:hover {
+
+        .project-tag-pill:hover {
           background: rgba(249, 115, 22, 0.08);
           color: hsl(var(--primary));
-          border-color: rgba(249, 115, 22, 0.2);
+          border-color: rgba(249, 115, 22, 0.25);
         }
-        .modal-links {
+
+        .project-modal-actions {
           display: flex;
-          gap: 1rem;
+          flex-wrap: wrap;
+          gap: 0.85rem;
+          margin-top: 0.5rem;
         }
-        .modal-links .btn {
-          padding: 0.65rem 1.25rem;
-          font-size: 0.85rem;
+
+        .project-action-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.4rem;
+          font-size: 0.875rem;
+          font-weight: 600;
+          border-radius: var(--border-radius-sm);
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-links .btn-secondary {
-          border: 1px solid rgba(0, 0, 0, 0.1) !important;
-          color: #27272a !important;
-          background: rgba(0, 0, 0, 0.02) !important;
+
+        .project-btn-primary {
+          background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+          color: #ffffff !important;
+          border: none;
+          box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
         }
-        .modal-links .btn-secondary:hover {
-          background: rgba(0, 0, 0, 0.06) !important;
+
+        .project-btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45);
+        }
+
+        .project-btn-secondary {
+          background: #f4f4f5;
+          color: #18181b !important;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .project-btn-secondary:hover {
+          background: #e4e4e7;
           color: #09090b !important;
+          transform: translateY(-2px);
         }
-        .modal-features-list {
+
+        .project-modal-sidebar {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
         }
-        .feature-bullet {
+
+        .project-features-list {
           display: flex;
-          gap: 0.5rem;
-          font-size: 0.95rem;
-          color: #27272a !important;
-          line-height: 1.5;
+          flex-direction: column;
+          gap: 0.85rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
         }
-        .bullet-icon {
+
+        .project-feature-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.65rem;
+          font-size: 0.95rem;
+          line-height: 1.55;
+          color: #27272a !important;
+        }
+
+        .feature-icon-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: rgba(249, 115, 22, 0.1);
           color: hsl(var(--primary));
           flex-shrink: 0;
-          margin-top: 0.2rem;
+          margin-top: 0.15rem;
+        }
+
+        /* Windows & Short Height Screen Optimization */
+        @media (max-height: 720px) {
+          .project-modal-overlay {
+            padding: 0.75rem 1rem;
+          }
+          .project-modal-dialog {
+            max-height: calc(100dvh - 1.5rem);
+          }
+          .project-modal-header {
+            padding: 1rem 1.5rem 0.75rem 1.5rem;
+          }
+          .project-modal-title {
+            font-size: 1.45rem;
+            margin-bottom: 0.2rem;
+          }
+          .project-modal-subtitle {
+            font-size: 0.9rem;
+          }
+          .project-modal-body {
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+          }
+          .project-modal-main {
+            gap: 1rem;
+          }
         }
 
         @media (max-width: 768px) {
@@ -793,48 +1044,52 @@ export const Projects = () => {
           .card-desc {
             font-size: 0.8rem;
           }
-          .modal-body-layout {
+          /* Mobile Modal Adaptations */
+          .project-modal-overlay {
+            padding: 0.75rem;
+            align-items: flex-end;
+          }
+          .project-modal-dialog {
+            max-height: calc(100dvh - 1.5rem);
+            border-radius: 20px 20px 16px 16px;
+            margin: 0 auto;
+          }
+          .project-modal-header {
+            padding: 1.25rem 1.25rem 1rem 1.25rem;
+            gap: 1rem;
+          }
+          .project-modal-title {
+            font-size: 1.35rem;
+          }
+          .project-modal-subtitle {
+            font-size: 0.9rem;
+          }
+          .project-modal-close {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+          }
+          .project-modal-body {
+            padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+          }
+          .project-modal-grid {
             grid-template-columns: 1fr;
-            gap: 1.25rem;
+            gap: 1.5rem;
           }
-          .modal-overlay {
-            padding: 1.5rem 1rem;
-          }
-          .modal-content {
-            padding: 1.5rem;
-            max-height: 85vh;
-            overflow-y: auto;
-          }
-          .modal-title {
-            font-size: 1.5rem;
-          }
-          .modal-subtitle {
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-          }
-          .modal-section-heading {
-            font-size: 0.85rem;
-            margin-bottom: 0.75rem;
-          }
-          .modal-text {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-          }
-          .feature-bullet {
-            font-size: 0.85rem;
-          }
-          .tag-pill {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-          }
-          .modal-links {
+          .project-modal-actions {
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.65rem;
           }
-          .modal-links .btn {
-            padding: 0.6rem 1rem;
-            font-size: 0.85rem;
-            justify-content: center;
+          .project-action-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+          }
+          .project-feature-item {
+            font-size: 0.875rem;
+          }
+          .project-modal-desc {
+            font-size: 0.9rem;
           }
           /* Native Mobile Slider Additions */
           .mobile-projects-container {
