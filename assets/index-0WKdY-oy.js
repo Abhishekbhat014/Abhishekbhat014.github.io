@@ -1968,7 +1968,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             padding: 1.5rem;
           }
         }
-      `})]})},lS=e=>{switch(e.toLowerCase()){case`mobile`:return(0,G.jsx)(Re,{size:28});case`frontend`:return(0,G.jsx)(B,{size:28});case`full-stack`:case`web app`:return(0,G.jsx)(we,{size:28});default:return(0,G.jsx)(Ce,{size:28})}},uS=({project:e})=>(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(`div`,{className:`card-top-glow`}),(0,G.jsxs)(`div`,{className:`card-header`,children:[(0,G.jsx)(`span`,{className:`card-badge`,children:e.category}),(0,G.jsx)(`div`,{className:`card-icon-box`,children:lS(e.category)})]}),(0,G.jsxs)(`div`,{className:`card-body`,children:[(0,G.jsx)(`span`,{className:`card-subtitle`,children:e.subtitle}),(0,G.jsx)(`h3`,{className:`card-title`,children:e.title}),(0,G.jsx)(`p`,{className:`card-desc`,children:e.description})]}),(0,G.jsxs)(`div`,{className:`card-tech`,children:[e.tags.slice(0,3).map(e=>(0,G.jsx)(`span`,{className:`tech-tag`,children:e},e)),e.tags.length>3&&(0,G.jsxs)(`span`,{className:`tech-tag-more`,children:[`+`,e.tags.length-3]})]}),(0,G.jsx)(`div`,{className:`card-footer`,children:(0,G.jsxs)(`span`,{className:`explore-btn`,children:[`Explore Details `,(0,G.jsx)(he,{size:14})]})})]}),dS=({project:e,index:t,totalProjects:n,smoothRotation:r,onDetailsClick:i})=>{let[a,o]=(0,b.useState)(!1);(0,b.useEffect)(()=>{let e=()=>o(window.innerWidth<=768);return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let s=t*18,c=Af(r,e=>s-e),l=Af(c,e=>{let t=e%360;return t>180&&(t-=360),t<-180&&(t+=360),t}),u=Af(l,[-45,-20,0,20,45],[.7,.85,1,.85,.7]),d=Af(l,[-45,-20,0,20,45],[.15,.5,1,.5,.15]),f=Af(l,[-45,-20,0,20,45],[10,4,0,4,10]),p=Af(l,e=>Math.round((100-Math.abs(e))*10)),m=Of`blur(${f}px)`,h=Of`translate(-50%, -50%) rotate(${c}deg) scale(${u})`,g={position:`absolute`,left:`50%`,top:`50%`,width:a?`260px`:`340px`,height:a?`360px`:`420px`,transformOrigin:`center ${a?420:560}px`,transform:h,opacity:d,zIndex:p,filter:m,backfaceVisibility:`hidden`};return(0,G.jsx)(Pd.div,{layout:`position`,style:g,className:`circular-project-card`,onClick:()=>i(),children:(0,G.jsx)(uS,{project:e})})},fS=()=>{let e=Rf.projects,[t,n]=(0,b.useState)(null),[r,i]=(0,b.useState)(!1),[a,o]=(0,b.useState)(0),s=(0,b.useRef)(0),c=(0,b.useRef)(null),[l,u]=(0,b.useState)(!1);(0,b.useEffect)(()=>{let e=()=>u(window.innerWidth<=768);return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let d=Ef(0),f=Pf(d,{stiffness:200,damping:30}),p=Of`translate(-50%, -50%) translate(0, ${l?420:520}px) rotate(${-f}deg)`;(0,b.useEffect)(()=>{let e=e=>{e.key===`Escape`&&n(null)};return window.addEventListener(`keydown`,e),()=>window.removeEventListener(`keydown`,e)},[]);let m=e=>{l||e.pointerType===`mouse`&&e.button!==0||(i(!0),o(e.clientX),s.current=0,document.body.style.userSelect=`none`)},h=t=>{if(!r||l)return;t.preventDefault();let n=a-t.clientX;if(Math.abs(n)>0){s.current+=Math.abs(n);let r=(e.length-1)*18,i=d.get()+n*.35;i<0&&(i=0),i>r&&(i=r),d.set(i),o(t.clientX)}},g=()=>{r&&(i(!1),document.body.style.userSelect=``)};return(0,G.jsxs)(`section`,{id:`works`,className:`section projects-section`,children:[l?(0,G.jsxs)(`div`,{className:`mobile-projects-container`,children:[(0,G.jsxs)(`div`,{className:`gallery-header mobile-gallery-header`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Featured Work`})}),(0,G.jsx)(`p`,{className:`gallery-section-subtitle`,children:`Swipe through my featured applications.`})]}),(0,G.jsx)(`div`,{className:`mobile-slider-area`,children:e.map(e=>(0,G.jsx)(`div`,{className:`circular-project-card mobile-slide-card`,onClick:()=>n(e),children:(0,G.jsx)(uS,{project:e})},e.id))})]}):(0,G.jsx)(`div`,{ref:c,className:`circular-gallery-container`,children:(0,G.jsxs)(`div`,{className:`circular-gallery-sticky`,children:[(0,G.jsxs)(`div`,{className:`gallery-header`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Featured Work`})}),(0,G.jsx)(`p`,{className:`gallery-section-subtitle`,children:`Click and drag horizontally to spin the wheel and explore my featured applications.`})]}),(0,G.jsxs)(`div`,{className:`gallery-wheel-area`,onPointerDown:m,onPointerMove:h,onPointerUp:g,onPointerLeave:g,onPointerCancel:g,style:{cursor:r?`grabbing`:`grab`,touchAction:`none`},children:[(0,G.jsx)(Pd.div,{className:`gallery-wheel-disc`,style:{transform:p}}),e.map((t,r)=>(0,G.jsx)(dS,{project:t,index:r,totalProjects:e.length,smoothRotation:f,onDetailsClick:()=>{s.current<10&&n(t)}},t.id))]}),(0,G.jsxs)(`div`,{className:`scroll-indicator`,children:[(0,G.jsx)(`div`,{className:`mouse`,children:(0,G.jsx)(`div`,{className:`wheel`})}),(0,G.jsx)(`span`,{className:`scroll-text`,children:`Drag to spin`})]})]})}),t&&(0,G.jsx)(`div`,{className:`modal-overlay`,onClick:()=>n(null),children:(0,G.jsxs)(`div`,{className:`modal-content glass-panel`,onClick:e=>e.stopPropagation(),children:[(0,G.jsx)(`button`,{className:`modal-close-btn`,onClick:()=>n(null),"aria-label":`Close modal`,children:(0,G.jsx)(Ve,{size:20})}),(0,G.jsxs)(`div`,{className:`modal-inner`,children:[(0,G.jsx)(`span`,{className:`modal-category`,children:t.category}),(0,G.jsx)(`h3`,{className:`modal-title`,children:t.title}),(0,G.jsx)(`h4`,{className:`modal-subtitle`,children:t.subtitle}),(0,G.jsxs)(`div`,{className:`modal-body-layout`,children:[(0,G.jsxs)(`div`,{className:`modal-description-section`,children:[(0,G.jsx)(`h5`,{className:`modal-section-heading`,children:`Overview`}),(0,G.jsx)(`p`,{className:`modal-text`,children:t.longDescription}),(0,G.jsx)(`div`,{className:`modal-tags`,children:t.tags.map(e=>(0,G.jsx)(`span`,{className:`tag-pill`,children:e},e))}),(0,G.jsxs)(`div`,{className:`modal-links`,children:[t.githubUrl&&(0,G.jsxs)(`a`,{href:t.githubUrl,target:`_blank`,rel:`noopener noreferrer`,className:`btn btn-secondary`,children:[(0,G.jsx)(Uf,{size:18}),` View Source Code`]}),t.liveUrl&&(0,G.jsxs)(`a`,{href:t.liveUrl,target:`_blank`,rel:`noopener noreferrer`,className:`btn btn-primary`,children:[(0,G.jsx)(Se,{size:18}),` Visit Live Project`]})]})]}),(0,G.jsxs)(`div`,{className:`modal-features-section`,children:[(0,G.jsx)(`h5`,{className:`modal-section-heading`,children:`Key Features`}),(0,G.jsx)(`ul`,{className:`modal-features-list`,children:t.features.map((e,t)=>(0,G.jsxs)(`li`,{className:`feature-bullet`,children:[(0,G.jsx)(he,{size:14,className:`bullet-icon`}),(0,G.jsx)(`span`,{children:e})]},t))})]})]})]})]})}),(0,G.jsxs)(`div`,{className:`project-cta-section container`,style:{textAlign:`center`,padding:`6rem 1rem`,borderTop:`1px solid rgba(0,0,0,0.05)`,marginTop:`2rem`},children:[(0,G.jsx)(`h3`,{style:{fontSize:`2rem`,fontWeight:800,marginBottom:`0.5rem`,color:`#09090b`},children:`Have a project in mind?`}),(0,G.jsx)(`p`,{style:{fontSize:`1.1rem`,color:`#4b5563`,marginBottom:`2rem`},children:`Let's turn your idea into something real.`}),(0,G.jsxs)(`button`,{onClick:()=>{let e=document.getElementById(`get-in-touch`);e&&window.scrollTo({top:e.offsetTop-70,behavior:`smooth`})},className:`btn btn-primary`,style:{margin:`0 auto`},children:[`Tell Me About Your Idea `,(0,G.jsx)(ue,{size:18})]})]}),(0,G.jsx)(`style`,{children:`
+      `})]})},lS=_(),uS=e=>{switch(e.toLowerCase()){case`mobile`:return(0,G.jsx)(Re,{size:28});case`frontend`:return(0,G.jsx)(B,{size:28});case`full-stack`:case`web app`:return(0,G.jsx)(we,{size:28});default:return(0,G.jsx)(Ce,{size:28})}},dS=({project:e,onExploreClick:t})=>(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(`div`,{className:`card-top-glow`}),(0,G.jsxs)(`div`,{className:`card-header`,children:[(0,G.jsx)(`span`,{className:`card-badge`,children:e.category}),(0,G.jsx)(`div`,{className:`card-icon-box`,children:uS(e.category)})]}),(0,G.jsxs)(`div`,{className:`card-body`,children:[(0,G.jsx)(`span`,{className:`card-subtitle`,children:e.subtitle}),(0,G.jsx)(`h3`,{className:`card-title`,children:e.title}),(0,G.jsx)(`p`,{className:`card-desc`,children:e.description})]}),(0,G.jsxs)(`div`,{className:`card-tech`,children:[e.tags.slice(0,3).map(e=>(0,G.jsx)(`span`,{className:`tech-tag`,children:e},e)),e.tags.length>3&&(0,G.jsxs)(`span`,{className:`tech-tag-more`,children:[`+`,e.tags.length-3]})]}),(0,G.jsx)(`div`,{className:`card-footer`,children:(0,G.jsxs)(`button`,{type:`button`,className:`explore-btn`,onClick:e=>{t&&(e.stopPropagation(),t())},"aria-label":`Explore details for ${e.title}`,children:[`Explore Details `,(0,G.jsx)(he,{size:14})]})})]}),fS=({project:e,index:t,totalProjects:n,smoothRotation:r,onDetailsClick:i,onExploreClick:a})=>{let[o,s]=(0,b.useState)(!1);(0,b.useEffect)(()=>{let e=()=>s(window.innerWidth<=768);return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let c=t*18,l=Af(r,e=>c-e),u=Af(l,e=>{let t=e%360;return t>180&&(t-=360),t<-180&&(t+=360),t}),d=Af(u,[-45,-20,0,20,45],[.7,.85,1,.85,.7]),f=Af(u,[-45,-20,0,20,45],[.15,.5,1,.5,.15]),p=Af(u,[-45,-20,0,20,45],[10,4,0,4,10]),m=Af(u,e=>Math.round((100-Math.abs(e))*10)),h=Of`blur(${p}px)`,g=Of`translate(-50%, -50%) rotate(${l}deg) scale(${d})`,_={position:`absolute`,left:`50%`,top:`50%`,width:o?`260px`:`340px`,height:o?`360px`:`420px`,transformOrigin:`center ${o?420:560}px`,transform:g,opacity:f,zIndex:m,filter:h,backfaceVisibility:`hidden`};return(0,G.jsx)(Pd.div,{layout:`position`,style:_,className:`circular-project-card`,onClick:i,children:(0,G.jsx)(dS,{project:e,onExploreClick:a})})},pS=()=>{let e=Rf.projects,[t,n]=(0,b.useState)(null),[r,i]=(0,b.useState)(!1),a=(0,b.useRef)(0),o=(0,b.useRef)({x:0,y:0}),s=(0,b.useRef)(0),c=(0,b.useRef)(null),[l,u]=(0,b.useState)(!1);(0,b.useEffect)(()=>{let e=()=>u(window.innerWidth<=768);return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let d=Ef(0),f=Pf(d,{stiffness:200,damping:30}),p=Of`translate(-50%, -50%) translate(0, ${l?420:520}px) rotate(${-f}deg)`;(0,b.useEffect)(()=>{if(t){let e=document.body.style.overflow;return document.body.style.overflow=`hidden`,()=>{document.body.style.overflow=e}}},[t]),(0,b.useEffect)(()=>{let e=e=>{e.key===`Escape`&&n(null)};return window.addEventListener(`keydown`,e),()=>window.removeEventListener(`keydown`,e)},[]);let m=e=>{l||e.pointerType===`mouse`&&e.button!==0||(i(!0),a.current=e.clientX,o.current={x:e.clientX,y:e.clientY},s.current=0,document.body.style.userSelect=`none`)},h=t=>{if(!r||l)return;t.preventDefault();let n=a.current-t.clientX;if(Math.abs(n)>0){s.current+=Math.abs(n);let r=(e.length-1)*18,i=d.get()+n*.35;i<0&&(i=0),i>r&&(i=r),d.set(i),a.current=t.clientX}},g=()=>{r&&(i(!1),document.body.style.userSelect=``)};return(0,G.jsxs)(`section`,{id:`works`,className:`section projects-section`,children:[l?(0,G.jsxs)(`div`,{className:`mobile-projects-container`,children:[(0,G.jsxs)(`div`,{className:`gallery-header mobile-gallery-header`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Featured Work`})}),(0,G.jsx)(`p`,{className:`gallery-section-subtitle`,children:`Swipe through my featured applications.`})]}),(0,G.jsx)(`div`,{className:`mobile-slider-area`,children:e.map(e=>(0,G.jsx)(`div`,{className:`circular-project-card mobile-slide-card`,onClick:()=>n(e),children:(0,G.jsx)(dS,{project:e,onExploreClick:()=>n(e)})},e.id))})]}):(0,G.jsx)(`div`,{ref:c,className:`circular-gallery-container`,children:(0,G.jsxs)(`div`,{className:`circular-gallery-sticky`,children:[(0,G.jsxs)(`div`,{className:`gallery-header`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Featured Work`})}),(0,G.jsx)(`p`,{className:`gallery-section-subtitle`,children:`Click and drag horizontally to spin the wheel and explore my featured applications.`})]}),(0,G.jsxs)(`div`,{className:`gallery-wheel-area`,onPointerDown:m,onPointerMove:h,onPointerUp:g,onPointerLeave:g,onPointerCancel:g,style:{cursor:r?`grabbing`:`grab`,touchAction:`none`},children:[(0,G.jsx)(Pd.div,{className:`gallery-wheel-disc`,style:{transform:p}}),e.map((t,r)=>(0,G.jsx)(fS,{project:t,index:r,totalProjects:e.length,smoothRotation:f,onDetailsClick:e=>{((e?.clientX&&o.current?Math.hypot(e.clientX-o.current.x,e.clientY-o.current.y):s.current)<15||s.current<15)&&n(t)},onExploreClick:()=>{n(t)}},t.id))]}),(0,G.jsxs)(`div`,{className:`scroll-indicator`,children:[(0,G.jsx)(`div`,{className:`mouse`,children:(0,G.jsx)(`div`,{className:`wheel`})}),(0,G.jsx)(`span`,{className:`scroll-text`,children:`Drag to spin`})]})]})}),t&&typeof document<`u`&&(0,lS.createPortal)((0,G.jsx)(`div`,{className:`project-modal-overlay`,onClick:()=>n(null),"data-lenis-prevent":!0,children:(0,G.jsxs)(`div`,{className:`project-modal-dialog`,onClick:e=>e.stopPropagation(),role:`dialog`,"aria-modal":`true`,"aria-labelledby":`modal-project-title`,"data-lenis-prevent":!0,children:[(0,G.jsxs)(`div`,{className:`project-modal-header`,children:[(0,G.jsxs)(`div`,{className:`project-modal-header-info`,children:[(0,G.jsx)(`span`,{className:`project-modal-badge`,children:t.category}),(0,G.jsx)(`h3`,{id:`modal-project-title`,className:`project-modal-title`,children:t.title}),(0,G.jsx)(`p`,{className:`project-modal-subtitle`,children:t.subtitle})]}),(0,G.jsx)(`button`,{type:`button`,className:`project-modal-close`,onClick:()=>n(null),"aria-label":`Close project details`,children:(0,G.jsx)(Ve,{size:20})})]}),(0,G.jsx)(`div`,{className:`project-modal-body`,"data-lenis-prevent":!0,children:(0,G.jsxs)(`div`,{className:`project-modal-grid`,children:[(0,G.jsxs)(`div`,{className:`project-modal-main`,children:[(0,G.jsxs)(`div`,{className:`project-modal-section`,children:[(0,G.jsx)(`h4`,{className:`project-modal-heading`,children:`Overview`}),(0,G.jsx)(`p`,{className:`project-modal-desc`,children:t.longDescription})]}),(0,G.jsxs)(`div`,{className:`project-modal-section`,children:[(0,G.jsx)(`h4`,{className:`project-modal-heading`,children:`Technologies`}),(0,G.jsx)(`div`,{className:`project-modal-tags`,children:t.tags.map(e=>(0,G.jsx)(`span`,{className:`project-tag-pill`,children:e},e))})]}),(0,G.jsxs)(`div`,{className:`project-modal-actions`,children:[t.githubUrl&&(0,G.jsxs)(`a`,{href:t.githubUrl,target:`_blank`,rel:`noopener noreferrer`,className:`project-action-btn project-btn-secondary`,children:[(0,G.jsx)(Uf,{size:18}),(0,G.jsx)(`span`,{children:`View Source Code`})]}),t.liveUrl&&(0,G.jsxs)(`a`,{href:t.liveUrl,target:`_blank`,rel:`noopener noreferrer`,className:`project-action-btn project-btn-primary`,children:[(0,G.jsx)(Se,{size:18}),(0,G.jsx)(`span`,{children:`Visit Live Project`})]})]})]}),(0,G.jsxs)(`div`,{className:`project-modal-sidebar`,children:[(0,G.jsx)(`h4`,{className:`project-modal-heading`,children:`Key Features`}),(0,G.jsx)(`ul`,{className:`project-features-list`,children:t.features.map((e,t)=>(0,G.jsxs)(`li`,{className:`project-feature-item`,children:[(0,G.jsx)(`div`,{className:`feature-icon-wrapper`,children:(0,G.jsx)(he,{size:14,className:`feature-chevron`})}),(0,G.jsx)(`span`,{children:e})]},t))})]})]})})]})}),document.body),(0,G.jsxs)(`div`,{className:`project-cta-section container`,style:{textAlign:`center`,padding:`6rem 1rem`,borderTop:`1px solid rgba(0,0,0,0.05)`,marginTop:`2rem`},children:[(0,G.jsx)(`h3`,{style:{fontSize:`2rem`,fontWeight:800,marginBottom:`0.5rem`,color:`#09090b`},children:`Have a project in mind?`}),(0,G.jsx)(`p`,{style:{fontSize:`1.1rem`,color:`#4b5563`,marginBottom:`2rem`},children:`Let's turn your idea into something real.`}),(0,G.jsxs)(`button`,{onClick:()=>{let e=document.getElementById(`get-in-touch`);e&&window.scrollTo({top:e.offsetTop-70,behavior:`smooth`})},className:`btn btn-primary`,style:{margin:`0 auto`},children:[`Tell Me About Your Idea `,(0,G.jsx)(ue,{size:18})]})]}),(0,G.jsx)(`style`,{children:`
         .projects-section {
           padding: 0 !important;
           background-color: #ffffff !important;
@@ -2197,13 +2197,19 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
           font-size: 0.85rem;
           font-weight: 700;
           color: hsl(var(--primary));
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 0.2rem;
-          transition: color 0.2s;
+          gap: 0.25rem;
+          background: none;
+          border: none;
+          padding: 0.2rem 0.5rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border-radius: var(--border-radius-sm);
         }
-        .circular-project-card:hover .explore-btn {
+        .explore-btn:hover {
           color: hsl(var(--primary-hover));
+          background: rgba(249, 115, 22, 0.08);
         }
 
         /* Mouse Scroll Indicator */
@@ -2249,145 +2255,315 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
           text-transform: uppercase;
         }
 
-        /* Modal Styles */
-        .modal-overlay {
+        /* Project Modal System (Responsive on Windows, Mac & Mobile) */
+        .project-modal-overlay {
           position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          z-index: 2000;
+          inset: 0;
+          width: 100vw;
+          height: 100vh;
+          height: 100dvh;
+          background: rgba(9, 9, 11, 0.75);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          z-index: 999999;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
+          padding: 1.5rem 1rem;
           overflow-y: auto;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .modal-content {
+
+        @keyframes modalFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .project-modal-dialog {
           width: 100%;
-          max-width: 800px;
+          max-width: 840px;
+          max-height: calc(100dvh - 3rem);
+          background: #ffffff;
+          border-radius: 20px;
+          box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+          display: flex;
+          flex-direction: column;
           position: relative;
-          padding: 2.5rem;
-          background: rgba(255, 255, 255, 1) !important;
-          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12) !important;
-          border: 1px solid rgba(0, 0, 0, 0.08) !important;
-          border-radius: var(--border-radius-md);
-          animation: modalGrow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          overflow: hidden;
+          margin: auto;
+          animation: modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        @keyframes modalGrow {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
+
+        @keyframes modalScaleUp {
+          from {
+            opacity: 0;
+            transform: scale(0.96) translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
         }
-        .modal-close-btn {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          color: #71717a !important;
-          transition: color var(--transition-fast);
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
+
+        /* Modal Header: Sticky at top so Title and Close button are NEVER obscured */
+        .project-modal-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 1.5rem;
+          padding: 2rem 2.25rem 1.25rem 2.25rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+          background: #ffffff;
+          flex-shrink: 0;
         }
-        .modal-close-btn:hover {
-          color: #09090b !important;
+
+        .project-modal-header-info {
+          flex: 1;
+          min-width: 0;
         }
-        .modal-category {
-          font-size: 0.8rem;
+
+        .project-modal-badge {
+          display: inline-block;
+          font-size: 0.75rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 0.75px;
           color: hsl(var(--primary));
-          margin-bottom: 0.25rem;
-          display: block;
+          margin-bottom: 0.35rem;
         }
-        .modal-title {
-          font-size: 2rem;
+
+        .project-modal-title {
+          font-size: 1.85rem;
           font-weight: 800;
           color: #09090b !important;
+          letter-spacing: -0.5px;
+          line-height: 1.2;
+          margin-bottom: 0.35rem;
         }
-        .modal-subtitle {
-          font-size: 1.1rem;
-          color: #4b5563 !important;
+
+        .project-modal-subtitle {
+          font-size: 1.05rem;
           font-weight: 500;
-          margin-bottom: 2rem;
+          color: #4b5563 !important;
+          line-height: 1.4;
+          margin: 0;
         }
-        .modal-body-layout {
+
+        .project-modal-close {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 42px;
+          height: 42px;
+          min-width: 42px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.04);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          color: #52525b;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          flex-shrink: 0;
+          margin-top: -0.25rem;
+          margin-right: -0.25rem;
+        }
+
+        .project-modal-close:hover {
+          background: rgba(0, 0, 0, 0.08);
+          color: #09090b;
+          transform: scale(1.06);
+        }
+
+        .project-modal-close:active {
+          transform: scale(0.94);
+        }
+
+        /* Modal Body: Smooth internal scrolling */
+        .project-modal-body {
+          padding: 1.75rem 2.25rem 2.25rem 2.25rem;
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          flex: 1;
+        }
+
+        .project-modal-body::-webkit-scrollbar {
+          width: 6px;
+        }
+        .project-modal-body::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .project-modal-body::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.12);
+          border-radius: 9999px;
+        }
+        .project-modal-body::-webkit-scrollbar-thumb:hover {
+          background: rgba(0, 0, 0, 0.22);
+        }
+
+        .project-modal-grid {
           display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
+          grid-template-columns: 1.25fr 1fr;
           gap: 2.5rem;
+          align-items: start;
         }
-        .modal-section-heading {
-          font-size: 1rem;
+
+        .project-modal-main {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .project-modal-section {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .project-modal-heading {
+          font-size: 0.9rem;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin-bottom: 1rem;
           color: #09090b !important;
+          margin-bottom: 0.75rem;
         }
-        .modal-text {
+
+        .project-modal-desc {
           font-size: 0.975rem;
+          line-height: 1.65;
           color: #27272a !important;
-          line-height: 1.6;
-          margin-bottom: 1.5rem;
+          margin: 0;
         }
-        .modal-tags {
+
+        .project-modal-tags {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
-          margin-bottom: 2rem;
         }
-        .tag-pill {
+
+        .project-tag-pill {
           font-size: 0.75rem;
           font-weight: 600;
           background: rgba(0, 0, 0, 0.04);
           border: 1px solid rgba(0, 0, 0, 0.08);
           color: #4b5563;
-          padding: 0.25rem 0.75rem;
-          border-radius: var(--border-radius-full);
+          padding: 0.3rem 0.8rem;
+          border-radius: 9999px;
           transition: all var(--transition-fast);
         }
-        .tag-pill:hover {
+
+        .project-tag-pill:hover {
           background: rgba(249, 115, 22, 0.08);
           color: hsl(var(--primary));
-          border-color: rgba(249, 115, 22, 0.2);
+          border-color: rgba(249, 115, 22, 0.25);
         }
-        .modal-links {
+
+        .project-modal-actions {
           display: flex;
-          gap: 1rem;
+          flex-wrap: wrap;
+          gap: 0.85rem;
+          margin-top: 0.5rem;
         }
-        .modal-links .btn {
-          padding: 0.65rem 1.25rem;
-          font-size: 0.85rem;
+
+        .project-action-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.4rem;
+          font-size: 0.875rem;
+          font-weight: 600;
+          border-radius: var(--border-radius-sm);
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modal-links .btn-secondary {
-          border: 1px solid rgba(0, 0, 0, 0.1) !important;
-          color: #27272a !important;
-          background: rgba(0, 0, 0, 0.02) !important;
+
+        .project-btn-primary {
+          background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+          color: #ffffff !important;
+          border: none;
+          box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
         }
-        .modal-links .btn-secondary:hover {
-          background: rgba(0, 0, 0, 0.06) !important;
+
+        .project-btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45);
+        }
+
+        .project-btn-secondary {
+          background: #f4f4f5;
+          color: #18181b !important;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .project-btn-secondary:hover {
+          background: #e4e4e7;
           color: #09090b !important;
+          transform: translateY(-2px);
         }
-        .modal-features-list {
+
+        .project-modal-sidebar {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
         }
-        .feature-bullet {
+
+        .project-features-list {
           display: flex;
-          gap: 0.5rem;
-          font-size: 0.95rem;
-          color: #27272a !important;
-          line-height: 1.5;
+          flex-direction: column;
+          gap: 0.85rem;
+          list-style: none;
+          padding: 0;
+          margin: 0;
         }
-        .bullet-icon {
+
+        .project-feature-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.65rem;
+          font-size: 0.95rem;
+          line-height: 1.55;
+          color: #27272a !important;
+        }
+
+        .feature-icon-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: rgba(249, 115, 22, 0.1);
           color: hsl(var(--primary));
           flex-shrink: 0;
-          margin-top: 0.2rem;
+          margin-top: 0.15rem;
+        }
+
+        /* Windows & Short Height Screen Optimization */
+        @media (max-height: 720px) {
+          .project-modal-overlay {
+            padding: 0.75rem 1rem;
+          }
+          .project-modal-dialog {
+            max-height: calc(100dvh - 1.5rem);
+          }
+          .project-modal-header {
+            padding: 1rem 1.5rem 0.75rem 1.5rem;
+          }
+          .project-modal-title {
+            font-size: 1.45rem;
+            margin-bottom: 0.2rem;
+          }
+          .project-modal-subtitle {
+            font-size: 0.9rem;
+          }
+          .project-modal-body {
+            padding: 1rem 1.5rem 1.5rem 1.5rem;
+          }
+          .project-modal-main {
+            gap: 1rem;
+          }
         }
 
         @media (max-width: 768px) {
@@ -2424,48 +2600,52 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
           .card-desc {
             font-size: 0.8rem;
           }
-          .modal-body-layout {
+          /* Mobile Modal Adaptations */
+          .project-modal-overlay {
+            padding: 0.75rem;
+            align-items: flex-end;
+          }
+          .project-modal-dialog {
+            max-height: calc(100dvh - 1.5rem);
+            border-radius: 20px 20px 16px 16px;
+            margin: 0 auto;
+          }
+          .project-modal-header {
+            padding: 1.25rem 1.25rem 1rem 1.25rem;
+            gap: 1rem;
+          }
+          .project-modal-title {
+            font-size: 1.35rem;
+          }
+          .project-modal-subtitle {
+            font-size: 0.9rem;
+          }
+          .project-modal-close {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+          }
+          .project-modal-body {
+            padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+          }
+          .project-modal-grid {
             grid-template-columns: 1fr;
-            gap: 1.25rem;
+            gap: 1.5rem;
           }
-          .modal-overlay {
-            padding: 1.5rem 1rem;
-          }
-          .modal-content {
-            padding: 1.5rem;
-            max-height: 85vh;
-            overflow-y: auto;
-          }
-          .modal-title {
-            font-size: 1.5rem;
-          }
-          .modal-subtitle {
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-          }
-          .modal-section-heading {
-            font-size: 0.85rem;
-            margin-bottom: 0.75rem;
-          }
-          .modal-text {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-          }
-          .feature-bullet {
-            font-size: 0.85rem;
-          }
-          .tag-pill {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-          }
-          .modal-links {
+          .project-modal-actions {
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.65rem;
           }
-          .modal-links .btn {
-            padding: 0.6rem 1rem;
-            font-size: 0.85rem;
-            justify-content: center;
+          .project-action-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 0.9rem;
+          }
+          .project-feature-item {
+            font-size: 0.875rem;
+          }
+          .project-modal-desc {
+            font-size: 0.9rem;
           }
           /* Native Mobile Slider Additions */
           .mobile-projects-container {
@@ -2504,7 +2684,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             top: auto !important;
           }
         }
-      `})]})},pS=``+new URL(`react_blog_feature-PvxomrAh.png`,import.meta.url).href,mS=[{key:1,url:pS,label:`My Journey into React: From Imperative DOM to Component-Driven Engineering`}],hS=({onSelect:e})=>{let[t,n]=(0,b.useState)(null),[r,i]=(0,b.useState)(!0),a=Ef(0),o=Ef(0),s=Pf(a,{stiffness:300,damping:40}),c=Pf(o,{stiffness:300,damping:40});(0,b.useEffect)(()=>{let e=()=>{i(window.innerWidth>=768)};return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let l=e=>{a.set(e.clientX),o.set(e.clientY)},u=e=>{n(e)};return(0,G.jsxs)(`div`,{className:`image-reveal-wrapper`,onMouseMove:l,onMouseLeave:()=>{n(null)},children:[mS.map(n=>(0,G.jsxs)(`div`,{className:`reveal-row`,onMouseEnter:()=>u(n),onClick:()=>e&&e(n),children:[!r&&(0,G.jsx)(`img`,{src:n.url,className:`reveal-mobile-img`,alt:n.label}),(0,G.jsx)(`h2`,{className:`reveal-title ${t?.key===n.key?`focused-title`:``}`,children:n.label}),(0,G.jsx)(`button`,{"aria-label":`View ${n.label}`,className:`reveal-btn ${t?.key===n.key?`focused-btn`:``}`,children:(0,G.jsx)(Ne,{className:`arrow-icon`,size:24})}),(0,G.jsx)(`div`,{className:`reveal-underline ${t?.key===n.key?`active-underline`:``}`})]},n.key)),(0,G.jsx)(K,{children:r&&t&&(0,G.jsx)(Pd.img,{src:t.url,alt:t.label,className:`reveal-floating-img`,style:{left:s,top:c,x:`-50%`,y:`-50%`},initial:{opacity:0,scale:.5},animate:{opacity:1,scale:1},exit:{opacity:0,scale:.5},transition:{type:`spring`,stiffness:300,damping:30}})}),(0,G.jsx)(`style`,{children:`
+      `})]})},mS=``+new URL(`react_blog_feature-PvxomrAh.png`,import.meta.url).href,hS=[{key:1,url:mS,label:`My Journey into React: From Imperative DOM to Component-Driven Engineering`}],gS=({onSelect:e})=>{let[t,n]=(0,b.useState)(null),[r,i]=(0,b.useState)(!0),a=Ef(0),o=Ef(0),s=Pf(a,{stiffness:300,damping:40}),c=Pf(o,{stiffness:300,damping:40});(0,b.useEffect)(()=>{let e=()=>{i(window.innerWidth>=768)};return e(),window.addEventListener(`resize`,e),()=>window.removeEventListener(`resize`,e)},[]);let l=e=>{a.set(e.clientX),o.set(e.clientY)},u=e=>{n(e)};return(0,G.jsxs)(`div`,{className:`image-reveal-wrapper`,onMouseMove:l,onMouseLeave:()=>{n(null)},children:[hS.map(n=>(0,G.jsxs)(`div`,{className:`reveal-row`,onMouseEnter:()=>u(n),onClick:()=>e&&e(n),children:[!r&&(0,G.jsx)(`img`,{src:n.url,className:`reveal-mobile-img`,alt:n.label}),(0,G.jsx)(`h2`,{className:`reveal-title ${t?.key===n.key?`focused-title`:``}`,children:n.label}),(0,G.jsx)(`button`,{"aria-label":`View ${n.label}`,className:`reveal-btn ${t?.key===n.key?`focused-btn`:``}`,children:(0,G.jsx)(Ne,{className:`arrow-icon`,size:24})}),(0,G.jsx)(`div`,{className:`reveal-underline ${t?.key===n.key?`active-underline`:``}`})]},n.key)),(0,G.jsx)(K,{children:r&&t&&(0,G.jsx)(Pd.img,{src:t.url,alt:t.label,className:`reveal-floating-img`,style:{left:s,top:c,x:`-50%`,y:`-50%`},initial:{opacity:0,scale:.5},animate:{opacity:1,scale:1},exit:{opacity:0,scale:.5},transition:{type:`spring`,stiffness:300,damping:30}})}),(0,G.jsx)(`style`,{children:`
         .image-reveal-wrapper {
           position: relative;
           margin: 3rem auto 0;
@@ -2621,7 +2801,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             display: none;
           }
         }
-      `})]})},gS=({onSelectBlog:e})=>(0,G.jsxs)(`section`,{id:`blogs`,className:`section blogs-section`,children:[(0,G.jsxs)(`div`,{className:`container relative-z`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`},children:(0,G.jsx)(qx,{children:`My Blogs`})}),(0,G.jsx)(rp,{size:`md`,variant:`muted`,containerClassName:`section-subtitle`,align:`center`,children:`Writing about software engineering, UI designs, and system architectures.`}),(0,G.jsx)(hS,{onSelect:e})]}),(0,G.jsx)(`style`,{children:`
+      `})]})},_S=({onSelectBlog:e})=>(0,G.jsxs)(`section`,{id:`blogs`,className:`section blogs-section`,children:[(0,G.jsxs)(`div`,{className:`container relative-z`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`},children:(0,G.jsx)(qx,{children:`My Blogs`})}),(0,G.jsx)(rp,{size:`md`,variant:`muted`,containerClassName:`section-subtitle`,align:`center`,children:`Writing about software engineering, UI designs, and system architectures.`}),(0,G.jsx)(gS,{onSelect:e})]}),(0,G.jsx)(`style`,{children:`
         .blogs-section {
           position: relative;
           background-color: #09090b !important; /* Alternating Dark Background */
@@ -2636,7 +2816,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
           position: relative;
           z-index: 1;
         }
-      `})]}),_S=[{question:`What is the purpose of this website?`,answer:`This is my personal developer portfolio designed to showcase my software projects, technical skills, academic qualifications, and professional experiences in an interactive, visually engaging format.`},{question:`How do I contact support?`,answer:`Since this is a personal portfolio, you can reach out directly via the 'Get in Touch' section below, or drop an email to abhishekbhat014@gmail.com. I will get back to you as soon as possible.`},{question:`How do I find the best products?`,answer:`You can explore my featured applications and systems in the 'Works' section. Each project contains detailed insights, lists of key features, technology tags, and links to source code repositories.`},{question:`Can I return a product?`,answer:`All my open-source projects featured here are free to explore, clone, and modify under their respective open-source licenses (like MIT). For custom client work, terms are defined per project contract.`},{question:`Do you offer international shipping?`,answer:`As a software developer, I deliver digital services globally! I work with clients worldwide on remote contracts, delivering digital applications directly via secure cloud repositories and app stores.`},{question:`How can I track my order?`,answer:`For ongoing freelance projects, I provide continuous tracking via private GitHub repositories, Jira/Trello project boards, and scheduled weekly demo updates so you always know the exact status of your software.`}],vS=()=>{let[e,t]=(0,b.useState)(null),n=n=>{t(e===n?null:n)};return(0,G.jsxs)(`section`,{id:`faq`,className:`section faq-section`,children:[(0,G.jsxs)(`div`,{className:`container relative-z faq-grid`,children:[(0,G.jsx)(`div`,{className:`faq-heading-side`,children:(0,G.jsx)(`h2`,{className:`faq-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`},children:(0,G.jsx)(qx,{children:`Frequently Asked Questions`})})}),(0,G.jsx)(`div`,{className:`faq-accordion-side`,children:_S.map((t,r)=>{let i=e===r;return(0,G.jsxs)(`div`,{className:`faq-item ${i?`active`:``}`,onClick:()=>n(r),children:[(0,G.jsxs)(`div`,{className:`faq-question-row`,children:[(0,G.jsx)(`div`,{className:`faq-icon-wrap`,children:(0,G.jsx)(Pe,{size:20,className:`faq-plus-icon ${i?`rotate-45`:``}`})}),(0,G.jsx)(`h3`,{className:`faq-question`,children:t.question})]}),(0,G.jsx)(`div`,{className:`faq-answer-wrapper ${i?`show`:``}`,children:(0,G.jsx)(`p`,{className:`faq-answer`,children:t.answer})})]},r)})})]}),(0,G.jsx)(`style`,{children:`
+      `})]}),vS=[{question:`What is the purpose of this website?`,answer:`This is my personal developer portfolio designed to showcase my software projects, technical skills, academic qualifications, and professional experiences in an interactive, visually engaging format.`},{question:`How do I contact support?`,answer:`Since this is a personal portfolio, you can reach out directly via the 'Get in Touch' section below, or drop an email to abhishekbhat014@gmail.com. I will get back to you as soon as possible.`},{question:`How do I find the best products?`,answer:`You can explore my featured applications and systems in the 'Works' section. Each project contains detailed insights, lists of key features, technology tags, and links to source code repositories.`},{question:`Can I return a product?`,answer:`All my open-source projects featured here are free to explore, clone, and modify under their respective open-source licenses (like MIT). For custom client work, terms are defined per project contract.`},{question:`Do you offer international shipping?`,answer:`As a software developer, I deliver digital services globally! I work with clients worldwide on remote contracts, delivering digital applications directly via secure cloud repositories and app stores.`},{question:`How can I track my order?`,answer:`For ongoing freelance projects, I provide continuous tracking via private GitHub repositories, Jira/Trello project boards, and scheduled weekly demo updates so you always know the exact status of your software.`}],yS=()=>{let[e,t]=(0,b.useState)(null),n=n=>{t(e===n?null:n)};return(0,G.jsxs)(`section`,{id:`faq`,className:`section faq-section`,children:[(0,G.jsxs)(`div`,{className:`container relative-z faq-grid`,children:[(0,G.jsx)(`div`,{className:`faq-heading-side`,children:(0,G.jsx)(`h2`,{className:`faq-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`},children:(0,G.jsx)(qx,{children:`Frequently Asked Questions`})})}),(0,G.jsx)(`div`,{className:`faq-accordion-side`,children:vS.map((t,r)=>{let i=e===r;return(0,G.jsxs)(`div`,{className:`faq-item ${i?`active`:``}`,onClick:()=>n(r),children:[(0,G.jsxs)(`div`,{className:`faq-question-row`,children:[(0,G.jsx)(`div`,{className:`faq-icon-wrap`,children:(0,G.jsx)(Pe,{size:20,className:`faq-plus-icon ${i?`rotate-45`:``}`})}),(0,G.jsx)(`h3`,{className:`faq-question`,children:t.question})]}),(0,G.jsx)(`div`,{className:`faq-answer-wrapper ${i?`show`:``}`,children:(0,G.jsx)(`p`,{className:`faq-answer`,children:t.answer})})]},r)})})]}),(0,G.jsx)(`style`,{children:`
         .faq-section {
           position: relative;
           background-color: #ffffff !important;
@@ -2762,7 +2942,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             padding-left: 2.5rem;
           }
         }
-      `})]})},yS=({label:e,items:t=[],value:n,onChange:r,className:i=``,icon:a,error:o=!1})=>{let[s,c]=(0,b.useState)(!1),l=(0,b.useRef)(null),u=t.find(e=>e.id===n||e.label===n||e.value===n)||null,d=e=>{c(!1),r?.(e)};return(0,b.useEffect)(()=>{let e=e=>{l.current&&!l.current.contains(e.target)&&c(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]),(0,G.jsxs)(`div`,{ref:l,className:`basic-dropdown-container ${i}`,children:[(0,G.jsxs)(`button`,{type:`button`,onClick:()=>c(!s),"aria-haspopup":`menu`,"aria-expanded":s,className:`basic-dropdown-button ${o?`error-input`:``} ${s?`is-open`:``}`,children:[(0,G.jsxs)(`div`,{className:`basic-dropdown-label-group`,children:[a&&(0,G.jsx)(a,{size:18,className:`basic-dropdown-icon`}),(0,G.jsx)(`span`,{className:`basic-dropdown-text ${u?``:`is-placeholder`}`,children:u?u.label:e})]}),(0,G.jsx)(Pd.div,{className:`basic-dropdown-chevron`,animate:{rotate:s?180:0},transition:{duration:.2},children:(0,G.jsx)(me,{size:18})})]}),(0,G.jsx)(K,{children:s&&(0,G.jsx)(Pd.div,{className:`basic-dropdown-menu`,initial:{opacity:0,y:-10,scaleY:.95},animate:{opacity:1,y:0,scaleY:1},exit:{opacity:0,y:-8,scaleY:.95,transition:{duration:.15}},transition:{type:`spring`,bounce:.15,duration:.3},role:`menu`,"aria-orientation":`vertical`,children:(0,G.jsx)(`ul`,{className:`basic-dropdown-list`,children:t.map(e=>{let t=u?.id===e.id||u?.label===e.label||u?.value===e.value;return(0,G.jsx)(Pd.li,{role:`none`,initial:{opacity:0,x:-6},animate:{opacity:1,x:0},exit:{opacity:0,x:-6},transition:{type:`spring`,stiffness:320,damping:26},children:(0,G.jsxs)(`button`,{type:`button`,role:`menuitem`,onClick:()=>d(e),className:`basic-dropdown-item ${t?`selected`:``}`,children:[e.icon&&(0,G.jsx)(`span`,{className:`dropdown-item-icon`,children:e.icon}),(0,G.jsx)(`span`,{className:`dropdown-item-text`,children:e.label}),t&&(0,G.jsx)(Pd.span,{className:`dropdown-selected-check`,initial:{scale:0},animate:{scale:1},transition:{type:`spring`,stiffness:300,damping:20},"aria-hidden":!0,children:(0,G.jsx)(`svg`,{className:`check-svg`,fill:`none`,stroke:`currentColor`,viewBox:`0 0 24 24`,children:(0,G.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,strokeWidth:2.5,d:`M5 13l4 4L19 7`})})})]})},e.id||e.value||e.label)})})})}),(0,G.jsx)(`style`,{children:`
+      `})]})},bS=({label:e,items:t=[],value:n,onChange:r,className:i=``,icon:a,error:o=!1})=>{let[s,c]=(0,b.useState)(!1),l=(0,b.useRef)(null),u=t.find(e=>e.id===n||e.label===n||e.value===n)||null,d=e=>{c(!1),r?.(e)};return(0,b.useEffect)(()=>{let e=e=>{l.current&&!l.current.contains(e.target)&&c(!1)};return document.addEventListener(`mousedown`,e),()=>document.removeEventListener(`mousedown`,e)},[]),(0,G.jsxs)(`div`,{ref:l,className:`basic-dropdown-container ${i}`,children:[(0,G.jsxs)(`button`,{type:`button`,onClick:()=>c(!s),"aria-haspopup":`menu`,"aria-expanded":s,className:`basic-dropdown-button ${o?`error-input`:``} ${s?`is-open`:``}`,children:[(0,G.jsxs)(`div`,{className:`basic-dropdown-label-group`,children:[a&&(0,G.jsx)(a,{size:18,className:`basic-dropdown-icon`}),(0,G.jsx)(`span`,{className:`basic-dropdown-text ${u?``:`is-placeholder`}`,children:u?u.label:e})]}),(0,G.jsx)(Pd.div,{className:`basic-dropdown-chevron`,animate:{rotate:s?180:0},transition:{duration:.2},children:(0,G.jsx)(me,{size:18})})]}),(0,G.jsx)(K,{children:s&&(0,G.jsx)(Pd.div,{className:`basic-dropdown-menu`,initial:{opacity:0,y:-10,scaleY:.95},animate:{opacity:1,y:0,scaleY:1},exit:{opacity:0,y:-8,scaleY:.95,transition:{duration:.15}},transition:{type:`spring`,bounce:.15,duration:.3},role:`menu`,"aria-orientation":`vertical`,children:(0,G.jsx)(`ul`,{className:`basic-dropdown-list`,children:t.map(e=>{let t=u?.id===e.id||u?.label===e.label||u?.value===e.value;return(0,G.jsx)(Pd.li,{role:`none`,initial:{opacity:0,x:-6},animate:{opacity:1,x:0},exit:{opacity:0,x:-6},transition:{type:`spring`,stiffness:320,damping:26},children:(0,G.jsxs)(`button`,{type:`button`,role:`menuitem`,onClick:()=>d(e),className:`basic-dropdown-item ${t?`selected`:``}`,children:[e.icon&&(0,G.jsx)(`span`,{className:`dropdown-item-icon`,children:e.icon}),(0,G.jsx)(`span`,{className:`dropdown-item-text`,children:e.label}),t&&(0,G.jsx)(Pd.span,{className:`dropdown-selected-check`,initial:{scale:0},animate:{scale:1},transition:{type:`spring`,stiffness:300,damping:20},"aria-hidden":!0,children:(0,G.jsx)(`svg`,{className:`check-svg`,fill:`none`,stroke:`currentColor`,viewBox:`0 0 24 24`,children:(0,G.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,strokeWidth:2.5,d:`M5 13l4 4L19 7`})})})]})},e.id||e.value||e.label)})})})}),(0,G.jsx)(`style`,{children:`
         .basic-dropdown-container {
           position: relative;
           width: 100%;
@@ -2909,7 +3089,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
           width: 16px;
           height: 16px;
         }
-      `})]})},bS=[{id:`mobile`,label:`Mobile App`,value:`Mobile App`},{id:`web`,label:`Website / Web Application`,value:`Website / Web Application`},{id:`improvement`,label:`Existing Project Improvement`,value:`Existing Project Improvement`},{id:`backend`,label:`Backend / API`,value:`Backend / API`},{id:`other`,label:`Other`,value:`Other`}],xS=[{id:`not_sure`,label:`Not sure yet`,value:`Not sure yet`},{id:`under_25k`,label:`Under ₹25,000`,value:`Under ₹25,000`},{id:`25k_50k`,label:`₹25,000 – ₹50,000`,value:`₹25,000 – ₹50,000`},{id:`50k_100k`,label:`₹50,000 – ₹1,00,000`,value:`₹50,000 – ₹1,00,000`},{id:`100k_plus`,label:`₹1,00,000+`,value:`₹1,00,000+`},{id:`discuss`,label:`Prefer to discuss`,value:`Prefer to discuss`}],SS=[{id:`no_deadline`,label:`No specific deadline`,value:`No specific deadline`},{id:`1_month`,label:`Within 1 month`,value:`Within 1 month`},{id:`1_3_months`,label:`1–3 months`,value:`1–3 months`},{id:`3_6_months`,label:`3–6 months`,value:`3–6 months`},{id:`not_sure_timeline`,label:`Not sure yet`,value:`Not sure yet`}],CS=()=>{let{email:e}=Rf.personalInfo,[t,n]=(0,b.useState)({name:``,email:``,project_name:``,project_type:``,budget:``,timeline:``,message:``}),[r,i]=(0,b.useState)({}),[a,o]=(0,b.useState)(!1),[s,c]=(0,b.useState)(!1),[l,u]=(0,b.useState)(null),d=()=>{let e={};return t.name.trim()||(e.name=`Name is required`),t.email.trim()?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t.email)||(e.email=`Valid email is required`):e.email=`Email is required`,t.project_type||(e.project_type=`Project type is required`),(!t.message.trim()||t.message.trim().length<10)&&(e.message=`Please provide a brief description (min 10 characters)`),i(e),Object.keys(e).length===0},f=e=>{let{name:t,value:a}=e.target;n(e=>({...e,[t]:a})),r[t]&&i(e=>({...e,[t]:``})),l&&u(null)},p=(e,t)=>{n(n=>({...n,[e]:t})),r[e]&&i(t=>({...t,[e]:``})),l&&u(null)};return(0,G.jsxs)(`section`,{id:`get-in-touch`,className:`section contact-section`,children:[(0,G.jsx)(`div`,{className:`glowing-bg contact-glow`}),(0,G.jsxs)(`div`,{className:`container relative-z`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Have an idea? Let's build it.`})}),(0,G.jsx)(rp,{size:`md`,variant:`muted`,containerClassName:`section-subtitle light-subtitle`,align:`center`,children:`Tell me a little about what you're trying to build. You don't need to have everything figured out — just describe the idea and I'll get back to you.`}),(0,G.jsxs)(`div`,{className:`contact-grid grid-2`,children:[(0,G.jsxs)(`div`,{className:`contact-details glass-panel light-details`,children:[(0,G.jsx)(`h3`,{className:`contact-info-title`,children:`Let's Connect`}),(0,G.jsxs)(rp,{size:`sm`,variant:`muted`,containerClassName:`contact-info-desc`,children:[`Have an idea but don't know where to start? Tell me what you're thinking about.`,(0,G.jsx)(`br`,{}),(0,G.jsx)(`br`,{}),(0,G.jsx)(`span`,{style:{color:`hsl(var(--primary))`,fontWeight:600},children:`Apps · Websites · Software Products`}),(0,G.jsx)(`br`,{}),(0,G.jsx)(`br`,{}),`For general inquiries, feel free to reach out directly:`]}),(0,G.jsxs)(`div`,{className:`info-cards-list`,children:[(0,G.jsxs)(`div`,{className:`info-card light-info-card`,children:[(0,G.jsx)(`div`,{className:`info-icon-wrapper`,children:(0,G.jsx)(ke,{size:20})}),(0,G.jsxs)(`div`,{className:`info-text-wrapper`,children:[(0,G.jsx)(`span`,{className:`info-label`,children:`Email Me`}),(0,G.jsx)(`a`,{href:`mailto:${e}`,className:`info-val`,children:e})]})]}),(0,G.jsxs)(`div`,{className:`info-card light-info-card`,children:[(0,G.jsx)(`div`,{className:`info-icon-wrapper`,children:(0,G.jsx)(Ae,{size:20})}),(0,G.jsxs)(`div`,{className:`info-text-wrapper`,children:[(0,G.jsx)(`span`,{className:`info-label`,children:`Location`}),(0,G.jsx)(`span`,{className:`info-val`,children:`Bangalore, India`})]})]})]})]}),(0,G.jsx)(`div`,{className:`contact-form-container glass-panel light-form`,children:s?(0,G.jsxs)(`div`,{className:`success-banner`,children:[(0,G.jsx)(_e,{size:48,className:`success-icon animate-bounce`}),(0,G.jsx)(`h3`,{className:`success-title`,children:`Thanks for reaching out!`}),(0,G.jsx)(`p`,{className:`success-desc`,children:`Your idea has been sent successfully. I'll get back to you as soon as I can.`}),(0,G.jsx)(`button`,{onClick:()=>c(!1),className:`btn btn-primary`,children:`Send Another Inquiry`})]}):(0,G.jsxs)(`form`,{onSubmit:async e=>{if(e.preventDefault(),d()){if(e.target.botcheck&&e.target.botcheck.checked){c(!0);return}o(!0),u(null);try{let e=new FormData;e.append(`access_key`,`909f59db-3bcc-40ca-a2e1-c7286aebf080`),e.append(`subject`,`New Project Inquiry — ${t.project_type}`),e.append(`from_name`,t.name),e.append(`replyto`,t.email),e.append(`Name`,t.name),e.append(`Email`,t.email),e.append(`Project / Idea Name`,t.project_name||`Not provided`),e.append(`Project Type`,t.project_type),e.append(`Budget`,t.budget||`Not specified`),e.append(`Timeline`,t.timeline||`Not specified`),e.append(`Project Description`,t.message);let r=await fetch(`https://api.web3forms.com/submit`,{method:`POST`,body:e}),i=await r.json();i.success||r.status===200?(c(!0),n({name:``,email:``,project_name:``,project_type:``,budget:``,timeline:``,message:``})):u(i.message||`Something went wrong. Your message couldn't be sent.`)}catch{u(`Failed to send request. Please check your connection and try again.`)}finally{o(!1)}}},className:`contact-form`,children:[l&&(0,G.jsxs)(`div`,{className:`error-banner`,children:[(0,G.jsx)(ve,{size:20}),(0,G.jsx)(`span`,{children:l})]}),(0,G.jsx)(`input`,{type:`checkbox`,name:`botcheck`,style:{display:`none`}}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`name`,className:`visually-hidden`,children:`Name`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(Be,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`text`,id:`name`,name:`name`,value:t.name,onChange:f,placeholder:`Full Name`,"aria-required":`true`,className:r.name?`error-input`:``})]}),r.name&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.name]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`email`,className:`visually-hidden`,children:`Email`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(ke,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`email`,id:`email`,name:`email`,value:t.email,onChange:f,placeholder:`Email Address`,"aria-required":`true`,className:r.email?`error-input`:``})]}),r.email&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.email]})]})]}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`project_name`,className:`visually-hidden`,children:`Project / Idea Name`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(ze,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`text`,id:`project_name`,name:`project_name`,value:t.project_name,onChange:f,placeholder:`Project Name (Optional)`})]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`project_type`,className:`visually-hidden`,children:`What would you like to build?`}),(0,G.jsx)(yS,{label:`Project Type`,items:bS,value:t.project_type,onChange:e=>p(`project_type`,e.value),icon:fe,error:!!r.project_type}),r.project_type&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.project_type]})]})]}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`budget`,className:`visually-hidden`,children:`Estimated Budget`}),(0,G.jsx)(yS,{label:`Estimated Budget`,items:xS,value:t.budget,onChange:e=>p(`budget`,e.value),icon:Ee})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`timeline`,className:`visually-hidden`,children:`Expected Timeline`}),(0,G.jsx)(yS,{label:`Expected Timeline`,items:SS,value:t.timeline,onChange:e=>p(`timeline`,e.value),icon:ye})]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`message`,className:`visually-hidden`,children:`Tell me about your idea`}),(0,G.jsxs)(`div`,{className:`input-with-icon textarea-icon-wrapper`,children:[(0,G.jsx)(Me,{size:18,className:`input-icon textarea-icon`}),(0,G.jsx)(`textarea`,{id:`message`,name:`message`,rows:5,value:t.message,onChange:f,placeholder:`Describe your idea, the problem you're trying to solve, or what you'd like to build...`,"aria-required":`true`,className:r.message?`error-input`:``})]}),r.message&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.message]})]}),(0,G.jsx)(`button`,{type:`submit`,className:`btn btn-primary submit-btn`,disabled:a,children:a?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(Oe,{size:18,className:`animate-spin`}),` Sending...`]}):(0,G.jsxs)(G.Fragment,{children:[`Send Inquiry `,(0,G.jsx)(Fe,{size:16})]})})]})})]})]}),(0,G.jsx)(`style`,{children:`
+      `})]})},xS=[{id:`mobile`,label:`Mobile App`,value:`Mobile App`},{id:`web`,label:`Website / Web Application`,value:`Website / Web Application`},{id:`improvement`,label:`Existing Project Improvement`,value:`Existing Project Improvement`},{id:`backend`,label:`Backend / API`,value:`Backend / API`},{id:`other`,label:`Other`,value:`Other`}],SS=[{id:`not_sure`,label:`Not sure yet`,value:`Not sure yet`},{id:`under_25k`,label:`Under ₹25,000`,value:`Under ₹25,000`},{id:`25k_50k`,label:`₹25,000 – ₹50,000`,value:`₹25,000 – ₹50,000`},{id:`50k_100k`,label:`₹50,000 – ₹1,00,000`,value:`₹50,000 – ₹1,00,000`},{id:`100k_plus`,label:`₹1,00,000+`,value:`₹1,00,000+`},{id:`discuss`,label:`Prefer to discuss`,value:`Prefer to discuss`}],CS=[{id:`no_deadline`,label:`No specific deadline`,value:`No specific deadline`},{id:`1_month`,label:`Within 1 month`,value:`Within 1 month`},{id:`1_3_months`,label:`1–3 months`,value:`1–3 months`},{id:`3_6_months`,label:`3–6 months`,value:`3–6 months`},{id:`not_sure_timeline`,label:`Not sure yet`,value:`Not sure yet`}],wS=()=>{let{email:e}=Rf.personalInfo,[t,n]=(0,b.useState)({name:``,email:``,project_name:``,project_type:``,budget:``,timeline:``,message:``}),[r,i]=(0,b.useState)({}),[a,o]=(0,b.useState)(!1),[s,c]=(0,b.useState)(!1),[l,u]=(0,b.useState)(null),d=()=>{let e={};return t.name.trim()||(e.name=`Name is required`),t.email.trim()?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t.email)||(e.email=`Valid email is required`):e.email=`Email is required`,t.project_type||(e.project_type=`Project type is required`),(!t.message.trim()||t.message.trim().length<10)&&(e.message=`Please provide a brief description (min 10 characters)`),i(e),Object.keys(e).length===0},f=e=>{let{name:t,value:a}=e.target;n(e=>({...e,[t]:a})),r[t]&&i(e=>({...e,[t]:``})),l&&u(null)},p=(e,t)=>{n(n=>({...n,[e]:t})),r[e]&&i(t=>({...t,[e]:``})),l&&u(null)};return(0,G.jsxs)(`section`,{id:`get-in-touch`,className:`section contact-section`,children:[(0,G.jsx)(`div`,{className:`glowing-bg contact-glow`}),(0,G.jsxs)(`div`,{className:`container relative-z`,children:[(0,G.jsx)(`h2`,{className:`section-title`,style:{background:`none`,WebkitBackgroundClip:`initial`,WebkitTextFillColor:`initial`,marginBottom:`0.5rem`},children:(0,G.jsx)(qx,{children:`Have an idea? Let's build it.`})}),(0,G.jsx)(rp,{size:`md`,variant:`muted`,containerClassName:`section-subtitle light-subtitle`,align:`center`,children:`Tell me a little about what you're trying to build. You don't need to have everything figured out — just describe the idea and I'll get back to you.`}),(0,G.jsxs)(`div`,{className:`contact-grid grid-2`,children:[(0,G.jsxs)(`div`,{className:`contact-details glass-panel light-details`,children:[(0,G.jsx)(`h3`,{className:`contact-info-title`,children:`Let's Connect`}),(0,G.jsxs)(rp,{size:`sm`,variant:`muted`,containerClassName:`contact-info-desc`,children:[`Have an idea but don't know where to start? Tell me what you're thinking about.`,(0,G.jsx)(`br`,{}),(0,G.jsx)(`br`,{}),(0,G.jsx)(`span`,{style:{color:`hsl(var(--primary))`,fontWeight:600},children:`Apps · Websites · Software Products`}),(0,G.jsx)(`br`,{}),(0,G.jsx)(`br`,{}),`For general inquiries, feel free to reach out directly:`]}),(0,G.jsxs)(`div`,{className:`info-cards-list`,children:[(0,G.jsxs)(`div`,{className:`info-card light-info-card`,children:[(0,G.jsx)(`div`,{className:`info-icon-wrapper`,children:(0,G.jsx)(ke,{size:20})}),(0,G.jsxs)(`div`,{className:`info-text-wrapper`,children:[(0,G.jsx)(`span`,{className:`info-label`,children:`Email Me`}),(0,G.jsx)(`a`,{href:`mailto:${e}`,className:`info-val`,children:e})]})]}),(0,G.jsxs)(`div`,{className:`info-card light-info-card`,children:[(0,G.jsx)(`div`,{className:`info-icon-wrapper`,children:(0,G.jsx)(Ae,{size:20})}),(0,G.jsxs)(`div`,{className:`info-text-wrapper`,children:[(0,G.jsx)(`span`,{className:`info-label`,children:`Location`}),(0,G.jsx)(`span`,{className:`info-val`,children:`Bangalore, India`})]})]})]})]}),(0,G.jsx)(`div`,{className:`contact-form-container glass-panel light-form`,children:s?(0,G.jsxs)(`div`,{className:`success-banner`,children:[(0,G.jsx)(_e,{size:48,className:`success-icon animate-bounce`}),(0,G.jsx)(`h3`,{className:`success-title`,children:`Thanks for reaching out!`}),(0,G.jsx)(`p`,{className:`success-desc`,children:`Your idea has been sent successfully. I'll get back to you as soon as I can.`}),(0,G.jsx)(`button`,{onClick:()=>c(!1),className:`btn btn-primary`,children:`Send Another Inquiry`})]}):(0,G.jsxs)(`form`,{onSubmit:async e=>{if(e.preventDefault(),d()){if(e.target.botcheck&&e.target.botcheck.checked){c(!0);return}o(!0),u(null);try{let e=new FormData;e.append(`access_key`,`909f59db-3bcc-40ca-a2e1-c7286aebf080`),e.append(`subject`,`New Project Inquiry — ${t.project_type}`),e.append(`from_name`,t.name),e.append(`replyto`,t.email),e.append(`Name`,t.name),e.append(`Email`,t.email),e.append(`Project / Idea Name`,t.project_name||`Not provided`),e.append(`Project Type`,t.project_type),e.append(`Budget`,t.budget||`Not specified`),e.append(`Timeline`,t.timeline||`Not specified`),e.append(`Project Description`,t.message);let r=await fetch(`https://api.web3forms.com/submit`,{method:`POST`,body:e}),i=await r.json();i.success||r.status===200?(c(!0),n({name:``,email:``,project_name:``,project_type:``,budget:``,timeline:``,message:``})):u(i.message||`Something went wrong. Your message couldn't be sent.`)}catch{u(`Failed to send request. Please check your connection and try again.`)}finally{o(!1)}}},className:`contact-form`,children:[l&&(0,G.jsxs)(`div`,{className:`error-banner`,children:[(0,G.jsx)(ve,{size:20}),(0,G.jsx)(`span`,{children:l})]}),(0,G.jsx)(`input`,{type:`checkbox`,name:`botcheck`,style:{display:`none`}}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`name`,className:`visually-hidden`,children:`Name`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(Be,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`text`,id:`name`,name:`name`,value:t.name,onChange:f,placeholder:`Full Name`,"aria-required":`true`,className:r.name?`error-input`:``})]}),r.name&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.name]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`email`,className:`visually-hidden`,children:`Email`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(ke,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`email`,id:`email`,name:`email`,value:t.email,onChange:f,placeholder:`Email Address`,"aria-required":`true`,className:r.email?`error-input`:``})]}),r.email&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.email]})]})]}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`project_name`,className:`visually-hidden`,children:`Project / Idea Name`}),(0,G.jsxs)(`div`,{className:`input-with-icon`,children:[(0,G.jsx)(ze,{size:18,className:`input-icon`}),(0,G.jsx)(`input`,{type:`text`,id:`project_name`,name:`project_name`,value:t.project_name,onChange:f,placeholder:`Project Name (Optional)`})]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`project_type`,className:`visually-hidden`,children:`What would you like to build?`}),(0,G.jsx)(bS,{label:`Project Type`,items:xS,value:t.project_type,onChange:e=>p(`project_type`,e.value),icon:fe,error:!!r.project_type}),r.project_type&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.project_type]})]})]}),(0,G.jsxs)(`div`,{className:`form-group-row`,children:[(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`budget`,className:`visually-hidden`,children:`Estimated Budget`}),(0,G.jsx)(bS,{label:`Estimated Budget`,items:SS,value:t.budget,onChange:e=>p(`budget`,e.value),icon:Ee})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`timeline`,className:`visually-hidden`,children:`Expected Timeline`}),(0,G.jsx)(bS,{label:`Expected Timeline`,items:CS,value:t.timeline,onChange:e=>p(`timeline`,e.value),icon:ye})]})]}),(0,G.jsxs)(`div`,{className:`form-group`,children:[(0,G.jsx)(`label`,{htmlFor:`message`,className:`visually-hidden`,children:`Tell me about your idea`}),(0,G.jsxs)(`div`,{className:`input-with-icon textarea-icon-wrapper`,children:[(0,G.jsx)(Me,{size:18,className:`input-icon textarea-icon`}),(0,G.jsx)(`textarea`,{id:`message`,name:`message`,rows:5,value:t.message,onChange:f,placeholder:`Describe your idea, the problem you're trying to solve, or what you'd like to build...`,"aria-required":`true`,className:r.message?`error-input`:``})]}),r.message&&(0,G.jsxs)(`span`,{className:`error-msg`,children:[(0,G.jsx)(ge,{size:12}),` `,r.message]})]}),(0,G.jsx)(`button`,{type:`submit`,className:`btn btn-primary submit-btn`,disabled:a,children:a?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(Oe,{size:18,className:`animate-spin`}),` Sending...`]}):(0,G.jsxs)(G.Fragment,{children:[`Send Inquiry `,(0,G.jsx)(Fe,{size:16})]})})]})})]})]}),(0,G.jsx)(`style`,{children:`
         .visually-hidden {
           position: absolute;
           width: 1px;
@@ -3152,7 +3332,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             justify-content: center;
           }
         }
-      `})]})};function wS(...e){return e.filter(Boolean).join(` `)}var TS=({text:e,duration:t,className:n})=>{let r=(0,b.useRef)(null),[i,a]=(0,b.useState)({x:0,y:0}),[o,s]=(0,b.useState)(!1),[c,l]=(0,b.useState)({cx:`50%`,cy:`50%`});return(0,b.useEffect)(()=>{if(r.current&&i.x!==null&&i.y!==null){let e=r.current.getBoundingClientRect(),t=(i.x-e.left)/e.width*100,n=(i.y-e.top)/e.height*100;l({cx:`${t}%`,cy:`${n}%`})}},[i]),(0,G.jsxs)(`svg`,{ref:r,width:`100%`,height:`100%`,viewBox:`0 0 300 100`,xmlns:`http://www.w3.org/2000/svg`,onMouseEnter:()=>s(!0),onMouseLeave:()=>s(!1),onMouseMove:e=>a({x:e.clientX,y:e.clientY}),className:wS(`select-none uppercase cursor-pointer`,n),style:{display:`block`,width:`100%`,height:`auto`,userSelect:`none`},children:[(0,G.jsxs)(`defs`,{children:[(0,G.jsx)(`linearGradient`,{id:`textGradient`,gradientUnits:`userSpaceOnUse`,cx:`50%`,cy:`50%`,r:`25%`,children:o&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(`stop`,{offset:`0%`,stopColor:`#fb923c`}),(0,G.jsx)(`stop`,{offset:`100%`,stopColor:`#ea580c`})]})}),(0,G.jsxs)(Pd.radialGradient,{id:`revealMask`,gradientUnits:`userSpaceOnUse`,r:`20%`,initial:{cx:`50%`,cy:`50%`},animate:c,transition:{duration:t??0,ease:`easeOut`},children:[(0,G.jsx)(`stop`,{offset:`0%`,stopColor:`white`}),(0,G.jsx)(`stop`,{offset:`100%`,stopColor:`black`})]}),(0,G.jsx)(`mask`,{id:`textMask`,children:(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:`100%`,height:`100%`,fill:`url(#revealMask)`})})]}),(0,G.jsx)(`text`,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,strokeWidth:`0.3`,stroke:`#262626`,fill:`transparent`,style:{opacity:o?.7:0,fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`,transition:`opacity 0.3s ease`},children:e}),(0,G.jsx)(Pd.text,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,strokeWidth:`0.3`,stroke:`#ea580c`,fill:`transparent`,style:{fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`},initial:{strokeDashoffset:1e3,strokeDasharray:1e3},animate:{strokeDashoffset:0,strokeDasharray:1e3},transition:{duration:4,ease:`easeInOut`},children:e}),(0,G.jsx)(`text`,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,stroke:`url(#textGradient)`,strokeWidth:`0.3`,mask:`url(#textMask)`,fill:`transparent`,style:{fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`},children:e})]})},ES=()=>{let{name:e,email:t,socialLinks:n}=Rf.personalInfo;return(0,G.jsxs)(`footer`,{className:`footer-panel`,children:[(0,G.jsxs)(`div`,{className:`container footer-container`,children:[(0,G.jsxs)(`p`,{className:`copyright-text`,children:[`© `,new Date().getFullYear(),` `,e,`. All rights reserved.`]}),(0,G.jsxs)(`div`,{className:`footer-socials`,children:[(0,G.jsx)(`a`,{href:n.github,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`GitHub`,children:(0,G.jsx)(Uf,{size:16})}),(0,G.jsx)(`a`,{href:n.linkedin,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`LinkedIn`,children:(0,G.jsx)(Wf,{size:16})}),n.twitter&&(0,G.jsx)(`a`,{href:n.twitter,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`Twitter`,children:(0,G.jsx)(Gf,{size:16})}),(0,G.jsx)(`a`,{href:`mailto:${t}`,"aria-label":`Email`,children:(0,G.jsx)(ke,{size:16})})]})]}),(0,G.jsx)(`style`,{children:`
+      `})]})};function TS(...e){return e.filter(Boolean).join(` `)}var ES=({text:e,duration:t,className:n})=>{let r=(0,b.useRef)(null),[i,a]=(0,b.useState)({x:0,y:0}),[o,s]=(0,b.useState)(!1),[c,l]=(0,b.useState)({cx:`50%`,cy:`50%`});return(0,b.useEffect)(()=>{if(r.current&&i.x!==null&&i.y!==null){let e=r.current.getBoundingClientRect(),t=(i.x-e.left)/e.width*100,n=(i.y-e.top)/e.height*100;l({cx:`${t}%`,cy:`${n}%`})}},[i]),(0,G.jsxs)(`svg`,{ref:r,width:`100%`,height:`100%`,viewBox:`0 0 300 100`,xmlns:`http://www.w3.org/2000/svg`,onMouseEnter:()=>s(!0),onMouseLeave:()=>s(!1),onMouseMove:e=>a({x:e.clientX,y:e.clientY}),className:TS(`select-none uppercase cursor-pointer`,n),style:{display:`block`,width:`100%`,height:`auto`,userSelect:`none`},children:[(0,G.jsxs)(`defs`,{children:[(0,G.jsx)(`linearGradient`,{id:`textGradient`,gradientUnits:`userSpaceOnUse`,cx:`50%`,cy:`50%`,r:`25%`,children:o&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(`stop`,{offset:`0%`,stopColor:`#fb923c`}),(0,G.jsx)(`stop`,{offset:`100%`,stopColor:`#ea580c`})]})}),(0,G.jsxs)(Pd.radialGradient,{id:`revealMask`,gradientUnits:`userSpaceOnUse`,r:`20%`,initial:{cx:`50%`,cy:`50%`},animate:c,transition:{duration:t??0,ease:`easeOut`},children:[(0,G.jsx)(`stop`,{offset:`0%`,stopColor:`white`}),(0,G.jsx)(`stop`,{offset:`100%`,stopColor:`black`})]}),(0,G.jsx)(`mask`,{id:`textMask`,children:(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:`100%`,height:`100%`,fill:`url(#revealMask)`})})]}),(0,G.jsx)(`text`,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,strokeWidth:`0.3`,stroke:`#262626`,fill:`transparent`,style:{opacity:o?.7:0,fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`,transition:`opacity 0.3s ease`},children:e}),(0,G.jsx)(Pd.text,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,strokeWidth:`0.3`,stroke:`#ea580c`,fill:`transparent`,style:{fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`},initial:{strokeDashoffset:1e3,strokeDasharray:1e3},animate:{strokeDashoffset:0,strokeDasharray:1e3},transition:{duration:4,ease:`easeInOut`},children:e}),(0,G.jsx)(`text`,{x:`50%`,y:`50%`,textAnchor:`middle`,dominantBaseline:`middle`,stroke:`url(#textGradient)`,strokeWidth:`0.3`,mask:`url(#textMask)`,fill:`transparent`,style:{fontFamily:`'Outfit', -apple-system, sans-serif`,fontSize:`58px`,fontWeight:`800`},children:e})]})},DS=()=>{let{name:e,email:t,socialLinks:n}=Rf.personalInfo;return(0,G.jsxs)(`footer`,{className:`footer-panel`,children:[(0,G.jsxs)(`div`,{className:`container footer-container`,children:[(0,G.jsxs)(`p`,{className:`copyright-text`,children:[`© `,new Date().getFullYear(),` `,e,`. All rights reserved.`]}),(0,G.jsxs)(`div`,{className:`footer-socials`,children:[(0,G.jsx)(`a`,{href:n.github,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`GitHub`,children:(0,G.jsx)(Uf,{size:16})}),(0,G.jsx)(`a`,{href:n.linkedin,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`LinkedIn`,children:(0,G.jsx)(Wf,{size:16})}),n.twitter&&(0,G.jsx)(`a`,{href:n.twitter,target:`_blank`,rel:`noopener noreferrer`,"aria-label":`Twitter`,children:(0,G.jsx)(Gf,{size:16})}),(0,G.jsx)(`a`,{href:`mailto:${t}`,"aria-label":`Email`,children:(0,G.jsx)(ke,{size:16})})]})]}),(0,G.jsx)(`style`,{children:`
         .footer-panel {
           background: #09090b !important;
           border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -3198,7 +3378,7 @@ void main(){gl_Position=position;}`;vertices=[-1,1,-1,-1,1,1,1,-1];constructor(e
             gap: 1rem;
           }
         }
-      `})]})},DS=({blog:e,onBack:t})=>{let[n,r]=(0,b.useState)(`react-mindset`),[i,a]=(0,b.useState)(!1),o=[{id:`react-mindset`,title:`1. The React Mindset`},{id:`component-architecture`,title:`2. Component Architecture`},{id:`managing-reactivity`,title:`3. Managing Reactivity`},{id:`conclusion`,title:`4. Conclusion`}];(0,b.useEffect)(()=>{let e=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&r(e.target.id)})},{root:null,rootMargin:`-15% 0px -55% 0px`,threshold:.1});return o.forEach(t=>{let n=document.getElementById(t.id);n&&e.observe(n)}),()=>e.disconnect()},[]);let s=e=>{let t=document.getElementById(e);t&&window.scrollTo({top:t.offsetTop-100,behavior:`smooth`})};return(0,G.jsxs)(`div`,{className:`blog-detail-page`,children:[(0,G.jsx)(`div`,{className:`blog-spotlight top-left`}),(0,G.jsx)(`div`,{className:`blog-spotlight bottom-right`}),(0,G.jsxs)(`div`,{className:`container blog-container`,children:[(0,G.jsx)(`aside`,{className:`blog-sidebar`,children:(0,G.jsxs)(`div`,{className:`blog-sidebar-sticky`,children:[(0,G.jsxs)(`button`,{className:`back-home-btn`,onClick:t,children:[(0,G.jsx)(le,{className:`back-icon`,size:18}),(0,G.jsx)(`span`,{children:`Back to Home`})]}),(0,G.jsxs)(`div`,{className:`blog-author-card-new`,children:[(0,G.jsx)(`div`,{className:`author-image-wrap`,children:(0,G.jsx)(`img`,{src:ip,alt:`Abhishek Bhat`,className:`author-avatar`})}),(0,G.jsxs)(`div`,{className:`author-info`,children:[(0,G.jsx)(`span`,{className:`author-label`,children:`Written by`}),(0,G.jsx)(`h4`,{className:`author-name`,children:`Abhishek Bhat`}),(0,G.jsx)(`p`,{className:`author-role`,children:`Mobile & Web Developer`}),(0,G.jsx)(`p`,{className:`author-bio`,children:`Passionate about building fluid, interactive user experiences. Recently expanded from native mobile & desktop development into high-performance reactive web engineering.`})]})]}),(0,G.jsxs)(`div`,{className:`toc-wrapper`,children:[(0,G.jsxs)(`h5`,{className:`toc-title`,children:[(0,G.jsx)(R,{size:14,className:`toc-title-icon`}),`Table of Contents`]}),(0,G.jsx)(`ul`,{className:`toc-list`,children:o.map(e=>(0,G.jsx)(`li`,{children:(0,G.jsxs)(`button`,{onClick:()=>s(e.id),className:`toc-link ${n===e.id?`active`:``}`,children:[(0,G.jsx)(he,{size:12,className:`toc-chevron`}),(0,G.jsx)(`span`,{children:e.title})]})},e.id))})]}),(0,G.jsxs)(`button`,{className:`share-post-btn`,onClick:()=>{navigator.clipboard.writeText(window.location.href),a(!0),setTimeout(()=>a(!1),2e3)},children:[(0,G.jsx)(Le,{size:16}),(0,G.jsx)(`span`,{children:i?`Link Copied!`:`Share Article`})]})]})}),(0,G.jsxs)(`article`,{className:`blog-article-content`,children:[(0,G.jsxs)(`header`,{className:`article-header`,children:[(0,G.jsxs)(`div`,{className:`article-meta-tags`,children:[(0,G.jsx)(`span`,{className:`meta-category`,children:`LEARNING JOURNAL`}),(0,G.jsx)(`span`,{className:`meta-dot`,children:`•`}),(0,G.jsx)(`span`,{className:`meta-tag`,children:`REACT & WEB`})]}),(0,G.jsx)(`h1`,{className:`article-main-title`,children:`My Journey into React: From Imperative DOM to Component-Driven Engineering`}),(0,G.jsx)(`p`,{className:`article-subtitle`,children:`A software engineer's perspective on shifting from manual selectors and imperative updates to declarative component states, custom hooks, and rendering optimizations.`}),(0,G.jsxs)(`div`,{className:`article-author-meta-mobile`,children:[(0,G.jsx)(`img`,{src:ip,alt:`Abhishek Bhat`,className:`mobile-author-avatar`}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`p`,{className:`mobile-author-name`,children:`Abhishek Bhat`}),(0,G.jsx)(`p`,{className:`mobile-article-details`,children:`May 29, 2026 • 5 Min Read`})]})]}),(0,G.jsxs)(`div`,{className:`article-header-details`,children:[(0,G.jsxs)(`div`,{className:`detail-item`,children:[(0,G.jsx)(pe,{size:16}),(0,G.jsx)(`span`,{children:`May 29, 2026`})]}),(0,G.jsxs)(`div`,{className:`detail-item`,children:[(0,G.jsx)(ye,{size:16}),(0,G.jsx)(`span`,{children:`5 Min Read`})]})]})]}),(0,G.jsxs)(`div`,{className:`article-featured-image-wrap`,children:[(0,G.jsx)(`img`,{src:pS,alt:`React Learning Journey`,className:`article-featured-image`}),(0,G.jsx)(`div`,{className:`image-overlay-glow`})]}),(0,G.jsxs)(`div`,{className:`article-body`,children:[(0,G.jsxs)(`section`,{id:`react-mindset`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`1. The React Mindset`}),(0,G.jsx)(`p`,{children:"Coming from a background of mobile development and native desktop applications, my initial attempts at writing web applications relied heavily on imperative paradigms. I was accustomed to querying the DOM directly, listening for events, and mutating elements manually (e.g., using `document.getElementById` to change values or toggle class strings)."}),(0,G.jsxs)(`p`,{children:[`The fundamental shift when learning React is moving from this `,(0,G.jsx)(`strong`,{children:`imperative`}),` flow to a `,(0,G.jsx)(`strong`,{children:`declarative`}),` model. In React, you do not directly manipulate the UI. Instead, you define the component's UI structure using JSX as a direct function of its state:`]}),(0,G.jsx)(`div`,{className:`formula-box`,children:(0,G.jsx)(`span`,{className:`formula-code`,children:`UI = f(State)`})}),(0,G.jsx)(`p`,{children:`When the state changes, React computes the diff between the Virtual DOM and the real DOM, and updates only the modified nodes. This abstraction frees you from writing coordinate-heavy boilerplate and allows you to focus on the business logic of your application.`}),(0,G.jsx)(`blockquote`,{className:`orange-blockquote`,children:`"The transition from imperative DOM selectors to declarative components feels like stepping from a dark room into daylight. You stop telling the browser *how* to build the UI, and start describing *what* the UI should look like for a given state."`})]}),(0,G.jsxs)(`section`,{id:`component-architecture`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`2. Component Architecture`}),(0,G.jsx)(`p`,{children:`One of the most powerful features of React is its modular nature. Instead of having a single monolithic HTML file or a sprawling script sheet, you decompose the interface into small, self-contained, and reusable blocks called components.`}),(0,G.jsx)(`p`,{children:`During my projects, I realized the importance of maintaining clean, atomic components. A well-designed component should follow the single-responsibility principle: it should do one thing and do it exceptionally well.`}),(0,G.jsxs)(`div`,{className:`takeaway-card`,children:[(0,G.jsx)(`h4`,{className:`card-heading`,children:`Architectural Best Practices I've Learned:`}),(0,G.jsxs)(`ul`,{className:`takeaway-list`,children:[(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Props are Immutable:`}),` Never mutate the props passed down from parent components. Treat them as read-only configuration inputs.`]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Unidirectional Data Flow:`}),` Data travels down the component tree from parent to child. If children need to modify parent state, pass down handler callbacks.`]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Decouple Presentation and Logic:`}),` Separate pure UI styling components (like buttons or cards) from components that fetch data or manage complex states.`]})]})]})]}),(0,G.jsxs)(`section`,{id:`managing-reactivity`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`3. Managing Reactivity`}),(0,G.jsx)(`p`,{children:"Reactivity in React is governed by Hooks. The first and most essential hooks I mastered were `useState` and `useEffect`."}),(0,G.jsx)(`p`,{children:"While `useState` allows you to declare reactive state values that trigger re-renders on update, `useEffect` allows you to sync your components with external systems and run side-effects. However, managing side-effects requires a solid understanding of the dependency array. Failing to configure it correctly can trigger infinite loops and freeze the browser."}),(0,G.jsx)(`p`,{className:`code-block-caption`,children:`Example: A safe reactivity implementation using hooks`}),(0,G.jsxs)(`div`,{className:`glassmorphic-code-card`,children:[(0,G.jsxs)(`div`,{className:`code-card-header`,children:[(0,G.jsxs)(`div`,{className:`window-dots`,children:[(0,G.jsx)(`span`,{className:`dot dot-red`}),(0,G.jsx)(`span`,{className:`dot dot-yellow`}),(0,G.jsx)(`span`,{className:`dot dot-green`})]}),(0,G.jsx)(`span`,{className:`code-language`,children:`React Component (JSX)`})]}),(0,G.jsx)(`pre`,{className:`code-block`,children:(0,G.jsx)(`code`,{children:`import React, { useState, useEffect } from 'react';
+      `})]})},OS=({blog:e,onBack:t})=>{let[n,r]=(0,b.useState)(`react-mindset`),[i,a]=(0,b.useState)(!1),o=[{id:`react-mindset`,title:`1. The React Mindset`},{id:`component-architecture`,title:`2. Component Architecture`},{id:`managing-reactivity`,title:`3. Managing Reactivity`},{id:`conclusion`,title:`4. Conclusion`}];(0,b.useEffect)(()=>{let e=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&r(e.target.id)})},{root:null,rootMargin:`-15% 0px -55% 0px`,threshold:.1});return o.forEach(t=>{let n=document.getElementById(t.id);n&&e.observe(n)}),()=>e.disconnect()},[]);let s=e=>{let t=document.getElementById(e);t&&window.scrollTo({top:t.offsetTop-100,behavior:`smooth`})};return(0,G.jsxs)(`div`,{className:`blog-detail-page`,children:[(0,G.jsx)(`div`,{className:`blog-spotlight top-left`}),(0,G.jsx)(`div`,{className:`blog-spotlight bottom-right`}),(0,G.jsxs)(`div`,{className:`container blog-container`,children:[(0,G.jsx)(`aside`,{className:`blog-sidebar`,children:(0,G.jsxs)(`div`,{className:`blog-sidebar-sticky`,children:[(0,G.jsxs)(`button`,{className:`back-home-btn`,onClick:t,children:[(0,G.jsx)(le,{className:`back-icon`,size:18}),(0,G.jsx)(`span`,{children:`Back to Home`})]}),(0,G.jsxs)(`div`,{className:`blog-author-card-new`,children:[(0,G.jsx)(`div`,{className:`author-image-wrap`,children:(0,G.jsx)(`img`,{src:ip,alt:`Abhishek Bhat`,className:`author-avatar`})}),(0,G.jsxs)(`div`,{className:`author-info`,children:[(0,G.jsx)(`span`,{className:`author-label`,children:`Written by`}),(0,G.jsx)(`h4`,{className:`author-name`,children:`Abhishek Bhat`}),(0,G.jsx)(`p`,{className:`author-role`,children:`Mobile & Web Developer`}),(0,G.jsx)(`p`,{className:`author-bio`,children:`Passionate about building fluid, interactive user experiences. Recently expanded from native mobile & desktop development into high-performance reactive web engineering.`})]})]}),(0,G.jsxs)(`div`,{className:`toc-wrapper`,children:[(0,G.jsxs)(`h5`,{className:`toc-title`,children:[(0,G.jsx)(R,{size:14,className:`toc-title-icon`}),`Table of Contents`]}),(0,G.jsx)(`ul`,{className:`toc-list`,children:o.map(e=>(0,G.jsx)(`li`,{children:(0,G.jsxs)(`button`,{onClick:()=>s(e.id),className:`toc-link ${n===e.id?`active`:``}`,children:[(0,G.jsx)(he,{size:12,className:`toc-chevron`}),(0,G.jsx)(`span`,{children:e.title})]})},e.id))})]}),(0,G.jsxs)(`button`,{className:`share-post-btn`,onClick:()=>{navigator.clipboard.writeText(window.location.href),a(!0),setTimeout(()=>a(!1),2e3)},children:[(0,G.jsx)(Le,{size:16}),(0,G.jsx)(`span`,{children:i?`Link Copied!`:`Share Article`})]})]})}),(0,G.jsxs)(`article`,{className:`blog-article-content`,children:[(0,G.jsxs)(`header`,{className:`article-header`,children:[(0,G.jsxs)(`div`,{className:`article-meta-tags`,children:[(0,G.jsx)(`span`,{className:`meta-category`,children:`LEARNING JOURNAL`}),(0,G.jsx)(`span`,{className:`meta-dot`,children:`•`}),(0,G.jsx)(`span`,{className:`meta-tag`,children:`REACT & WEB`})]}),(0,G.jsx)(`h1`,{className:`article-main-title`,children:`My Journey into React: From Imperative DOM to Component-Driven Engineering`}),(0,G.jsx)(`p`,{className:`article-subtitle`,children:`A software engineer's perspective on shifting from manual selectors and imperative updates to declarative component states, custom hooks, and rendering optimizations.`}),(0,G.jsxs)(`div`,{className:`article-author-meta-mobile`,children:[(0,G.jsx)(`img`,{src:ip,alt:`Abhishek Bhat`,className:`mobile-author-avatar`}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`p`,{className:`mobile-author-name`,children:`Abhishek Bhat`}),(0,G.jsx)(`p`,{className:`mobile-article-details`,children:`May 29, 2026 • 5 Min Read`})]})]}),(0,G.jsxs)(`div`,{className:`article-header-details`,children:[(0,G.jsxs)(`div`,{className:`detail-item`,children:[(0,G.jsx)(pe,{size:16}),(0,G.jsx)(`span`,{children:`May 29, 2026`})]}),(0,G.jsxs)(`div`,{className:`detail-item`,children:[(0,G.jsx)(ye,{size:16}),(0,G.jsx)(`span`,{children:`5 Min Read`})]})]})]}),(0,G.jsxs)(`div`,{className:`article-featured-image-wrap`,children:[(0,G.jsx)(`img`,{src:mS,alt:`React Learning Journey`,className:`article-featured-image`}),(0,G.jsx)(`div`,{className:`image-overlay-glow`})]}),(0,G.jsxs)(`div`,{className:`article-body`,children:[(0,G.jsxs)(`section`,{id:`react-mindset`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`1. The React Mindset`}),(0,G.jsx)(`p`,{children:"Coming from a background of mobile development and native desktop applications, my initial attempts at writing web applications relied heavily on imperative paradigms. I was accustomed to querying the DOM directly, listening for events, and mutating elements manually (e.g., using `document.getElementById` to change values or toggle class strings)."}),(0,G.jsxs)(`p`,{children:[`The fundamental shift when learning React is moving from this `,(0,G.jsx)(`strong`,{children:`imperative`}),` flow to a `,(0,G.jsx)(`strong`,{children:`declarative`}),` model. In React, you do not directly manipulate the UI. Instead, you define the component's UI structure using JSX as a direct function of its state:`]}),(0,G.jsx)(`div`,{className:`formula-box`,children:(0,G.jsx)(`span`,{className:`formula-code`,children:`UI = f(State)`})}),(0,G.jsx)(`p`,{children:`When the state changes, React computes the diff between the Virtual DOM and the real DOM, and updates only the modified nodes. This abstraction frees you from writing coordinate-heavy boilerplate and allows you to focus on the business logic of your application.`}),(0,G.jsx)(`blockquote`,{className:`orange-blockquote`,children:`"The transition from imperative DOM selectors to declarative components feels like stepping from a dark room into daylight. You stop telling the browser *how* to build the UI, and start describing *what* the UI should look like for a given state."`})]}),(0,G.jsxs)(`section`,{id:`component-architecture`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`2. Component Architecture`}),(0,G.jsx)(`p`,{children:`One of the most powerful features of React is its modular nature. Instead of having a single monolithic HTML file or a sprawling script sheet, you decompose the interface into small, self-contained, and reusable blocks called components.`}),(0,G.jsx)(`p`,{children:`During my projects, I realized the importance of maintaining clean, atomic components. A well-designed component should follow the single-responsibility principle: it should do one thing and do it exceptionally well.`}),(0,G.jsxs)(`div`,{className:`takeaway-card`,children:[(0,G.jsx)(`h4`,{className:`card-heading`,children:`Architectural Best Practices I've Learned:`}),(0,G.jsxs)(`ul`,{className:`takeaway-list`,children:[(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Props are Immutable:`}),` Never mutate the props passed down from parent components. Treat them as read-only configuration inputs.`]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Unidirectional Data Flow:`}),` Data travels down the component tree from parent to child. If children need to modify parent state, pass down handler callbacks.`]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(xe,{size:14,className:`takeaway-bullet`}),(0,G.jsx)(`strong`,{children:`Decouple Presentation and Logic:`}),` Separate pure UI styling components (like buttons or cards) from components that fetch data or manage complex states.`]})]})]})]}),(0,G.jsxs)(`section`,{id:`managing-reactivity`,className:`article-section`,children:[(0,G.jsx)(`h2`,{className:`article-section-title`,children:`3. Managing Reactivity`}),(0,G.jsx)(`p`,{children:"Reactivity in React is governed by Hooks. The first and most essential hooks I mastered were `useState` and `useEffect`."}),(0,G.jsx)(`p`,{children:"While `useState` allows you to declare reactive state values that trigger re-renders on update, `useEffect` allows you to sync your components with external systems and run side-effects. However, managing side-effects requires a solid understanding of the dependency array. Failing to configure it correctly can trigger infinite loops and freeze the browser."}),(0,G.jsx)(`p`,{className:`code-block-caption`,children:`Example: A safe reactivity implementation using hooks`}),(0,G.jsxs)(`div`,{className:`glassmorphic-code-card`,children:[(0,G.jsxs)(`div`,{className:`code-card-header`,children:[(0,G.jsxs)(`div`,{className:`window-dots`,children:[(0,G.jsx)(`span`,{className:`dot dot-red`}),(0,G.jsx)(`span`,{className:`dot dot-yellow`}),(0,G.jsx)(`span`,{className:`dot dot-green`})]}),(0,G.jsx)(`span`,{className:`code-language`,children:`React Component (JSX)`})]}),(0,G.jsx)(`pre`,{className:`code-block`,children:(0,G.jsx)(`code`,{children:`import React, { useState, useEffect } from 'react';
 
 export function ReactTracker() {
   const [count, setCount] = useState(0);
@@ -3794,4 +3974,4 @@ export function ReactTracker() {
             background: #ea580c;
           }
         }
-      `})]})};mv.registerPlugin($);function OS(){let[e,t]=(0,b.useState)(null);(0,b.useEffect)(()=>{window.scrollTo(0,0)},[e]);let[n,r]=(0,b.useState)(()=>localStorage.getItem(`theme`)===`light`?`light`:`dark`);return(0,b.useEffect)(()=>{let e=new P({duration:1.2,easing:e=>Math.min(1,1.001-2**(-10*e)),smoothWheel:!0,wheelMultiplier:1});e.on(`scroll`,$.update);let t=t=>{e.raf(t*1e3)};return mv.ticker.add(t),mv.ticker.lagSmoothing(0),()=>{e.destroy(),mv.ticker.remove(t)}},[]),(0,b.useEffect)(()=>{let e=e=>{e.preventDefault()};return document.addEventListener(`contextmenu`,e),()=>{document.removeEventListener(`contextmenu`,e)}},[]),(0,b.useEffect)(()=>{document.documentElement.setAttribute(`data-theme`,n),localStorage.setItem(`theme`,n)},[n]),(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(Hf,{theme:n,toggleTheme:()=>{r(e=>e===`dark`?`light`:`dark`)},onNavigateHome:()=>t(null)}),(0,G.jsx)(`main`,{style:{position:`relative`,zIndex:1},children:e?(0,G.jsx)(DS,{blog:e,onBack:()=>t(null)}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(op,{theme:n}),(0,G.jsx)(Jx,{}),(0,G.jsx)($x,{}),(0,G.jsx)(oS,{}),(0,G.jsx)(cS,{}),(0,G.jsx)(fS,{}),(0,G.jsx)(gS,{onSelectBlog:t}),(0,G.jsx)(vS,{}),(0,G.jsx)(CS,{}),(0,G.jsxs)(`div`,{className:`footer-name-section`,children:[(0,G.jsxs)(`span`,{className:`name-label`,children:[`My`,(0,G.jsx)(`br`,{}),`Name`]}),(0,G.jsx)(`div`,{className:`container name-hover-wrap`,children:(0,G.jsx)(TS,{text:`ABHISHEK`})})]})]})}),(0,G.jsx)(ES,{})]})}(0,x.createRoot)(document.getElementById(`root`)).render((0,G.jsx)(b.StrictMode,{children:(0,G.jsx)(OS,{})}));
+      `})]})};mv.registerPlugin($);function kS(){let[e,t]=(0,b.useState)(null);(0,b.useEffect)(()=>{window.scrollTo(0,0)},[e]);let[n,r]=(0,b.useState)(()=>localStorage.getItem(`theme`)===`light`?`light`:`dark`);return(0,b.useEffect)(()=>{let e=new P({duration:1.2,easing:e=>Math.min(1,1.001-2**(-10*e)),smoothWheel:!0,wheelMultiplier:1});e.on(`scroll`,$.update);let t=t=>{e.raf(t*1e3)};return mv.ticker.add(t),mv.ticker.lagSmoothing(0),()=>{e.destroy(),mv.ticker.remove(t)}},[]),(0,b.useEffect)(()=>{let e=e=>{e.preventDefault()};return document.addEventListener(`contextmenu`,e),()=>{document.removeEventListener(`contextmenu`,e)}},[]),(0,b.useEffect)(()=>{document.documentElement.setAttribute(`data-theme`,n),localStorage.setItem(`theme`,n)},[n]),(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(Hf,{theme:n,toggleTheme:()=>{r(e=>e===`dark`?`light`:`dark`)},onNavigateHome:()=>t(null)}),(0,G.jsx)(`main`,{style:{position:`relative`,zIndex:1},children:e?(0,G.jsx)(OS,{blog:e,onBack:()=>t(null)}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(op,{theme:n}),(0,G.jsx)(Jx,{}),(0,G.jsx)($x,{}),(0,G.jsx)(oS,{}),(0,G.jsx)(cS,{}),(0,G.jsx)(pS,{}),(0,G.jsx)(_S,{onSelectBlog:t}),(0,G.jsx)(yS,{}),(0,G.jsx)(wS,{}),(0,G.jsxs)(`div`,{className:`footer-name-section`,children:[(0,G.jsxs)(`span`,{className:`name-label`,children:[`My`,(0,G.jsx)(`br`,{}),`Name`]}),(0,G.jsx)(`div`,{className:`container name-hover-wrap`,children:(0,G.jsx)(ES,{text:`ABHISHEK`})})]})]})}),(0,G.jsx)(DS,{})]})}(0,x.createRoot)(document.getElementById(`root`)).render((0,G.jsx)(b.StrictMode,{children:(0,G.jsx)(kS,{})}));
