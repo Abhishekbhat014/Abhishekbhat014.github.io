@@ -401,7 +401,7 @@ export const Projects = () => {
       )}
 
       {/* Project CTA */}
-      <div className="project-cta-section container" style={{ textAlign: 'center', padding: '6rem 1rem', borderTop: '1px solid rgba(0,0,0,0.05)', marginTop: '2rem' }}>
+      <div className="project-cta-section container" style={{ textAlign: 'center', padding: '6rem 1rem', borderTop: 'none', marginTop: '2rem' }}>
         <h3 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', color: '#09090b' }}>Have a project in mind?</h3>
         <p style={{ fontSize: '1.1rem', color: '#4b5563', marginBottom: '2rem' }}>Let's turn your idea into something real.</p>
         <button onClick={() => {
