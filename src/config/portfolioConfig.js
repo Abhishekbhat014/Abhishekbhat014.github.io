@@ -34,9 +34,11 @@ export const portfolioConfig = {
     {
       title: "Backend & Data",
       skills: [
+        { name: "Node.js", level: 85 },
+        { name: "Firebase", level: 85 },
         { name: "Supabase", level: 85 },
         { name: "PostgreSQL", level: 80 },
-        { name: "REST APIs", level: 85 }
+        { name: "Hive", level: 85 }
       ]
     },
     {
@@ -45,7 +47,9 @@ export const portfolioConfig = {
         { name: "Git", level: 90 },
         { name: "GitHub", level: 90 },
         { name: "Android Studio", level: 85 },
-        { name: "VS Code", level: 95 }
+        { name: "VS Code", level: 95 },
+        { name: "Antigravity", level: 90 },
+        { name: "Ollama", level: 85 }
       ]
     }
   ],

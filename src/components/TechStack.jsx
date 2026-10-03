@@ -1,4 +1,3 @@
-import React from 'react';
 import { TechMarquee } from './TechMarquee';
 import { AsciiWave } from './ui/AsciiWave';
 import { FramedText } from './ui/FramedText';
@@ -79,8 +78,8 @@ export const TechStack = () => {
         /* Detailed Skills Grid */
         .skills-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2.5rem;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
           margin-top: 4.5rem;
           width: 100%;
         }
@@ -90,12 +89,12 @@ export const TechStack = () => {
           -webkit-backdrop-filter: blur(6px);
           border: 1.5px solid rgba(0, 0, 0, 0.08);
           border-radius: var(--border-radius-md);
-          padding: 2.25rem;
+          padding: 1.75rem;
           transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
           display: flex;
           flex-direction: column;
-          gap: 1.75rem;
+          gap: 1.5rem;
         }
         .skills-card:hover {
           transform: translateY(-6px);
@@ -152,16 +151,16 @@ export const TechStack = () => {
           color: #27272a;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1100px) {
           .skills-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
           }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .skills-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.25rem;
             margin-top: 3rem;
           }
           .tech-stack-section {
