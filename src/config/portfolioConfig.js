@@ -119,6 +119,25 @@ export const portfolioConfig = {
         "Dynamic CSS theme variables (HSL engine)",
         "Interactive card perspective components"
       ]
+    },
+    {
+      id: "wew-webdraw",
+      title: "WebDraw (WEW)",
+      subtitle: "Whiteboard, Diagramming & PDF Workspace",
+      description: "A modern, high-performance web whiteboard and diagramming workspace featuring PDF annotation, mind-mapping, and vector drawing tools.",
+      longDescription: "WebDraw (WEW) is an extensible whiteboard, diagramming, and PDF annotation workspace built for the web using React, TypeScript, and Fabric.js. It offers self-contained .webdraw project files with embedded assets, an auto-branching mind-map engine, a 60fps infinite panning canvas with custom grid overlays, multi-tool vector drawing (including glowing laser trails and speed pens), and versatile multi-format export capabilities.",
+      category: "Web App",
+      tags: ["React", "TypeScript", "Fabric.js", "Tailwind CSS", "PDF Annotation", "Vite"],
+      githubUrl: "https://github.com/Abhishekbhat014/WEW",
+      liveUrl: "https://abhishekbhat014.github.io/WEW/",
+      features: [
+        "Self-contained portable .webdraw projects with embedded document assets",
+        "Mind-map & graph auto-branching engine with directional vector connectors",
+        "Precision multi-tool drawing suite: Speed pen, glowing laser pointer trail & geometric tools",
+        "PDF Focus Mode for multi-page in-place document review and annotation",
+        "Synchronized 60fps panning canvas with configurable grid overlays and layer management",
+        "Native multi-format export suite to PNG, transparent PNG, SVG, and PDF"
+      ]
     }
   ],
   experiences: [
